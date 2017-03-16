@@ -1,0 +1,55 @@
+@import "../../config";
+
+$diet-item-selector: feedback-result-list-diet-item;
+$diet-item-margin-right: 10px;
+$diet-item-image-width: 320px;
+$diet-item-aspect-ratio: 16 / 9;
+$diet-item-border-color: #ccc;
+$diet-item-body-padding: 6px;
+
+.#{$diet-item-selector} {
+
+  display: inline-block;
+  margin-right: $diet-item-margin-right;
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+  margin-bottom: 10px;
+
+  &-pic {
+    width: 100%;
+    height: $diet-item-image-width / $diet-item-aspect-ratio;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+
+  }
+
+  &-body {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-color: $diet-item-border-color;
+    padding-top: $diet-item-body-padding;
+    padding-left: $diet-item-body-padding;
+    padding-right: $diet-item-body-padding;
+    overflow: hidden;
+    height: 120px;
+  }
+
+  &-btns {
+
+    &-left {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &-right {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+  }
+
+}

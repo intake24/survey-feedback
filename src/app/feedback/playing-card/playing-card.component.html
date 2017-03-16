@@ -1,0 +1,24 @@
+<div class="feedback-playing-card">
+  <div class="feedback-playing-card-pic"
+       [ngClass]="sceneClass"
+       [style.height]="height+'px'">
+    <div class="feedback-playing-card-background"
+    ></div>
+    <food-smile [character]="character" [scene]="scene"></food-smile>
+  </div>
+  <div class="feedback-playing-card-body">
+    <h5>
+      {{title}}
+    </h5>
+    <p>
+        <span *ngFor="let des of descriptions">
+            {{des}}<br>
+        </span>
+    </p>
+  </div>
+  <div class="feedback-playing-card-btns">
+    <button type="button" class="btn btn-outline-primary btn-block feedback-playing-card-btns-single">
+      Tell me more
+    </button>
+  </div>
+</div>

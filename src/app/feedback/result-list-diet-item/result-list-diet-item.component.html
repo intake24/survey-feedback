@@ -1,0 +1,35 @@
+<div class="feedback-result-list-diet-item">
+  <div class="feedback-result-list-diet-item-pic"
+       [style.backgroundImage]="'url('+imgSrc+')'"
+       [style.height]="height+'px'"
+  ></div>
+  <div class="feedback-result-list-diet-item-body">
+    <h5>
+      {{title}}
+    </h5>
+    <p>
+      {{howMany}}
+      <br>
+      <span *ngFor="let item of sourceOf">
+            <span class="label">
+                {{item}}
+            </span>
+            &nbsp;
+        </span>
+      <br>
+    </p>
+  </div>
+  <div class="row feedback-result-list-diet-item-btns">
+    <div class="col-6 pr-0">
+      <button type="button" class="btn btn-secondary btn-block feedback-result-list-diet-item-btns-left">
+        Don't like it
+      </button>
+    </div>
+    <div class="col-6 pl-0">
+      <button type="button" class="btn btn-outline-primary btn-block feedback-result-list-diet-item-btns-right">
+        Find recipes
+      </button>
+    </div>
+  </div>
+
+</div>
