@@ -11,6 +11,8 @@ import {PlayingCardsComponent} from "./playing-cards/playing-cards.component";
 import {PlayingCardComponent} from "./playing-card/playing-card.component";
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 import {FeedbackRoutingModule} from "./feedback-routing.module";
+import {ChartsModule} from "ng2-charts";
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 @NgModule({
@@ -21,9 +23,10 @@ import {FeedbackRoutingModule} from "./feedback-routing.module";
     ResultListDietItemComponent,
     PlayingCardsComponent,
     PlayingCardComponent,
-    UserDemographicInfoComponent
+    UserDemographicInfoComponent,
+    PieChartComponent
   ],
-  imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule],
+  imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule, ChartsModule],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

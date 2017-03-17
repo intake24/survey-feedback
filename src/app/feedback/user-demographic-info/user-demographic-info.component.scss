@@ -1,4 +1,43 @@
 @import "../../config";
 
 $user-demographic-info-selector: user-demographic-info;
+$profile-picture-size: 100px;
+$fold-width: 960px;
+
+.profile {
+  &-picture {
+    display: block;
+    width: $profile-picture-size;
+    height: $profile-picture-size;
+    background-image: url("./boy.svg");
+    background-color: cornflowerblue;
+    border-radius: 100%;
+    box-shadow: 2px 2px 0px 5px #ea4a1f;
+    border: 3px solid #fff;
+    float: none;
+    margin: auto;
+
+  }
+
+  &-info {
+    float: none;
+    text-align: center;
+
+    ul {
+
+      li {
+        text-align: left;
+        &:first-child {
+          padding-right: 10px;
+          border-right: 1px solid #999;
+        }
+        &:last-child {
+          padding-left: 10px;
+        }
+      }
+
+    }
+
+  }
+}
 
