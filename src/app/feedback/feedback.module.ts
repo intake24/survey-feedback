@@ -13,6 +13,7 @@ import {UserDemographicInfoComponent} from "./user-demographic-info/user-demogra
 import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PieChartComponent } from './pie-chart/pie-chart.component';
     PlayingCardsComponent,
     PlayingCardComponent,
     UserDemographicInfoComponent,
-    PieChartComponent
+    PieChartComponent,
+    LoaderComponent
   ],
   imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule, ChartsModule],
   providers: [

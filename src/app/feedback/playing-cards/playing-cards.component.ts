@@ -25,6 +25,8 @@ export class PlayingCardsComponent {
     ["ch-grey", "#999999"]
   ];
 
+  isLoading: boolean = true;
+
   results: CharacterSentimentWithDescription[] = [];
   userDemographic: UserDemographic;
   foodHighInCalories: Food[] = [];
@@ -91,6 +93,7 @@ export class PlayingCardsComponent {
   private buildView(dictionariesRes: [Dictionaries, UserDemographic]): void {
     this.buildCHaracterCards(dictionariesRes);
     this.getTopFoods(dictionariesRes[0].surveyResults);
+    this.isLoading = false;
   }
 
   private buildCHaracterCards(dictionariesRes: [Dictionaries, UserDemographic]): void {
