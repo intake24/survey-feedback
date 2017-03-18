@@ -15,6 +15,7 @@ import {NutrientTypesService} from "./services/nutrient-types.service";
 import {DictionariesService} from "./services/dictionaries.service";
 import {UserStateService} from "./services/user-state.service";
 import {AppHttp} from "./services/app-http.service";
+import {WindowRefService} from "./services/window-ref.service";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {AppHttp} from "./services/app-http.service";
     NutrientTypesService,
     DictionariesService,
     UserStateService,
-    AppHttp
+    AppHttp,
+    WindowRefService
   ],
   bootstrap: [AppComponent]
 })

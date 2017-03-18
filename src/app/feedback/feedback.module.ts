@@ -14,6 +14,7 @@ import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { LoaderComponent } from './loader/loader.component';
+import { AppearOnInViewDirective } from './appear-on-in-view.directive';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { LoaderComponent } from './loader/loader.component';
     PlayingCardComponent,
     UserDemographicInfoComponent,
     PieChartComponent,
-    LoaderComponent
+    LoaderComponent,
+    AppearOnInViewDirective
   ],
   imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule, ChartsModule],
   providers: [

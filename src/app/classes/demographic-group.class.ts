@@ -239,17 +239,20 @@ export class DemographicRange {
 }
 
 export class UserDemographic {
+    readonly name: string;
     readonly sex: DemographicSexEnum;
     readonly age: number;
     readonly height: number;
     readonly weight: number;
     private readonly bmrCalculator: HenryCoefficientsCalculator;
 
-    constructor(sex: DemographicSexEnum,
+    constructor(name: string,
+                sex: DemographicSexEnum,
                 age: number,
                 height: number,
                 weight: number,
                 bmrCalculator: HenryCoefficientsCalculator) {
+        this.name = name;
         this.sex = sex;
         this.age = age;
         this.height = height;
@@ -258,7 +261,7 @@ export class UserDemographic {
     }
 
     clone(): UserDemographic {
-        return new UserDemographic(this.sex, this.age, this.height, this.weight, this.bmrCalculator);
+        return new UserDemographic(this.name, this.sex, this.age, this.height, this.weight, this.bmrCalculator);
     }
 
     getBmr(): Option<number> {
