@@ -12,13 +12,11 @@
 
         <div class="col-12 row hidden-md-down">
 
-          <div class="col-4" *ngFor="let itemsInCol of getByColumns(3)">
+          <div class="col-4" *ngFor="let itemsInCol of resultsInThreeCols; let j=index;">
             <feedback-playing-card
-              *ngFor="let item of itemsInCol"
-              [character]="item.characterType"
-              [scene]="item.characterSentiment.sentimentType"
-              [title]="item.characterSentiment.title"
-              [descriptions]="item.getResultedDemographicTitle()"
+              *ngFor="let item of itemsInCol; let i=index;"
+              [animateDelay]="(i+j+1)*100"
+              [characterDescription]="item"
             ></feedback-playing-card>
           </div>
 
@@ -26,13 +24,11 @@
 
         <div class="col-12 row hidden-sm-down hidden-lg-up">
 
-          <div class="col-6" *ngFor="let itemsInCol of getByColumns(2)">
+          <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
             <feedback-playing-card
-              *ngFor="let item of itemsInCol"
-              [character]="item.characterType"
-              [scene]="item.characterSentiment.sentimentType"
-              [title]="item.characterSentiment.title"
-              [descriptions]="item.getResultedDemographicTitle()"
+              *ngFor="let item of itemsInCol; let i=index;"
+              [animateDelay]="(i+j+1)*100"
+              [characterDescription]="item"
             ></feedback-playing-card>
           </div>
 
@@ -40,13 +36,11 @@
 
         <div class="col-12 row hidden-md-up">
 
-          <div class="col-12" *ngFor="let itemsInCol of getByColumns(1)">
+          <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
             <feedback-playing-card
-              *ngFor="let item of itemsInCol"
-              [character]="item.characterType"
-              [scene]="item.characterSentiment.sentimentType"
-              [title]="item.characterSentiment.title"
-              [descriptions]="item.getResultedDemographicTitle()"
+              *ngFor="let item of itemsInCol; let i=index;"
+              [animateDelay]="(i+j+1)*100"
+              [characterDescription]="item"
             ></feedback-playing-card>
           </div>
 
@@ -59,7 +53,7 @@
   </div>
 </div>
 
-<div class="container-fluid pt-4 pb-4 mb-4 background-white" i24AppearOnInView>
+<div class="container-fluid pt-4 pb-4 mb-4 background-white">
   <div class="row">
     <div class="col-lg-10 offset-lg-1">
       <div class="row">

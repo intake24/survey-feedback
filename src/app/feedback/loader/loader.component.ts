@@ -6,13 +6,10 @@ import {Component, OnInit, trigger, state, style, transition, animate, Input} fr
   styleUrls: ['./loader.component.scss'],
   animations: [
     trigger('fadeInOut', [
-      transition(':enter', [   // :enter is alias to 'void => *'
-        style({opacity: 0}),
-        animate(100, style({opacity: 1}))
-      ]),
-      transition(':leave', [   // :leave is alias to '* => void'
-        animate(100, style({opacity: 0}))
-      ])
+      state('visible', style({
+        opacity: 1
+      })),
+      transition('void => *', animate(500, style({opacity: 0})))
     ])
   ]
 })

@@ -20,10 +20,15 @@
     "@angular/platform-browser": "^2.4.0",
     "@angular/platform-browser-dynamic": "^2.4.0",
     "@angular/router": "^3.4.0",
+    "@ngrx/core": "^1.2.0",
+    "@ngrx/store": "^2.2.1",
+    "@types/chartjs": "0.0.29",
     "angular2-cookie": "^1.2.6",
     "bootstrap": "^4.0.0-alpha.6",
+    "chart.js": "^2.5.0",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
+    "ng2-charts": "^1.5.0",
     "rxjs": "^5.1.0",
     "ts-option": "^1.1.2",
     "zone.js": "^0.7.6"
@@ -31,6 +36,7 @@
   "devDependencies": {
     "@angular/cli": "1.0.0-rc.2",
     "@angular/compiler-cli": "^2.4.0",
+    "@types/chartjs": "0.0.29",
     "@types/jasmine": "2.5.38",
     "@types/node": "~6.0.60",
     "codelyzer": "~2.0.0",

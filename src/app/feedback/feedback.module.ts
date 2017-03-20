@@ -14,7 +14,7 @@ import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { LoaderComponent } from './loader/loader.component';
-import { AppearOnInViewDirective } from './appear-on-in-view.directive';
+import {AppearOnScrollInDirective} from "./appear-on-scroll-in.directive";
 
 
 @NgModule({
@@ -28,7 +28,7 @@ import { AppearOnInViewDirective } from './appear-on-in-view.directive';
     UserDemographicInfoComponent,
     PieChartComponent,
     LoaderComponent,
-    AppearOnInViewDirective
+    AppearOnScrollInDirective
   ],
   imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule, ChartsModule],
   providers: [

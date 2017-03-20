@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {Observable} from "rxjs";
 import {CharacterSentimentWithDescription} from "../../classes/character.class";
@@ -28,6 +28,9 @@ export class PlayingCardsComponent {
   isLoading: boolean = true;
 
   results: CharacterSentimentWithDescription[] = [];
+  resultsInThreeCols: CharacterSentimentWithDescription[][] = [];
+  resultsInTwoCols: CharacterSentimentWithDescription[][] = [];
+  resultsInOneCols: CharacterSentimentWithDescription[][] = [];
   userDemographic: UserDemographic;
   foodHighInCalories: Food[] = [];
   foodHighInSugar: Food[] = [];
@@ -105,6 +108,9 @@ export class PlayingCardsComponent {
       let sentiment = characterRule.getSentiment(this.userDemographic, foods);
       return sentiment.get;
     });
+    this.resultsInThreeCols = this.getByColumns(3);
+    this.resultsInTwoCols = this.getByColumns(2);
+    this.resultsInOneCols = this.getByColumns(1);
   }
 
   private getTopFoods(foods: Food[]): void {
@@ -137,7 +143,7 @@ export class PlayingCardsComponent {
 
   private summeriseOtherFood(nutrientTypeId: number, foods: Food[]): Food[] {
     let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
-    return [new Food("Other food", "Other food", [[nutrientTypeId, total]])];
+    return [new Food("Other food", "Other food", new Map([[nutrientTypeId, total]]))];
   }
 
 }

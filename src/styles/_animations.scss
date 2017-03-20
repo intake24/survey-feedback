@@ -1,0 +1,22 @@
+@import "./transform-mixin";
+@import "./transition-mixin";
+
+.slide {
+
+  $translate-transition: .25s linear;
+  $opacity-transition: .25s linear;
+
+  &-in-left {
+    @include transform(translateX(-500%));
+  }
+
+  &-in-left {
+    opacity: 0;
+    @include transition(opacity $opacity-transition, transform $translate-transition);
+    &.in {
+      opacity: 1;
+      @include translate(0, 0);
+    }
+  }
+
+}

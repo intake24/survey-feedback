@@ -3,44 +3,38 @@ import {NutrientTypeIdEnum} from "../services/dictionaries.service";
 
 export class Food {
 
-    readonly englishName: string;
-    readonly localName: string;
-    readonly nutrientIdConsumptionMap: Map<number, number>;
+  readonly englishName: string;
+  readonly localName: string;
+  readonly nutrientIdConsumptionMap: Map<number, number>;
 
-    constructor(englishName: string, localName: string, nutrients: number[][]) {
-        this.englishName = englishName;
-        this.localName = localName;
-        this.nutrientIdConsumptionMap = this.cloneInputNutrients(nutrients);
-    }
+  constructor(englishName: string, localName: string, nutrients: Map<number, number>) {
+    this.englishName = englishName;
+    this.localName = localName;
+    this.nutrientIdConsumptionMap = new Map(nutrients);
+  }
 
-    static fromJson(json: any): Food {
-        return new Food(
-            json.englishDescription,
-            json.localDescription.length ? json.localDescription[0] : "",
-            json.nutrients
-        );
+  static fromJson(json: any): Food {
+    let m = new Map<number, number>();
+    for (let i in json.nutrients) {
+      m.set(parseInt(i), json.nutrients[i]);
     }
+    return new Food(
+      json.englishDescription,
+      json.localDescription.length ? json.localDescription[0] : "",
+      m
+    );
+  }
 
-    clone(): Food {
-        let nList = Array.from(this.nutrientIdConsumptionMap.keys())
-            .map(k => [k, this.nutrientIdConsumptionMap.get(k)]);
-        return new Food(this.englishName, this.localName, nList);
-    }
+  clone(): Food {
+    return new Food(this.englishName, this.localName, this.nutrientIdConsumptionMap);
+  }
 
-    getConsumption(nutrientTypeId: number): number {
-        return Math.round((this.nutrientIdConsumptionMap.get(nutrientTypeId) || 0) * 100) / 100;
-    }
+  getConsumption(nutrientTypeId: number): number {
+    return Math.round((this.nutrientIdConsumptionMap.get(nutrientTypeId) || 0) * 100) / 100;
+  }
 
-    getEnergy(): number {
-        return this.getConsumption(NutrientTypeIdEnum.ENERGEY);
-    }
-
-    private cloneInputNutrients(nutrients: number[][]): Map<number, number> {
-        let m = new Map<number, number>();
-        nutrients.forEach(nut => {
-            return m.set(nut[0], nut[1]);
-        });
-        return m;
-    }
+  getEnergy(): number {
+    return this.getConsumption(NutrientTypeIdEnum.ENERGEY);
+  }
 
 }
