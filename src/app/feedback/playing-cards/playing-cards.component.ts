@@ -25,9 +25,11 @@ export class PlayingCardsComponent {
     ["ch-grey", "#999999"]
   ];
 
+  readonly colorClasses: string[];
+
   isLoading: boolean = true;
 
-  results: CharacterSentimentWithDescription[] = [];
+  results: CharacterSentimentWithDescription[];
   resultsInThreeCols: CharacterSentimentWithDescription[][] = [];
   resultsInTwoCols: CharacterSentimentWithDescription[][] = [];
   resultsInOneCols: CharacterSentimentWithDescription[][] = [];
@@ -71,6 +73,7 @@ export class PlayingCardsComponent {
 
   constructor(private dictionariesService: DictionariesService,
               private userDemographicService: UserDemographicService) {
+    this.colorClasses = this.ColorNamesMap.map(cn => cn[0]);
   }
 
   ngOnInit(): void {

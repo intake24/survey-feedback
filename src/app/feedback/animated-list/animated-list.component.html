@@ -1,0 +1,8 @@
+<ol class="chart-list" [@popIn]="state">
+  <li class="h5"
+      *ngFor="let food of items; let i = index;"
+      [ngClass]="classList[i]">
+    {{food.localName}}:
+    <strong>{{food.getConsumption(nutrientTypeId)}}&nbsp;g</strong>
+  </li>
+</ol>

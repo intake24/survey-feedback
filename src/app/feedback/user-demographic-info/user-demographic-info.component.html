@@ -1,18 +1,22 @@
 <div class="clearfix">
   <span class="profile-picture"></span>
   <div class="profile-info">
-    <h5 class="display-4 profile-title">{{userDemographic?.name}}, {{userDemographic?.age}} y.o.</h5>
-    <ul class="list-inline">
-      <li class="list-inline-item">
-        Weight: {{userDemographic?.weight}}kg
-        <br>
-        Height: {{userDemographic?.height}}m
-      </li>
-      <li class="list-inline-item">
-        Physical activity: Moderate
-        <br>
-        BMR: {{userDemographic?.getBmr().get}}kCal
-      </li>
-    </ul>
+    <i24-animated-text [animateDelay]="100">
+      <h5 class="display-4 profile-title">{{userDemographic?.name}}, {{userDemographic?.age}} y.o.</h5>
+    </i24-animated-text>
+    <i24-animated-text [animateDelay]="300">
+      <ul class="list-inline">
+        <li class="list-inline-item">
+          Weight: {{userDemographic?.weight}}kg
+          <br>
+          Height: {{userDemographic?.height}}m
+        </li>
+        <li class="list-inline-item">
+          Physical activity: Moderate
+          <br>
+          BMR: {{userDemographic?.getBmr().get}}kCal
+        </li>
+      </ul>
+    </i24-animated-text>
   </div>
 </div>

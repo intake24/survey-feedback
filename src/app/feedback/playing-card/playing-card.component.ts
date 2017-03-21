@@ -1,6 +1,6 @@
 import {
   Component, Input, ElementRef, HostListener, trigger, state, style, transition, animate,
-  AfterViewChecked, AfterViewInit, OnInit, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, group
+  AfterViewChecked, AfterViewInit, OnInit, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef, group, keyframes
 } from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {
@@ -30,19 +30,15 @@ interface ComponentVisibility {
   styleUrls: ["./playing-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger('flyInOut', [
-      state('in', style({transform: 'translateX(0)', opacity: 1})),
-      state('out', style({transform: 'translateX(-50px)', opacity: 0})),
-      transition('out => in', [
-        style({transform: 'translateX(-50px)', opacity: 0}),
-        group([
-          animate('0.2s linear', style({
-            transform: 'translateX(0)'
-          })),
-          animate('0.1s linear', style({
-            opacity: 1
-          }))
-        ])
+    trigger("flyInOut", [
+      state("in", style({transform: "translateX(0)", opacity: 1})),
+      state("out", style({transform: "translateX(-50px)", opacity: 0})),
+      transition("out => in", [
+        animate(300, keyframes([
+          style({opacity: 0, transform: 'translateX(-100%)', offset: 0}),
+          style({opacity: 1, transform: 'translateX(15px)', offset: 0.3}),
+          style({opacity: 1, transform: 'translateX(0)', offset: 1.0})
+        ]))
       ])
     ])
   ]
@@ -61,7 +57,7 @@ export class PlayingCardComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
               private windowRef: WindowRefService) {
-    this.state = 'out';
+    this.state = "out";
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -81,7 +77,7 @@ export class PlayingCardComponent implements OnInit {
 
     if (this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow)) {
       setTimeout(() => {
-        this.state = 'in';
+        this.state = "in";
         this.changeDetectorRef.markForCheck();
       }, this.animateDelay);
     }
@@ -103,7 +99,7 @@ export class PlayingCardComponent implements OnInit {
     }
 
     return (
-      (window.pageYOffset <= top + height && top <= window.pageYOffset + window.innerHeight)
+      (window.pageYOffset <= top + height && top <= window.pageYOffset + window.innerHeight - 250)
     );
   }
 

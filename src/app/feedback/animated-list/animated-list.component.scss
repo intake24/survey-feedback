@@ -1,0 +1,34 @@
+$chart-colors: ch-red #FF6384, ch-blue #36A2EB, ch-yellow #FFCE56, ch-lilac #9c27b0, ch-green #8bc34a, ch-grey #999;
+
+.chart-list {
+  list-style: none;
+
+  li {
+    counter-increment: item;
+    margin-bottom: 8px;
+  }
+  li {
+    &:before {
+      margin-left: -42px;
+      content: counter(item);
+      width: 1.2em;
+      display: inline-block;
+      font-size: 1.5em;
+      vertical-align: middle;
+      font-weight: 200;
+    }
+
+    @each $colors in $chart-colors {
+      $class: nth($colors, 1);
+      $color: nth($colors, 2);
+
+      &.#{$class} {
+        &:before {
+          color: $color;
+        }
+      }
+    }
+
+  }
+
+}
