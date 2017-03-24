@@ -1,3 +1,5 @@
-<div class="animate" [@animateState]="action">
+<div [@animateState]="action"
+     (@animateState.start)="emitStarted($event)"
+     (@animateState.done)="emitDone($event)">
   <ng-content></ng-content>
 </div>

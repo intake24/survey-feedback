@@ -1,5 +1,6 @@
 import {
-  Component, ChangeDetectionStrategy, trigger, state, style, transition, animate, keyframes, Input
+  Component, ChangeDetectionStrategy, trigger, state, style, transition, animate, keyframes, Input, Output,
+  EventEmitter, AnimationTransitionEvent
 } from "@angular/core";
 import {
   ANIMATION_DURATION, FADE_START_OFFSET, FADE_BOUNCE_OFFSET,
@@ -55,12 +56,20 @@ import {AnimateActionEnum} from "./animate-action.enum";
 export class AnimateComponent {
 
   @Input() action: string;
-  @Input() styleDisplay: string;
 
-  state: string;
+  @Output() started: EventEmitter<any> = new EventEmitter();
+  @Output() done: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
-    this.state = "void";
+  state: AnimateActionEnum;
+
+  constructor() {}
+
+  emitStarted($event: AnimationTransitionEvent): void {
+    this.started.emit($event);
+  }
+
+  emitDone($event: AnimationTransitionEvent): void {
+    this.done.emit($event);
   }
 
 }
