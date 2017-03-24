@@ -1,16 +1,20 @@
 import {Component, Input} from "@angular/core";
 import {UserDemographic} from "../../classes/demographic-group.class";
+import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 
 @Component({
-    selector: "user-demographic-info",
-    templateUrl: "./user-demographic-info.component.html",
-    styleUrls: ["./user-demographic-info.component.scss"]
+  selector: "user-demographic-info",
+  templateUrl: "./user-demographic-info.component.html",
+  styleUrls: ["./user-demographic-info.component.scss"]
 })
 
 export class UserDemographicInfoComponent {
 
-    @Input() userDemographic: UserDemographic;
+  readonly animation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
 
-    constructor() {}
+  @Input() userDemographic: UserDemographic;
+
+  constructor() {
+  }
 
 }

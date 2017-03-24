@@ -10,12 +10,11 @@ import {PlayingCardComponent} from "./playing-card/playing-card.component";
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
-import { PieChartComponent } from './pie-chart/pie-chart.component';
-import { LoaderComponent } from './loader/loader.component';
+import {PieChartComponent} from './pie-chart/pie-chart.component';
+import {LoaderComponent} from './loader/loader.component';
 import {AnimatedListComponent} from "./animated-list/animated-list.component";
-import { AnimatedTextComponent } from './animated-text/animated-text.component';
-import { PopOutComponent } from './pop-out/pop-out.component';
 import {AnimateModule} from "../../animations/animate.module";
+import { AppearInViewportComponent } from './appear-in-viewport/appear-in-viewport.component';
 
 
 @NgModule({
@@ -28,10 +27,14 @@ import {AnimateModule} from "../../animations/animate.module";
     PieChartComponent,
     LoaderComponent,
     AnimatedListComponent,
-    AnimatedTextComponent,
-    PopOutComponent
+    AppearInViewportComponent
   ],
-  imports: [BrowserModule, FormsModule, HttpModule, FeedbackRoutingModule, ChartsModule, AnimateModule],
+  imports: [BrowserModule,
+    FormsModule,
+    HttpModule,
+    FeedbackRoutingModule,
+    ChartsModule,
+    AnimateModule],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

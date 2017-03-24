@@ -1,26 +1,24 @@
-<animate [action]="isVisible ? 'FadeInLeft' : 'Hidden'">
-  <div class="feedback-playing-card">
-    <div class="feedback-playing-card-pic"
-         [ngClass]="sceneClass">
-      <div class="feedback-playing-card-background"
-      ></div>
-      <food-smile [character]="characterDescription.characterType"
-                  [scene]="characterDescription.characterSentiment.sentimentType"></food-smile>
-    </div>
-    <div class="feedback-playing-card-body">
-      <h5>
-        {{characterDescription.characterSentiment.title}}
-      </h5>
-      <p>
+<div class="feedback-playing-card">
+  <div class="feedback-playing-card-pic"
+       [ngClass]="sceneClass">
+    <div class="feedback-playing-card-background"
+    ></div>
+    <food-smile [character]="characterDescription.characterType"
+                [scene]="characterDescription.characterSentiment.sentimentType"></food-smile>
+  </div>
+  <div class="feedback-playing-card-body">
+    <h5>
+      {{characterDescription.characterSentiment.title}}
+    </h5>
+    <p>
         <span *ngFor="let des of characterDescription.getResultedDemographicTitle()">
             {{des}}<br>
         </span>
-      </p>
-    </div>
-    <div class="feedback-playing-card-btns">
-      <button type="button" class="btn btn-outline-primary btn-block feedback-playing-card-btns-single">
-        Tell me more
-      </button>
-    </div>
+    </p>
   </div>
-</animate>
+  <div class="feedback-playing-card-btns">
+    <button type="button" class="btn btn-outline-primary btn-block feedback-playing-card-btns-single">
+      Tell me more
+    </button>
+  </div>
+</div>

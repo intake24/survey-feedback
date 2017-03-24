@@ -9,19 +9,19 @@
   <div class="container-fluid pt-2 mb-4">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <i24-animated-text>
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
           <h1 class="display-1 text-center mb-2">Story of your Diet</h1>
-        </i24-animated-text>
+        </i24-appear-in-viewport>
         <div class="row no-gutters">
 
           <div class="col-12 row hidden-md-down">
 
             <div class="col-4" *ngFor="let itemsInCol of resultsInThreeCols; let j=index;">
-              <feedback-playing-card
-                *ngFor="let item of itemsInCol; let i=index;"
-                [animateDelay]="(i+j+1)*100"
-                [characterDescription]="item"
-              ></feedback-playing-card>
+              <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
+                                      [animation]="cardsAnimation"
+                                      [animationDelay]="(i+j+1)*100">
+                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+              </i24-appear-in-viewport>
             </div>
 
           </div>
@@ -29,11 +29,11 @@
           <div class="col-12 row hidden-sm-down hidden-lg-up">
 
             <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
-              <feedback-playing-card
-                *ngFor="let item of itemsInCol; let i=index;"
-                [animateDelay]="(i+j+1)*100"
-                [characterDescription]="item"
-              ></feedback-playing-card>
+              <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
+                                      [animation]="cardsAnimation"
+                                      [animationDelay]="(i+j+1)*100">
+                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+              </i24-appear-in-viewport>
             </div>
 
           </div>
@@ -41,11 +41,11 @@
           <div class="col-12 row hidden-md-up">
 
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
-              <feedback-playing-card
-                *ngFor="let item of itemsInCol; let i=index;"
-                [animateDelay]="(i+j+1)*100"
-                [characterDescription]="item"
-              ></feedback-playing-card>
+              <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
+                                      [animation]="cardsAnimation"
+                                      [animationDelay]="(i+j+1)*100">
+                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+              </i24-appear-in-viewport>
             </div>
 
           </div>
@@ -64,32 +64,32 @@
           <div class="col-12 row">
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="caloriesChartData" [animateDelay]="200"></i24-pie-chart>
-              <i24-animated-text [animateDelay]="200">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
                 <h1>Highest in calories</h1>
-              </i24-animated-text>
+              </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInCalories"
                                  [classList]="colorClasses"
-                                 [animateDelay]="200"
+                                 [animationDelay]="200"
                                  [nutrientTypeId]="nutrientTypeIdEnergy"></i24-animated-list>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="sugarChartData" [animateDelay]="400"></i24-pie-chart>
-              <i24-animated-text [animateDelay]="400">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
                 <h1>Highest in sugar</h1>
-              </i24-animated-text>
+              </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInSugar"
                                  [classList]="colorClasses"
-                                 [animateDelay]="400"
+                                 [animationDelay]="400"
                                  [nutrientTypeId]="nutrientTypeIdSugar"></i24-animated-list>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="satFatChartData" [animateDelay]="600"></i24-pie-chart>
-              <i24-animated-text [animateDelay]="600">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
                 <h1>Highest in saturated fat</h1>
-              </i24-animated-text>
+              </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInSatFat"
                                  [classList]="colorClasses"
-                                 [animateDelay]="600"
+                                 [animationDelay]="600"
                                  [nutrientTypeId]="nutrientTypeIdSatFat"></i24-animated-list>
             </div>
           </div>
@@ -101,23 +101,23 @@
   <div class="container-fluid pt-2 mb-4">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <i24-animated-text>
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
           <h1 class="display-1 text-center mb-2">Add these to your menu</h1>
-        </i24-animated-text>
+        </i24-appear-in-viewport>
         <div class="row mb-2">
           <div class="col-md-6 col-lg-4" *ngFor="let item of diets; let i = index;">
-            <i24-animated-text [animateDelay]="i*200">
+            <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250" [animationDelay]="i*200">
               <feedback-result-list-diet-item
                 [imgSrc]="item.src"
                 [title]="item.title"
                 [sourceOf]="item.sourceOf"
                 [howMany]="item.howMany"
               ></feedback-result-list-diet-item>
-            </i24-animated-text>
+            </i24-appear-in-viewport>
           </div>
         </div>
         <div class="text-center mb-2">
-          <i24-pop-out [animateDelay]="400">
+          <i24-appear-in-viewport [animation]="buttonsAnimation" [animationDelay]="400" [style.display]="'inline-block'">
             <button type="button" class="btn btn-rounded btn-rounded-yellow">
                     <span class="btn-rounded-icon">
                         <i class="fa fa-cutlery"></i>
@@ -126,8 +126,8 @@
                         More food
                     </span>
             </button>
-          </i24-pop-out>
-          <i24-pop-out [animateDelay]="100">
+          </i24-appear-in-viewport>
+          <i24-appear-in-viewport [animation]="buttonsAnimation" [animationDelay]="100" [style.display]="'inline-block'">
             <button type="button" class="btn btn-rounded btn-rounded-blue">
                     <span class="btn-rounded-icon">
                         <i class="fa fa-shopping-basket"></i>
@@ -136,8 +136,8 @@
                         Make a shopping list
                     </span>
             </button>
-          </i24-pop-out>
-          <i24-pop-out [animateDelay]="200">
+          </i24-appear-in-viewport>
+          <i24-appear-in-viewport [animation]="buttonsAnimation" [animationDelay]="200" [style.display]="'inline-block'">
             <button type="button" class="btn btn-rounded btn-rounded-green">
                     <span class="btn-rounded-icon">
                         <i class="fa fa-envelope"></i>
@@ -146,14 +146,14 @@
                         Mail
                     </span>
             </button>
-          </i24-pop-out>
+          </i24-appear-in-viewport>
         </div>
         <div class="text-center mb-3">
-          <i24-animated-text>
-          <span class="lead">
-                    You can bookmark and always come back to this page later.
-                </span>
-          </i24-animated-text>
+          <i24-appear-in-viewport [animation]="textAnimation">
+            <span class="lead">
+                You can bookmark and always come back to this page later.
+            </span>
+          </i24-appear-in-viewport>
         </div>
       </div>
     </div>

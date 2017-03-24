@@ -1,7 +1,7 @@
 import {
-  Component, OnInit, ElementRef, HostListener, Input, OnChanges, ChangeDetectionStrategy,
-  trigger, state, style, transition, animate, keyframes, ChangeDetectorRef
+  Component, OnInit, ElementRef, HostListener, Input, ChangeDetectionStrategy
 } from '@angular/core';
+import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
 
 
@@ -9,41 +9,24 @@ import {WindowRefService} from "../../services/window-ref.service";
   selector: 'i24-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger("popIn", [
-      state("in", style({transform: "scale(1)", opacity: 1})),
-      state("out", style({transform: "scale(0)", opacity: 0})),
-      transition("out => in", [
-        animate(300, keyframes([
-          style({opacity: 0, transform: 'scale(0)'}),
-          style({opacity: 1, transform: 'scale(1.1)'}),
-          style({opacity: 1, transform: 'scale(1)'})
-        ]))
-      ])
-    ])
-  ]
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PieChartComponent implements OnInit, OnChanges {
+export class PieChartComponent implements OnInit {
 
   @Input() animateDelay: number;
   @Input() data: PieChardData[];
 
-  state: string;
+  private built: boolean = false;
 
   height: number;
 
+  animation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
+
   private _window: any;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private elementRef: ElementRef,
-              private windowRef: WindowRefService) {
-    this._window = windowRef.nativeWindow;
-  }
-
-  @HostListener("window:scroll", ["$event"])
-  onScroll(event) {
-    this.setVisible();
+  constructor(private elementRef: ElementRef,
+              private windowService: WindowRefService) {
+    this._window = this.windowService.nativeWindow;
   }
 
   @HostListener("window:resize", ["$event"])
@@ -55,45 +38,12 @@ export class PieChartComponent implements OnInit, OnChanges {
     this.setSize();
   }
 
-  ngOnChanges(...args: any[]) {
-    this.state = "out";
-  }
+  buildChart() {
 
-  private setVisible(): void {
-    if (this.animateDelay == null) {
-      this.animateDelay = 100;
-    }
-    if (this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow)) {
-      setTimeout(() => {
-        this.buildChart();
-        this.changeDetectorRef.markForCheck();
-      }, this.animateDelay);
-    }
-
-  }
-
-  private isElementInViewport(el: HTMLElement, window: Window): boolean {
-
-    let top = el.offsetTop;
-    let height = el.offsetHeight;
-
-    while (el.offsetParent) {
-      el = <HTMLElement>el.offsetParent;
-      top += el.offsetTop;
-    }
-
-    return (
-      (window.pageYOffset <= top + height && top <= window.pageYOffset + window.innerHeight - 250)
-    );
-  }
-
-  private buildChart() {
-
-    if (!this.data || this.state == "in") {
+    if (this.built) {
       return;
     }
-
-    this.state = "in";
+    this.built = true;
 
     let canvas = this.elementRef.nativeElement.querySelector('canvas');
 

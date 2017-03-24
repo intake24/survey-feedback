@@ -7,6 +7,7 @@ import {Food} from "../../classes/food.class";
 import {NutrientTypeIdEnum, DictionariesService, Dictionaries} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
+import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
@@ -26,6 +27,9 @@ export class PlayingCardsComponent {
   ];
 
   readonly colorClasses: string[];
+  readonly textAnimation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
+  readonly cardsAnimation: AnimateActionEnum = AnimateActionEnum.FadeInLeft;
+  readonly buttonsAnimation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
 
   isLoading: boolean = true;
 

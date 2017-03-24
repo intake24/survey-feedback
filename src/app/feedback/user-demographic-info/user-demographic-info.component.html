@@ -1,10 +1,10 @@
 <div class="clearfix">
   <span class="profile-picture"></span>
   <div class="profile-info">
-    <i24-animated-text [animateDelay]="100">
+    <i24-appear-in-viewport [animation]="animation">
       <h5 class="display-4 profile-title">{{userDemographic?.name}}, {{userDemographic?.age}} y.o.</h5>
-    </i24-animated-text>
-    <i24-animated-text [animateDelay]="300">
+    </i24-appear-in-viewport>
+    <i24-appear-in-viewport [animation]="animation" [animationDelay]="400">
       <ul class="list-inline">
         <li class="list-inline-item">
           Weight: {{userDemographic?.weight}}kg
@@ -17,6 +17,6 @@
           BMR: {{userDemographic?.getBmr().get}}kCal
         </li>
       </ul>
-    </i24-animated-text>
+    </i24-appear-in-viewport>
   </div>
 </div>

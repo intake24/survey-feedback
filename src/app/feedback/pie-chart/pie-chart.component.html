@@ -1,3 +1,5 @@
-<div class="i24-pie-chart mb-2 ml-auto mr-auto" [@popIn]="state" [style.height]="height + 'px'">
-  <canvas width="320" height="320"></canvas>
+<div class="i24-pie-chart mb-2 ml-auto mr-auto" [style.height]="height + 'px'">
+  <i24-appear-in-viewport [animation]="animation" (in)="buildChart()" [scrollOffset]="250">
+    <canvas width="320" height="320"></canvas>
+  </i24-appear-in-viewport>
 </div>

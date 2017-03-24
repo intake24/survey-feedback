@@ -16,8 +16,6 @@ import {DictionariesService} from "./services/dictionaries.service";
 import {UserStateService} from "./services/user-state.service";
 import {AppHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
-import {StoreModule} from "@ngrx/store";
-import {componentVisibilityReducer} from "./state-storage/component-visibility.reducer";
 
 @NgModule({
   declarations: [
@@ -28,8 +26,7 @@ import {componentVisibilityReducer} from "./state-storage/component-visibility.r
     FormsModule,
     HttpModule,
     FeedbackModule,
-    AppRoutingModule,
-    StoreModule.provideStore({ componentVisibilityStates: componentVisibilityReducer })
+    AppRoutingModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},

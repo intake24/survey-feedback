@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AnimatedTitleComponent } from './animated-title.component';
+import { AppearInViewportComponent } from './appear-in-viewport.component';
 
-describe('AnimatedTitleComponent', () => {
-  let component: AnimatedTitleComponent;
-  let fixture: ComponentFixture<AnimatedTitleComponent>;
+describe('AppearInViewportComponent', () => {
+  let component: AppearInViewportComponent;
+  let fixture: ComponentFixture<AppearInViewportComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnimatedTitleComponent ]
+      declarations: [ AppearInViewportComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AnimatedTitleComponent);
+    fixture = TestBed.createComponent(AppearInViewportComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
