@@ -27,12 +27,12 @@ export class AnimatedTextComponent implements OnInit {
 
   @Input() animateDelay: number;
 
-  state: string;
+  isVisible: boolean;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
               private windowRef: WindowRefService) {
-    this.state = "out";
+    this.isVisible = false;
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class AnimatedTextComponent implements OnInit {
 
     if (this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow)) {
       setTimeout(() => {
-        this.state = "in";
+        this.isVisible = true;
         this.changeDetectorRef.markForCheck();
       }, this.animateDelay);
     }
