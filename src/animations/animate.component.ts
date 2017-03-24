@@ -1,35 +1,66 @@
 import {
-  Component, ChangeDetectionStrategy, trigger, state, style, transition, animate, keyframes
+  Component, ChangeDetectionStrategy, trigger, state, style, transition, animate, keyframes, Input
 } from "@angular/core";
 import {
-  FADE_DURATION, FADE_SHORT_START_FROM, FADE_SHORT_BOUNCE_DISTANCE,
-  FADE_SHORT_BOUNCE_FRAME_START
-} from "../animate.config";
-import {VisibilityControl} from "../visibility-control.class";
+  ANIMATION_DURATION, FADE_START_OFFSET, FADE_BOUNCE_OFFSET,
+  FADE_BOUNCE_START_FRAME_OFFSET
+} from "./animate.config";
+import {AnimateActionEnum} from "./animate-action.enum";
 
 @Component({
-  selector: "zoom-in",
-  templateUrl: "../animate.template.html",
+  selector: "animate",
+  templateUrl: "./animate.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger("animateState", [
-      state("visible", style({transform: "translateY(0)", opacity: 1})),
-      state("hidden", style({transform: `translateY(-${FADE_SHORT_START_FROM})`, opacity: 0})),
-      transition("hidden => visible", [
-        animate(FADE_DURATION, keyframes([
-          style({opacity: 0, transform: `translateY(-${FADE_SHORT_START_FROM})`, offset: 0}),
-          style({opacity: 1, transform: `translateY(${FADE_SHORT_BOUNCE_DISTANCE}px)`, offset: FADE_SHORT_BOUNCE_FRAME_START}),
-          style({opacity: 1, transform: "translateY(0)", offset: 1.0})
+      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
+      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeInDown.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 0, transform: `translateY(-${FADE_START_OFFSET})`, offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateY(${FADE_BOUNCE_OFFSET}px)`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeInLeft.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 0, transform: `translateX(-${FADE_START_OFFSET})`, offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateX(${FADE_BOUNCE_OFFSET}px)`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.ZoomIn.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 0, transform: 'scale(0)'}),
+          style({opacity: 1, transform: 'scale(1.1)'}),
+          style({opacity: 1, transform: 'scale(1)'})
         ]))
       ])
+
     ])
   ]
 })
 
-export class ZoomInComponent extends VisibilityControl {
+export class AnimateComponent {
+
+  @Input() action: string;
+  @Input() styleDisplay: string;
+
+  state: string;
 
   constructor() {
-    super();
+    this.state = "void";
   }
 
 }

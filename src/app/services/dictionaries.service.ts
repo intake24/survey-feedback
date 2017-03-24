@@ -15,7 +15,7 @@ import {NutrientType} from "../classes/nutrient-types.class";
 
 export enum NutrientTypeIdEnum {
     ENERGEY = <number>1,
-    SUGAR = <number>22,
+    SUGAR = <number>23,
     SATD_FAT = <number>50
 }
 
