@@ -51,13 +51,15 @@ export class PlayingCardComponent implements OnInit {
   sceneClass: string;
   state: string;
 
+  isVisible: boolean;
+
   @Input() animateDelay: number;
   @Input() characterDescription: CharacterSentimentWithDescription;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
               private windowRef: WindowRefService) {
-    this.state = "out";
+    this.isVisible = false;
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -77,7 +79,7 @@ export class PlayingCardComponent implements OnInit {
 
     if (this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow)) {
       setTimeout(() => {
-        this.state = "in";
+        this.isVisible = true;
         this.changeDetectorRef.markForCheck();
       }, this.animateDelay);
     }

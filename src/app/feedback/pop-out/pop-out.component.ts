@@ -28,15 +28,16 @@ export class PopOutComponent implements OnInit {
   @Input() animateDelay: number;
 
   state: string;
+  isVisible: boolean;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
               private windowRef: WindowRefService) {
-    this.state = "out";
+    this.isVisible = false;
   }
 
   ngOnInit() {
-    this.setVisible()
+    this.setVisible();
   }
 
   @HostListener("window:scroll", ["$event"])
@@ -51,7 +52,7 @@ export class PopOutComponent implements OnInit {
 
     if (this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow)) {
       setTimeout(() => {
-        this.state = "in";
+        this.isVisible = true;
         this.changeDetectorRef.markForCheck();
       }, this.animateDelay);
     }
