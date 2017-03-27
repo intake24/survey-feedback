@@ -2,7 +2,7 @@ import {
     DemographicScaleSectorSentimentEnum, DemographicGroup,
     UserDemographic, DemographicNutrientRuleTypeEnum, DemographicScaleSector, DemographicResult
 } from "../classes/demographic-group.class";
-import {Food} from "../classes/food.class";
+import {Food, SurveySubmission} from "../classes/food.class";
 import {Option, none, some} from "ts-option";
 
 
@@ -19,13 +19,13 @@ export class CharacterRules {
         this.sentiments = sentiments.map(sent => sent.clone());
     }
 
-    getDemographicsGroups(userDemographic: UserDemographic, surveyResults: Food[]): Option<DemographicResult>[] {
+    getDemographicsGroups(userDemographic: UserDemographic, surveySubmissions: SurveySubmission[]): Option<DemographicResult>[] {
         let demographicGroups = this.demographicGroups
             .filter(dg => dg.matchesUserDemographic(userDemographic));
         if (demographicGroups.length == 0) {
             return [];
         } else {
-            return demographicGroups.map(dg => dg.getResult(userDemographic, surveyResults))
+            return demographicGroups.map(dg => dg.getResult(userDemographic, surveySubmissions))
                 .filter(dg => dg.match({
                     some: dg => dg.resultedDemographicGroup.scaleSectors.length != 0,
                     none: () => false
@@ -33,8 +33,8 @@ export class CharacterRules {
         }
     }
 
-    getSentiment(userDemographic: UserDemographic, surveyResults: Food[]): Option<CharacterSentimentWithDescription> {
-        let demographicGroups = this.getDemographicsGroups(userDemographic, surveyResults)
+    getSentiment(userDemographic: UserDemographic, surveySubmissions: SurveySubmission[]): Option<CharacterSentimentWithDescription> {
+        let demographicGroups = this.getDemographicsGroups(userDemographic, surveySubmissions)
             .map(dg => dg.get);
         let scaleSectors = demographicGroups
             .map(dg => dg.resultedDemographicGroup.scaleSectors)

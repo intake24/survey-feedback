@@ -3,7 +3,7 @@ import {SELECTOR_PREFIX} from "../feedback.const";
 import {Observable} from "rxjs";
 import {CharacterSentimentWithDescription} from "../../classes/character.class";
 import {UserDemographic} from "../../classes/demographic-group.class";
-import {Food} from "../../classes/food.class";
+import {Food, SurveySubmission} from "../../classes/food.class";
 import {NutrientTypeIdEnum, DictionariesService, Dictionaries} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
@@ -102,17 +102,17 @@ export class PlayingCardsComponent {
 
   private buildView(dictionariesRes: [Dictionaries, UserDemographic]): void {
     this.buildCHaracterCards(dictionariesRes);
-    this.getTopFoods(dictionariesRes[0].surveyResults);
+    this.getTopFoods(dictionariesRes[0].surveySubmissions);
     this.isLoading = false;
   }
 
   private buildCHaracterCards(dictionariesRes: [Dictionaries, UserDemographic]): void {
     let dictionaries = dictionariesRes[0];
-    let foods = dictionaries.surveyResults;
+    let surveySubmissions = dictionaries.surveySubmissions;
     let characterRules = dictionaries.characterRules;
     this.userDemographic = dictionariesRes[1];
     this.results = characterRules.map(characterRule => {
-      let sentiment = characterRule.getSentiment(this.userDemographic, foods);
+      let sentiment = characterRule.getSentiment(this.userDemographic, surveySubmissions);
       return sentiment.get;
     });
     this.resultsInThreeCols = this.getByColumns(3);
@@ -120,10 +120,13 @@ export class PlayingCardsComponent {
     this.resultsInOneCols = this.getByColumns(1);
   }
 
-  private getTopFoods(foods: Food[]): void {
-    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.ENERGEY, foods);
-    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SUGAR, foods);
-    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SATD_FAT, foods);
+  private getTopFoods(surveySubmissions: SurveySubmission[]): void {
+
+    let foodList = surveySubmissions.map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb));
+
+    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.ENERGEY, foodList);
+    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SUGAR, foodList);
+    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SATD_FAT, foodList);
 
     let otherCalories = foodHighInCalories.slice(this.showTopNumber);
     let otherSugar = foodHighInSugar.slice(this.showTopNumber);

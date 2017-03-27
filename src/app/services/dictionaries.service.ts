@@ -9,7 +9,7 @@ import {DemographicScaleSectorSentimentEnum, DemographicGroup} from "../classes/
 import {MySurveyResultsService} from "./my-survey-results.service";
 import {DemographicGroupsService} from "./demographic-groups.service";
 import {NutrientTypesService} from "./nutrient-types.service";
-import {Food} from "../classes/food.class";
+import {Food, SurveySubmission} from "../classes/food.class";
 import {NutrientType} from "../classes/nutrient-types.class";
 
 
@@ -204,7 +204,7 @@ export class DictionariesService {
                 this.demographicGroupsService.list(),
                 this.nutrientTypesService.list()
             ).map(res => {
-                let foods = res[0];
+                let surveySubmissions = res[0];
                 let nutrientTypes = res[2];
                 let demographicGroups = res[1].map(dg =>
                     dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
@@ -216,7 +216,7 @@ export class DictionariesService {
                         characterBuilder.sentiments);
                 });
 
-                let dictionaries = new Dictionaries(foods, demographicGroups,
+                let dictionaries = new Dictionaries(surveySubmissions, demographicGroups,
                     nutrientTypes, characterRules);
 
                 this.cachedDictionaries = some(dictionaries);
@@ -229,16 +229,16 @@ export class DictionariesService {
 }
 
 export class Dictionaries {
-    readonly surveyResults: Food[];
+    readonly surveySubmissions: SurveySubmission[];
     readonly demographicGroups: DemographicGroup[];
     readonly nutrientTypes: NutrientType[];
     readonly characterRules: CharacterRules[];
 
-    constructor(surveyResults: Food[],
+    constructor(surveySubmissions: SurveySubmission[],
                 demographicGroups: DemographicGroup[],
                 nutrientTypes: NutrientType[],
                 characterRules: CharacterRules[]) {
-        this.surveyResults = surveyResults;
+        this.surveySubmissions = surveySubmissions;
         this.demographicGroups = demographicGroups;
         this.nutrientTypes = nutrientTypes;
         this.characterRules = characterRules;
