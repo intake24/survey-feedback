@@ -16,6 +16,7 @@ import {DictionariesService} from "./services/dictionaries.service";
 import {UserStateService} from "./services/user-state.service";
 import {AppHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
+import {WelcomeModule} from "./welcome/welcome.module";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {WindowRefService} from "./services/window-ref.service";
     FormsModule,
     HttpModule,
     FeedbackModule,
+    WelcomeModule,
     AppRoutingModule
   ],
   providers: [

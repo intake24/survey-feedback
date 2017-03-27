@@ -136,7 +136,8 @@ export enum CharacterTypeEnum {
     SALMON = <any>"salmon",
     SAUSAGE = <any>"sausage",
     EGG = <any>"egg",
-    APPLE = <any>"apple"
+    APPLE = <any>"apple",
+    STRAWBERRY = <any>"strawberry"
 }
 
 export enum CharacterSentimentEnum {

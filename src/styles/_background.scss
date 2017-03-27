@@ -1,0 +1,22 @@
+@import "config";
+
+$first-color: #f3f3f7;
+$second-color: #f6f6f7;
+$third-color: #f9f9f9;
+
+.fancy-back {
+  display: block;
+  //background: #f9f9f9;
+  height: 100%;
+
+  background-color: $first-color;
+  background-image: linear-gradient(30deg, $second-color 12%, transparent 12.5%, transparent 87%, $second-color 87.5%, $second-color),
+  linear-gradient(150deg, $second-color 12%, transparent 12.5%, transparent 87%, $second-color 87.5%, $second-color),
+  linear-gradient(30deg, $second-color 12%, transparent 12.5%, transparent 87%, $second-color 87.5%, $second-color),
+  linear-gradient(150deg, $second-color 12%, transparent 12.5%, transparent 87%, $second-color 87.5%, $second-color),
+  linear-gradient(60deg, $third-color 25%, transparent 25.5%, transparent 75%, $third-color 75%, $third-color),
+  linear-gradient(60deg, $third-color 25%, transparent 25.5%, transparent 75%, $third-color 75%, $third-color);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+
+}

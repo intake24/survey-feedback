@@ -5,8 +5,8 @@ const CHARACTER_ICON_CLASS_BASE: string = "food-smile-";
 
 @Component({
   selector: "food-smile",
-  templateUrl: "./food-smile.component.html",
-  styleUrls: ["./food-smile.component.scss"]
+  templateUrl: "food-smile.component.html",
+  styleUrls: ["food-smile.component.scss"]
 })
 
 export class FoodSmileComponent {

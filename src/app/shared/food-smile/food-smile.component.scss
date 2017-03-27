@@ -2,7 +2,7 @@
 
 $food-smile-selector: food-smile;
 $food-smile-size: 150px;
-$food-smile-character-types: scales battery bread egg apple salmon milk sausage candy;
+$food-smile-character-types: scales battery bread egg apple salmon milk sausage candy strawberry;
 $food-smile-scene-types: danger sad happy exciting;
 
 .#{$food-smile-selector} {
@@ -12,11 +12,11 @@ $food-smile-scene-types: danger sad happy exciting;
 
   i {
     display: inline-block;
-    background-image: url("./food_smileys.svg");
+    background-image: url("food_smileys.svg");
     background-repeat: no-repeat;
     height: $food-smile-size;
     width: $food-smile-size;
-    background-size: 405%;
+    background-size: 400%;
     background-position-x: 0px;
   }
 

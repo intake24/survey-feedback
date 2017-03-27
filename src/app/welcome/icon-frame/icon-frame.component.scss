@@ -1,0 +1,44 @@
+.i24-icon-frame {
+
+  $size: 150px;
+
+  position: relative;
+  width: $size;
+  height: $size;
+  display: inline-block;
+
+  @mixin nth-child($num, $size, $color) {
+    &:nth-child(#{$num}) {
+      width: $size;
+      height: $size;
+      margin-top: -$size/2;
+      margin-left: -$size/2;
+      background: $color;
+    }
+  }
+
+  div {
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    @include nth-child(1, 92%, #ea4a1f);
+
+    &:nth-child(1) {
+      margin-top: -44%;
+      margin-left: -44%;
+    }
+
+    @include nth-child(2, 85%, #fff);
+    @include nth-child(3, 80%, #6495ed);
+
+    &:nth-child(4) {
+      top: -6px;
+      left: -1px;
+      position: absolute;
+    }
+
+  }
+
+}
