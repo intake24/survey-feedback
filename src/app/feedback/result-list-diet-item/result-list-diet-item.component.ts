@@ -1,6 +1,5 @@
 import {Component, Input, ElementRef, HostListener} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
-import {window} from "@angular/platform-browser/src/facade/browser"
 
 @Component({
     selector: SELECTOR_PREFIX + "result-list-diet-item",
