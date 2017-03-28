@@ -23,15 +23,21 @@
     top: 50%;
     left: 50%;
 
-    @include nth-child(1, 92%, #ea4a1f);
+    @include nth-child(1, 92%, #9a371d);
 
     &:nth-child(1) {
       margin-top: -44%;
       margin-left: -44%;
     }
 
-    @include nth-child(2, 85%, #fff);
-    @include nth-child(3, 80%, #6495ed);
+    @include nth-child(2, 86%, #ea4a1f);
+
+    &:nth-child(2) {
+      margin-top: -42%;
+      margin-left: -42%;
+    }
+
+    @include nth-child(3, 80%, #fff);
 
     &:nth-child(4) {
       top: -6px;

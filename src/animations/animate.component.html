@@ -1,5 +1,5 @@
 <div [@animateState]="action"
      (@animateState.start)="emitStarted($event)"
      (@animateState.done)="emitDone($event)">
-  <ng-content></ng-content>
+  <ng-content *ngIf="displayed"></ng-content>
 </div>

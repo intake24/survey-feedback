@@ -3,7 +3,10 @@
   border-radius: 4px;
 
   &-container {
-    margin-top: 20px;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
   }
 
 }

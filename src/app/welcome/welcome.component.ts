@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AnimateActionEnum} from "../../animations/animate-action.enum";
 
 @Component({
   selector: 'i24-welcome',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  accepted: boolean;
+  thanksAnimation: AnimateActionEnum;
+  welcomeFormAnimation: AnimateActionEnum;
+
+  constructor() {
+    this.thanksAnimation = AnimateActionEnum.Visible;
+    this.welcomeFormAnimation = AnimateActionEnum.Hidden;
+  }
 
   ngOnInit() {
+    this.accepted = false;
+  }
+
+  onAccepted(): void {
+    this.thanksAnimation = AnimateActionEnum.FadeOutLeftBig;
+    this.welcomeFormAnimation = AnimateActionEnum.FadeInRightBig;
   }
 
 }

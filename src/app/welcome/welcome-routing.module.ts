@@ -3,7 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import {WelcomeComponent} from "./welcome.component";
 
 export const rootRouterConfig:Routes = [
-    {path: "welcome", component: WelcomeComponent},
+    {path: "thanks", component: WelcomeComponent},
 ];
 
 @NgModule({

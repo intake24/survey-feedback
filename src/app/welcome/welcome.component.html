@@ -1,2 +1,6 @@
-<!--<i24-welcome-form></i24-welcome-form>-->
-<i24-thanks></i24-thanks>
+<animate [action]="thanksAnimation" [display]="false">
+  <i24-thanks (onAccepted)="onAccepted()"></i24-thanks>
+</animate>
+<animate [action]="welcomeFormAnimation" [display]="false">
+  <i24-welcome-form></i24-welcome-form>
+</animate>

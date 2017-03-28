@@ -1,8 +1,23 @@
+@import "../../../styles/boxshadow-mixin";
+
 .i24-thanks {
-  background: #fff;
+  background: cornflowerblue;
   border-radius: 4px;
+  border: 0px solid #537cc5;
+  @include box-shadow(0px 2px 8px #666);
 
   &-container {
-    margin-top: 20px;
+    width: 100%;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    color: #fff;
+
+    h1 {
+      color: #fff;
+    }
+
+
+
   }
 }

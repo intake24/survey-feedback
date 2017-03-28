@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 
 @Component({
@@ -11,9 +11,15 @@ export class ThanksComponent implements OnInit {
   characterType: CharacterTypeEnum = CharacterTypeEnum.STRAWBERRY;
   characterSentiment: CharacterSentimentEnum = CharacterSentimentEnum.EXCITING;
 
+  @Output() onAccepted: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  accept(): void {
+    this.onAccepted.emit();
   }
 
 }
