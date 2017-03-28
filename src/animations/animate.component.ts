@@ -1,7 +1,9 @@
 import {
-  Component, ChangeDetectionStrategy, trigger, state, style, transition, animate, keyframes, Input, Output,
-  EventEmitter, AnimationTransitionEvent
+  Component, ChangeDetectionStrategy, Input, Output, EventEmitter
 } from "@angular/core";
+import {
+  trigger, state, style, transition, animate, keyframes, AnimationEvent
+} from "@angular/animations";
 import {
   ANIMATION_DURATION, FADE_START_OFFSET, FADE_BOUNCE_OFFSET,
   FADE_BOUNCE_START_FRAME_OFFSET
@@ -64,11 +66,11 @@ export class AnimateComponent {
 
   constructor() {}
 
-  emitStarted($event: AnimationTransitionEvent): void {
+  emitStarted($event: AnimationEvent): void {
     this.started.emit($event);
   }
 
-  emitDone($event: AnimationTransitionEvent): void {
+  emitDone($event: AnimationEvent): void {
     this.done.emit($event);
   }
 
