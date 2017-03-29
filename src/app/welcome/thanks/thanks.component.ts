@@ -9,7 +9,7 @@ import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character
 export class ThanksComponent implements OnInit {
 
   characterType: CharacterTypeEnum = CharacterTypeEnum.STRAWBERRY;
-  characterSentiment: CharacterSentimentEnum = CharacterSentimentEnum.EXCITING;
+  characterSentiment: CharacterSentimentEnum = CharacterSentimentEnum.HAPPY;
 
   @Output() onAccepted: EventEmitter<any> = new EventEmitter();
 

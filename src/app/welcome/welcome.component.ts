@@ -8,7 +8,6 @@ import {AnimateActionEnum} from "../../animations/animate-action.enum";
 })
 export class WelcomeComponent implements OnInit {
 
-  accepted: boolean;
   thanksAnimation: AnimateActionEnum;
   welcomeFormAnimation: AnimateActionEnum;
 
@@ -18,7 +17,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.accepted = false;
+    this.onAccepted();
   }
 
   onAccepted(): void {
