@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, ChangeDetectionStrategy
 } from '@angular/core';
-import {Food} from "../../classes/food.class";
+import {Food} from "../../classes/survey-result.class";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 
 @Component({

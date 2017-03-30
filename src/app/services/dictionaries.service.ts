@@ -9,7 +9,7 @@ import {DemographicScaleSectorSentimentEnum, DemographicGroup} from "../classes/
 import {MySurveyResultsService} from "./my-survey-results.service";
 import {DemographicGroupsService} from "./demographic-groups.service";
 import {NutrientTypesService} from "./nutrient-types.service";
-import {Food, SurveySubmission} from "../classes/food.class";
+import {SurveyResult} from "../classes/survey-result.class";
 import {NutrientType} from "../classes/nutrient-types.class";
 
 
@@ -200,7 +200,7 @@ export class DictionariesService {
         return this.cachedDictionaries.match({
             some: dictionaries => Observable.create(dictionaries),
             none: () => Observable.forkJoin(
-                this.mySurveyResultsService.list(),
+                this.mySurveyResultsService.getSurveyResult(),
                 this.demographicGroupsService.list(),
                 this.nutrientTypesService.list()
             ).map(res => {
@@ -229,16 +229,16 @@ export class DictionariesService {
 }
 
 export class Dictionaries {
-    readonly surveySubmissions: SurveySubmission[];
+    readonly surveyResult: SurveyResult;
     readonly demographicGroups: DemographicGroup[];
     readonly nutrientTypes: NutrientType[];
     readonly characterRules: CharacterRules[];
 
-    constructor(surveySubmissions: SurveySubmission[],
+    constructor(surveySubmissions: SurveyResult,
                 demographicGroups: DemographicGroup[],
                 nutrientTypes: NutrientType[],
                 characterRules: CharacterRules[]) {
-        this.surveySubmissions = surveySubmissions;
+        this.surveyResult = surveySubmissions;
         this.demographicGroups = demographicGroups;
         this.nutrientTypes = nutrientTypes;
         this.characterRules = characterRules;

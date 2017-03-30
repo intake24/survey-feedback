@@ -1,5 +1,47 @@
 import {NutrientTypeIdEnum} from "../services/dictionaries.service";
 
+export class SurveyResult {
+
+  readonly surveySubmissions: SurveySubmission[];
+
+  constructor(surveySubmissions: SurveySubmission[]) {
+    this.surveySubmissions = surveySubmissions.map(ss => ss.clone());
+  }
+
+  clone(): SurveyResult {
+    return new SurveyResult(this.surveySubmissions);
+  }
+
+  static fromJson(jsonList: any[]): SurveyResult {
+    return new SurveyResult(jsonList.map(js => SurveySubmission.fromJson(js)));
+  }
+
+  getReducedFoods(): Food[] {
+    let foods = this.surveySubmissions.map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
+    let uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
+    return uniqueCodes.map(code => {
+      let totalConsumptionMap: Map<number, number> = new Map();
+      let matchingFoods = foods.filter(f => f.code == code);
+      matchingFoods.map(f => {
+        Array.from(f.nutrientIdConsumptionMap.keys()).map(k => {
+          if (!totalConsumptionMap.has(k)) {
+            totalConsumptionMap.set(k, 0);
+          }
+          totalConsumptionMap.set(k, totalConsumptionMap.get(k) + f.nutrientIdConsumptionMap.get(k));
+        });
+      });
+      // We need to get average consumption per day.
+      // At the moment we do that by getting average consumption of nutrient per one submission
+      Array.from(totalConsumptionMap.keys()).map(k => {
+        totalConsumptionMap.set(k, totalConsumptionMap.get(k) / this.surveySubmissions.length);
+      });
+      let firstFood = matchingFoods[0];
+      return new Food(firstFood.code, firstFood.englishName, firstFood.localName, totalConsumptionMap);
+    });
+  }
+
+}
+
 export class SurveySubmission {
 
   readonly id: string;
@@ -54,11 +96,13 @@ export class Meal {
 
 export class Food {
 
+  readonly code: string;
   readonly englishName: string;
   readonly localName: string;
   readonly nutrientIdConsumptionMap: Map<number, number>;
 
-  constructor(englishName: string, localName: string, nutrients: Map<number, number>) {
+  constructor(code: string, englishName: string, localName: string, nutrients: Map<number, number>) {
+    this.code = code;
     this.englishName = englishName;
     this.localName = localName;
     this.nutrientIdConsumptionMap = new Map(nutrients);
@@ -70,6 +114,7 @@ export class Food {
       mp.set(parseInt(i), json.nutrients[i]);
     }
     return new Food(
+      json.code,
       json.englishDescription,
       json.localDescription.length ? json.localDescription[0] : "",
       mp
@@ -77,7 +122,7 @@ export class Food {
   }
 
   clone(): Food {
-    return new Food(this.englishName, this.localName, this.nutrientIdConsumptionMap);
+    return new Food(this.code, this.englishName, this.localName, this.nutrientIdConsumptionMap);
   }
 
   getConsumption(nutrientTypeId: number): number {

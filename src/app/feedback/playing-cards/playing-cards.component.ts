@@ -1,9 +1,9 @@
 import {Component, ChangeDetectionStrategy} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {Observable} from "rxjs";
-import {CharacterSentimentWithDescription} from "../../classes/character.class";
+import {CharacterSentimentWithDescription, CharacterRules} from "../../classes/character.class";
 import {UserDemographic} from "../../classes/demographic-group.class";
-import {Food, SurveySubmission} from "../../classes/food.class";
+import {Food} from "../../classes/survey-result.class";
 import {NutrientTypeIdEnum, DictionariesService, Dictionaries} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
@@ -101,18 +101,16 @@ export class PlayingCardsComponent {
   }
 
   private buildView(dictionariesRes: [Dictionaries, UserDemographic]): void {
-    this.buildCHaracterCards(dictionariesRes);
-    this.getTopFoods(dictionariesRes[0].surveySubmissions);
+    let foods: Food[] = dictionariesRes[0].surveyResult.getReducedFoods();
+    this.userDemographic = dictionariesRes[1];
+    this.buildCHaracterCards(foods, dictionariesRes[0].characterRules);
+    this.getTopFoods(foods);
     this.isLoading = false;
   }
 
-  private buildCHaracterCards(dictionariesRes: [Dictionaries, UserDemographic]): void {
-    let dictionaries = dictionariesRes[0];
-    let surveySubmissions = dictionaries.surveySubmissions;
-    let characterRules = dictionaries.characterRules;
-    this.userDemographic = dictionariesRes[1];
+  private buildCHaracterCards(foods: Food[], characterRules: CharacterRules[]): void {
     this.results = characterRules.map(characterRule => {
-      let sentiment = characterRule.getSentiment(this.userDemographic, surveySubmissions);
+      let sentiment = characterRule.getSentiment(this.userDemographic, foods);
       return sentiment.get;
     });
     this.resultsInThreeCols = this.getByColumns(3);
@@ -120,13 +118,11 @@ export class PlayingCardsComponent {
     this.resultsInOneCols = this.getByColumns(1);
   }
 
-  private getTopFoods(surveySubmissions: SurveySubmission[]): void {
+  private getTopFoods(foods: Food[]): void {
 
-    let foodList = surveySubmissions.map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb));
-
-    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.ENERGEY, foodList);
-    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SUGAR, foodList);
-    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SATD_FAT, foodList);
+    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.ENERGEY, foods);
+    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SUGAR, foods);
+    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SATD_FAT, foods);
 
     let otherCalories = foodHighInCalories.slice(this.showTopNumber);
     let otherSugar = foodHighInSugar.slice(this.showTopNumber);
@@ -153,7 +149,7 @@ export class PlayingCardsComponent {
 
   private summeriseOtherFood(nutrientTypeId: number, foods: Food[]): Food[] {
     let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
-    return [new Food("Other food", "Other food", new Map([[nutrientTypeId, total]]))];
+    return [new Food("other", "Other food", "Other food", new Map([[nutrientTypeId, total]]))];
   }
 
 }

@@ -17,7 +17,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.onAccepted();
+
   }
 
   onAccepted(): void {

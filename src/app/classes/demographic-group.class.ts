@@ -1,6 +1,6 @@
 import {Option, none, some} from "ts-option";
 import {NutrientType} from "./nutrient-types.class";
-import {Food, SurveySubmission} from "./food.class";
+import {Food} from "./survey-result.class";
 import {HenryCoefficientsCalculator} from "./henry-coefficient.class";
 
 export class DemographicGroup {
@@ -60,9 +60,9 @@ export class DemographicGroup {
   }
 
   getResult(userDemographic: UserDemographic,
-            surveySubmissions: SurveySubmission[]): Option<DemographicResult> {
+            foods: Food[]): Option<DemographicResult> {
 
-    return this.getConsumption(userDemographic, surveySubmissions)
+    return this.getConsumption(userDemographic, foods)
       .flatMap(cons => {
         let scaleSector = this.getScaleSectorByValue(cons);
         let bestScaleSector = this.getScaleSectorByBestSentiment();
@@ -107,18 +107,16 @@ export class DemographicGroup {
     return result;
   }
 
-  private getConsumption(userDemographic: UserDemographic, surveySubmissions: SurveySubmission[]): Option<number> {
-    let foodList = surveySubmissions.map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb));
-
-    let consumption = foodList.map(f => f.getConsumption(this.nutrientTypeId))
-      .reduce((a, b) => a + b) / surveySubmissions.length;
+  private getConsumption(userDemographic: UserDemographic, foods: Food[]): Option<number> {
+    let consumption = foods.map(f => f.getConsumption(this.nutrientTypeId))
+      .reduce((a, b) => a + b);
 
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.ENERGY_DIVIDED_BY_BMR) {
       return userDemographic.getBmr().map(bmr => consumption / bmr);
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PER_UNIT_OF_WEIGHT) {
       return some(consumption / userDemographic.weight);
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PERCENTAGE_OF_ENERGEY) {
-      let energy = foodList.map(f => f.getEnergy()).reduce((a, b) => a + b) / surveySubmissions.length;
+      let energy = foods.map(f => f.getEnergy()).reduce((a, b) => a + b);
       let v = this.nutrientTypeKCalPerUnit.match({
           some: a => consumption * a,
           none: () => 0
