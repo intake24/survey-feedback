@@ -22,18 +22,3 @@ export class NutrientType {
     }
 
 }
-
-export class NutrientConsumption {
-    readonly nutrient: NutrientType;
-    readonly consumption: number;
-
-    constructor(nutrient: NutrientType, consumption: number) {
-        this.nutrient = nutrient.clone();
-        this.consumption = consumption;
-    }
-
-    clone(): NutrientConsumption {
-        return new NutrientConsumption(this.nutrient, this.consumption);
-    }
-
-}
