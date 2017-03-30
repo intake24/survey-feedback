@@ -4,7 +4,10 @@
         *ngFor="let food of items; let i = index;"
         [ngClass]="classList[i]">
       {{food.localName}}:
-      <strong>{{food.getConsumption(nutrientTypeId)}}&nbsp;g</strong>
+      <strong class="text-nowrap">
+        {{food.getConsumption(nutrientTypeId)}}
+        {{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}
+      </strong>
     </li>
   </ol>
 </i24-appear-in-viewport>

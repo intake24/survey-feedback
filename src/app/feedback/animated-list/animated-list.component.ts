@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {Food} from "../../classes/survey-result.class";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
+import {NutrientTypesService} from "../../services/nutrient-types.service";
 
 @Component({
   selector: 'i24-animated-list',
@@ -20,7 +21,7 @@ export class AnimatedListComponent implements OnInit {
   @Input() nutrientTypeId: number;
   @Input() animationDelay: number;
 
-  constructor() {
+  constructor(private nutrientService: NutrientTypesService) {
   }
 
   ngOnInit() {
