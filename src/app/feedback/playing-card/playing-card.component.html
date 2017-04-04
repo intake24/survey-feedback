@@ -12,14 +12,12 @@
     </h5>
     <p class="separated" *ngFor="let des of getResultedDemographicTitle()">
       <span>{{des.title}}</span><br>
-      <span class="text-nowrap small">
+      <span class="text-nowrap">
         <span [ngClass]="des.textClass">
           {{des.consumption}}
           <i class="fa" [ngClass]="des.iconClass"></i>
         </span>
-        {{des.targetConsumption.start}} -
-        {{des.targetConsumption.end}}
-        {{des.units}}
+        {{des.targetConsumption.start}}-{{des.targetConsumption.end}}{{des.units}}
       </span>
     </p>
   </div>
