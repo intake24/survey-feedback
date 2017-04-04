@@ -7,15 +7,15 @@ import {ApiEndpoints} from "../api-endpoints";
 @Injectable()
 export class DemographicGroupsService {
 
-    constructor(private httpService: AppHttp) {
-    }
+  constructor(private httpService: AppHttp) {
+  }
 
-    list(): Observable<DemographicGroup[]> {
-        return this.httpService
-            .get(ApiEndpoints.demographicGroups())
-            .map(res => {
-                return res.json().map(DemographicGroup.fromJson);
-            });
-    }
+  list(): Observable<DemographicGroup[]> {
+    return this.httpService
+      .get(ApiEndpoints.demographicGroups())
+      .map(res => {
+        return res.json().map(DemographicGroup.fromJson);
+      });
+  }
 
 }

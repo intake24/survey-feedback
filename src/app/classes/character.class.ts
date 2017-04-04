@@ -121,12 +121,6 @@ export class CharacterSentimentWithDescription {
         this.characterSentiment = characterSentiment.clone();
         this.demographicResults = demographicResults.map(dg => dg.clone());
     }
-
-    getResultedDemographicTitle(): string[] {
-        return this.demographicResults
-            .map(dr => dr.resultedDemographicGroup.scaleSectors[0].name);
-    }
-
 }
 
 export enum CharacterTypeEnum {

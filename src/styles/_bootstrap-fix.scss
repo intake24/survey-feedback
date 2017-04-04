@@ -206,11 +206,16 @@
       position: relative;
       padding-left: 0;
       padding-right: 0;
+      background: transparent;
 
       @include placeholder {
         color: transparent;
       }
 
+    }
+
+    textarea.form-control {
+      height: 120px;
     }
 
     select.form-control {
@@ -231,32 +236,46 @@
       }
     }
 
-    &.form-group-white {
+  }
 
-      $color: #fff;
-      $blured-color: rgba(255, 255, 255, 0.8);
+}
 
-      @mixin add-color($col) {
-        border-color: $col;
-        label {
-          color: $col;
-        }
+.bm-material {
 
-        &:after {
-          background: $col;
-        }
-      }
+  @mixin control-color($col) {
+    border-color: $col;
+    label {
+      color: $col;
+    }
 
-      @include add-color($blured-color);
+    &:after {
+      background: $col;
+    }
+
+  }
+
+  @mixin theme($control-color, $control-blured-color, $text-color) {
+    .form-group {
+      @include control-color($control-blured-color);
 
       &.focused {
 
-        @include add-color($color);
+        @include control-color($control-color);
 
       }
-
     }
 
+    .form-control {
+      color: $text-color;
+    }
+  }
+
+  &-white {
+    @include theme(#fff, transparentize(#fff, 0.2), #fff);
+  }
+
+  &-primary {
+    @include theme(#0275d8, #999, #333);
   }
 
 }

@@ -11,8 +11,8 @@
       {{characterDescription.characterSentiment.title}}
     </h5>
     <p>
-        <span *ngFor="let des of characterDescription.getResultedDemographicTitle()">
-            {{des}}<br>
+        <span *ngFor="let des of getResultedDemographicTitle()">
+            {{des.title}}, <span class="text-nowrap">{{des.consumption}} {{des.units}}</span><br>
         </span>
     </p>
   </div>

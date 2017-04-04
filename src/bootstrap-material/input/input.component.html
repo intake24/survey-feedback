@@ -1,0 +1,6 @@
+<bm-wrapper [label]="label" [filled]="getFilled()" [focused]="focused">
+  <input type="text" class="form-control" placeholder="{{label}}"
+         [(ngModel)]="value"
+         (focus)="onFocus()"
+         (blur)="onBlur()">
+</bm-wrapper>

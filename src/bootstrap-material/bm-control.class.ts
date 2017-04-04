@@ -1,23 +1,10 @@
-import {Component, forwardRef, Input} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {Input} from '@angular/core';
+import {ControlValueAccessor} from '@angular/forms';
 
 const noop = () => {
 };
 
-export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => FormControlMaterialComponent),
-    multi: true
-};
-
-@Component({
-  selector: 'bm-form-control-material',
-  templateUrl: 'form-control-material.component.html',
-  styleUrls: ['form-control-material.component.scss'],
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
-})
-
-export class FormControlMaterialComponent implements ControlValueAccessor {
+export class BmControl implements ControlValueAccessor {
 
   @Input() label: string;
 
@@ -42,6 +29,10 @@ export class FormControlMaterialComponent implements ControlValueAccessor {
       this.innerValue = v;
       this.onChangeCallback(v);
     }
+  }
+
+  getFilled(): boolean {
+    return this.innerValue != null && this.innerValue != "";
   }
 
   onFocus() {

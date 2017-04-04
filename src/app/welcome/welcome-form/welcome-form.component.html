@@ -7,14 +7,17 @@
     <h2 class="text-white">I only need to ask a few things about you</h2>
   </div>
   <form>
-    <bm-form-control-material [(ngModel)]="name" [label]="'First name'" name="userName"></bm-form-control-material>
-    <bm-form-control-material [(ngModel)]="yearOfBirth" [label]="'Year of birth, e.g. 1988'" name="yearOfBirth"></bm-form-control-material>
-    <bm-form-control-material [(ngModel)]="weight" [label]="'Weight in kilograms'" name="weight"></bm-form-control-material>
-    <bm-form-control-material [(ngModel)]="height" [label]="'Height in centimeters'" name="height"></bm-form-control-material>
-    <div class="form-group form-group-material form-group-white">
-      <select class="form-control">
-        <option>Moderate</option>
-      </select>
+    <bm-input class="bm-material-white" [(ngModel)]="name" [label]="'First name'" name="userName"></bm-input>
+    <bm-input class="bm-material-white" [(ngModel)]="yearOfBirth" [label]="'Year of birth, e.g. 1988'"
+              name="yearOfBirth"></bm-input>
+    <bm-input class="bm-material-white" [(ngModel)]="weight" [label]="'Weight in kilograms'" name="weight"></bm-input>
+    <bm-input class="bm-material-white" [(ngModel)]="height" [label]="'Height in centimeters'" name="height"></bm-input>
+    <div class="bm-material-white">
+      <div class="form-group form-group-material form-group-white">
+        <select class="form-control">
+          <option>Moderate</option>
+        </select>
+      </div>
     </div>
     <div class="form-group">
       <button type="button" class="btn btn-primary btn-lg btn-block">

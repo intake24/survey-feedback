@@ -1,0 +1,7 @@
+<bm-wrapper [label]="label" [filled]="getFilled()" [focused]="focused">
+  <textarea class="form-control" placeholder="{{label}}"
+            colspan=""
+            [(ngModel)]="value"
+            (focus)="onFocus()"
+            (blur)="onBlur()"></textarea>
+</bm-wrapper>

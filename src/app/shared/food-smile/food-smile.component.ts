@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnChanges} from "@angular/core";
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 
 const CHARACTER_ICON_CLASS_BASE: string = "food-smile-";
@@ -9,14 +9,14 @@ const CHARACTER_ICON_CLASS_BASE: string = "food-smile-";
   styleUrls: ["food-smile.component.scss"]
 })
 
-export class FoodSmileComponent {
+export class FoodSmileComponent implements OnChanges{
 
   iconClasses: string[];
 
   @Input() character: CharacterTypeEnum;
   @Input() scene: CharacterSentimentEnum;
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.setScene();
   }
 

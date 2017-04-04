@@ -1,12 +1,12 @@
 import {
-  Component, Input, ElementRef, HostListener,
-  OnInit, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input,
+  OnInit, ChangeDetectionStrategy
 } from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {
   CharacterSentimentWithDescription
 } from "../../classes/character.class";
-import {WindowRefService} from "../../services/window-ref.service";
+import {NutrientTypesService} from "../../services/nutrient-types.service";
 
 const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
 
@@ -35,9 +35,7 @@ export class PlayingCardComponent implements OnInit {
 
   @Input() characterDescription: CharacterSentimentWithDescription;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-              private elementRef: ElementRef,
-              private windowRef: WindowRefService) {
+  constructor(private nutrientService: NutrientTypesService) {
     this.isVisible = false;
   }
 
@@ -45,8 +43,31 @@ export class PlayingCardComponent implements OnInit {
     this.setScene();
   }
 
+  getResultedDemographicTitle(): Subtitle[] {
+    return this.characterDescription.demographicResults
+      .map(dr => {
+        let title = dr.resultedDemographicGroup.scaleSectors[0].name;
+        let consumption = dr.consumption;
+        let nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
+        return new Subtitle(title, consumption, this.nutrientService.getUnitByNutrientTypeId(nutrientId).get);
+      });
+  }
+
   private setScene(): void {
     this.sceneClass = BACKGROUND_SCENE_MAP[this.characterDescription.characterSentiment.sentimentType];
   }
 
+}
+
+class Subtitle {
+
+  readonly title: string;
+  readonly consumption: number;
+  readonly units: string;
+
+  constructor(title: string, consumption: number, units: string) {
+    this.title = title;
+    this.consumption = Math.round(consumption * 100) / 100;
+    this.units = units;
+  }
 }

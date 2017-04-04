@@ -9,27 +9,27 @@ import {UserDemographic, DemographicSexEnum} from "../classes/demographic-group.
 @Injectable()
 export class UserDemographicService {
 
-    private henryCoefficientsCalculator: Option<HenryCoefficientsCalculator> = none;
+  private henryCoefficientsCalculator: Option<HenryCoefficientsCalculator> = none;
 
-    constructor(private httpService: AppHttp) {
-    }
+  constructor(private httpService: AppHttp) {
+  }
 
-    get(): Observable<HenryCoefficientsCalculator> {
-        return this.httpService
-            .get(ApiEndpoints.henryCoefficients())
-            .map(res => {
-                return HenryCoefficientsCalculator.fromJson(res.json());
-            });
-    }
+  get(): Observable<HenryCoefficientsCalculator> {
+    return this.httpService
+      .get(ApiEndpoints.henryCoefficients())
+      .map(res => {
+        return HenryCoefficientsCalculator.fromJson(res.json());
+      });
+  }
 
-    getUserDemographic(): Observable<UserDemographic> {
-        return this.henryCoefficientsCalculator.match({
-            some: hc => Observable.create(new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc)),
-            none: () => this.get().map(hc => {
-                this.henryCoefficientsCalculator = some(hc);
-                return new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc);
-            })
-        });
-    }
+  getUserDemographic(): Observable<UserDemographic> {
+    return this.henryCoefficientsCalculator.match({
+      some: hc => Observable.create(new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc)),
+      none: () => this.get().map(hc => {
+        this.henryCoefficientsCalculator = some(hc);
+        return new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc);
+      })
+    });
+  }
 
 }

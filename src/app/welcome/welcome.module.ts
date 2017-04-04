@@ -10,6 +10,7 @@ import {AnimateModule} from "../../animations/animate.module";
 import {WelcomeModalComponent} from "./welcome-modal/welcome-modal.component";
 import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
 import {FormsModule} from "@angular/forms";
+import {FeedbackComponent} from "./feedback/feedback.component";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {FormsModule} from "@angular/forms";
     WelcomeFormComponent,
     ThanksComponent,
     IconFrameComponent,
-    WelcomeModalComponent]
+    WelcomeModalComponent,
+    FeedbackComponent]
 })
 export class WelcomeModule {
 }
