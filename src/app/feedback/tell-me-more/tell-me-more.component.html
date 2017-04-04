@@ -1,0 +1,22 @@
+<div class="modal" *ngIf="active" [@modalAnimateState]="active">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" (click)="close()">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Woohoo, you're reading this text in a modal!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="close()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-backdrop" *ngIf="active" [@backdropAnimateState]="active"></div>

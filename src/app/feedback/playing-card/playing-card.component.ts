@@ -1,6 +1,6 @@
 import {
   Component, Input,
-  OnInit, ChangeDetectionStrategy
+  OnInit, ChangeDetectionStrategy, Output, EventEmitter
 } from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {
@@ -35,15 +35,22 @@ export class PlayingCardComponent implements OnInit {
 
   sentimentEnums: Object;
 
+  @Output() onTellMeMore: EventEmitter<any>;
+
   @Input() characterDescription: CharacterSentimentWithDescription;
 
   constructor(private nutrientService: NutrientTypesService) {
     this.isVisible = false;
     this.sentimentEnums = DemographicScaleSectorSentimentEnum;
+    this.onTellMeMore = new EventEmitter();
   }
 
   ngOnInit(): void {
     this.setScene();
+  }
+
+  tellMeMore(): void {
+    this.onTellMeMore.emit();
   }
 
   getResultedDemographicTitle(): Subtitle[] {

@@ -50,6 +50,8 @@ export class PlayingCardsComponent {
   nutrientTypeIdSugar: NutrientTypeIdEnum = NutrientTypeIdEnum.SUGAR;
   nutrientTypeIdSatFat: NutrientTypeIdEnum = NutrientTypeIdEnum.SATD_FAT;
 
+  tellMeMoreVisible: boolean = false;
+
   showTopNumber: number = 5;
 
   diets: any = [
@@ -88,6 +90,10 @@ export class PlayingCardsComponent {
       this.userDemographicService.getUserDemographic()
     ).subscribe(res => this.buildView(res));
 
+  }
+
+  onTellMeMore(): void {
+    this.tellMeMoreVisible = true;
   }
 
   getByColumns(colsCount: number): CharacterSentimentWithDescription[][] {

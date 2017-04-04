@@ -21,7 +21,7 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore()"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -34,7 +34,7 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore()"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -47,7 +47,7 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore()"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -163,3 +163,5 @@
   </div>
 
 </div>
+
+<i24-tell-me-more [(active)]="tellMeMoreVisible"></i24-tell-me-more>

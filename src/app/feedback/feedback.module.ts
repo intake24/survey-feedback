@@ -15,6 +15,7 @@ import {AnimatedListComponent} from "./animated-list/animated-list.component";
 import {AnimateModule} from "../../animations/animate.module";
 import {AppearInViewportComponent} from './appear-in-viewport/appear-in-viewport.component';
 import {SharedModule} from "../shared/shared.module";
+import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {SharedModule} from "../shared/shared.module";
     PieChartComponent,
     LoaderComponent,
     AnimatedListComponent,
-    AppearInViewportComponent
+    AppearInViewportComponent,
+    TellMeMoreComponent
   ],
   imports: [BrowserModule,
     FormsModule,

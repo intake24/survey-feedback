@@ -279,3 +279,10 @@
   }
 
 }
+
+.modal {
+  display: block;
+  &-backdrop {
+    opacity: .5;
+  }
+}

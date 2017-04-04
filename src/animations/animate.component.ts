@@ -19,6 +19,37 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
       state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
       state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
 
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeIn.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 0, offset: 0}),
+          style({opacity: 1, offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeInUp.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 0, transform: `translateY(${FADE_START_OFFSET})`, offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateY(-${FADE_BOUNCE_OFFSET})`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeInUpBig.toString()}`, [
+        animate(ANIMATION_BIG_DURATION, keyframes([
+          style({opacity: 0, transform: `translateY(${FADE_BIG_START_OFFSET})`, offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateY(-${FADE_BOUNCE_OFFSET})`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
+        ]))
+      ]),
+
       transition(`${AnimateActionEnum.Hidden.toString()} => ${AnimateActionEnum.FadeInDown.toString()}`, [
         animate(ANIMATION_DURATION, keyframes([
           style({opacity: 0, transform: `translateY(-${FADE_START_OFFSET})`, offset: 0}),
@@ -76,6 +107,37 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 0, transform: `translateX(-${FADE_START_OFFSET})`, offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Visible.toString()} => ${AnimateActionEnum.FadeOut.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 1, offset: 0}),
+          style({opacity: 0, offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Visible.toString()} => ${AnimateActionEnum.FadeOutDown.toString()}`, [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateY(-${FADE_BOUNCE_OFFSET})`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 0, transform: `translateY(${FADE_START_OFFSET})`, offset: 1.0})
+        ]))
+      ]),
+
+      transition(`${AnimateActionEnum.Visible.toString()} => ${AnimateActionEnum.FadeOutDownBig.toString()}`, [
+        animate(ANIMATION_BIG_DURATION, keyframes([
+          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
+          style({
+            opacity: 1,
+            transform: `translateY(-${FADE_BOUNCE_OFFSET})`,
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 0, transform: `translateY(${FADE_BIG_START_OFFSET})`, offset: 1.0})
         ]))
       ]),
 
@@ -159,6 +221,9 @@ export class AnimateComponent implements OnChanges {
   @Output() started: EventEmitter<any> = new EventEmitter();
   @Output() done: EventEmitter<any> = new EventEmitter();
 
+  @Output() onShown: EventEmitter<any> = new EventEmitter();
+  @Output() onHidden: EventEmitter<any> = new EventEmitter();
+
   displayed: boolean;
 
   constructor() {
@@ -174,18 +239,32 @@ export class AnimateComponent implements OnChanges {
 
   emitDone($event: AnimationEvent): void {
     this.setNotDisplayed();
+    this.refreshAction();
     this.done.emit($event);
+    this.emitVisibility($event);
   }
 
-  private setDisplayed() {
+  private setDisplayed(): void {
     if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Visible || this.display != false) {
       this.displayed = true;
     }
   }
 
-  private setNotDisplayed() {
+  private setNotDisplayed(): void {
     if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Hidden && this.display == false) {
       this.displayed = false;
+    }
+  }
+
+  private refreshAction(): void {
+    this.action = AnimateActionAlias.aliasMap.get(this.action);
+  }
+
+  private emitVisibility($event): void {
+    if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Hidden) {
+      this.onHidden.emit($event);
+    } else {
+      this.onShown.emit($event);
     }
   }
 
