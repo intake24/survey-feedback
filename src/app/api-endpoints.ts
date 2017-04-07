@@ -1,5 +1,6 @@
 export class ApiEndpoints {
     static readonly baseUrl = "http://api-test.intake24.co.uk/";
+    // static readonly baseUrl = "http://localhost:9000/";
 
     static refreshUserToken(): string {
         return ApiEndpoints.baseUrl + "refresh"
