@@ -13,14 +13,13 @@ export class MySurveyResultsService {
   }
 
   getSurveyResult(): Observable<SurveyResult> {
-    return this.userService.getSurveyId().match({
-      some: id => this.httpService
+    return this.userService.getSurveyId().flatMap(id => {
+      return this.httpService
         .get(ApiEndpoints.mySurveyResults(id))
         .map(res => {
           return SurveyResult.fromJson(res.json());
-        }),
-      none: () => Observable.empty<SurveyResult>()
-    })
+        })
+    });
   }
 
 }

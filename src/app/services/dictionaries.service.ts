@@ -198,7 +198,7 @@ export class DictionariesService {
 
   get(): Observable<Dictionaries> {
     return this.cachedDictionaries.match({
-      some: dictionaries => Observable.create(dictionaries),
+      some: dictionaries => Observable.of(dictionaries),
       none: () => Observable.forkJoin(
         this.mySurveyResultsService.getSurveyResult(),
         this.demographicGroupsService.list(),

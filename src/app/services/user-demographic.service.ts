@@ -24,7 +24,7 @@ export class UserDemographicService {
 
   getUserDemographic(): Observable<UserDemographic> {
     return this.henryCoefficientsCalculator.match({
-      some: hc => Observable.create(new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc)),
+      some: hc => Observable.of(new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc)),
       none: () => this.get().map(hc => {
         this.henryCoefficientsCalculator = some(hc);
         return new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc);
