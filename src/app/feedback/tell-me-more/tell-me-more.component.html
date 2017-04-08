@@ -1,18 +1,29 @@
 <div class="modal" *ngIf="active" [@modalAnimateState]="active">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+      <div class="modal-body">
         <button type="button" class="close" (click)="close()">
           &times;
         </button>
-      </div>
-      <div class="modal-body">
-        <p>Woohoo, you're reading this text in a modal!</p>
+        <div *ngFor="let det of details">
+          <h2>{{det.title}}</h2>
+          <div class="row">
+            <div class="col-6">
+              <strong>Estimated intake:</strong>
+              <span [ngClass]="det.textClass">{{det.consumption}}{{det.units}}</span>
+            </div>
+            <div class="col-6">
+              <strong>Optimal intake:</strong>
+              <span class="text-nowrap">
+                {{det.targetConsumption.start}}-{{det.targetConsumption.end}}{{det.units}}
+              </span>
+            </div>
+          </div>
+          <p [innerHTML]="det.description"></p>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
-        <button type="button" class="btn btn-primary" (click)="close()">Save changes</button>
+        <button type="button" class="btn btn-primary" (click)="close()">Got it!</button>
       </div>
     </div>
   </div>

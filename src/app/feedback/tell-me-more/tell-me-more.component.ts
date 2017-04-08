@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
+import {PlayingCardDetails} from "../playing-card/playing-card.component";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -65,6 +66,7 @@ const BACKDROP_ANIMATION_DURATION = 300;
 export class TellMeMoreComponent implements OnChanges {
 
   @Input() active: boolean;
+  @Input() details: PlayingCardDetails[];
   @Output() activeChange = new EventEmitter<any>();
 
   constructor() {

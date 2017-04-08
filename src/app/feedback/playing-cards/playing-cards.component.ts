@@ -8,6 +8,7 @@ import {NutrientTypeIdEnum, DictionariesService, Dictionaries} from "../../servi
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
+import {PlayingCardDetails} from "../playing-card/playing-card.component";
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
@@ -51,6 +52,7 @@ export class PlayingCardsComponent {
   nutrientTypeIdSatFat: NutrientTypeIdEnum = NutrientTypeIdEnum.SATD_FAT;
 
   tellMeMoreVisible: boolean = false;
+  tellMeMoreDetails: PlayingCardDetails[];
 
   showTopNumber: number = 5;
 
@@ -92,8 +94,10 @@ export class PlayingCardsComponent {
 
   }
 
-  onTellMeMore(): void {
+  onTellMeMore(playingCardDetails: PlayingCardDetails[]): void {
+    console.log(playingCardDetails);
     this.tellMeMoreVisible = true;
+    this.tellMeMoreDetails = playingCardDetails;
   }
 
   getByColumns(colsCount: number): CharacterSentimentWithDescription[][] {

@@ -35,7 +35,7 @@ export class PlayingCardComponent implements OnInit {
 
   sentimentEnums: Object;
 
-  @Output() onTellMeMore: EventEmitter<any>;
+  @Output() onTellMeMore: EventEmitter<PlayingCardDetails[]>;
 
   @Input() characterDescription: CharacterSentimentWithDescription;
 
@@ -50,18 +50,19 @@ export class PlayingCardComponent implements OnInit {
   }
 
   tellMeMore(): void {
-    this.onTellMeMore.emit();
+    this.onTellMeMore.emit(this.getResultedDemographicTitle());
   }
 
-  getResultedDemographicTitle(): Subtitle[] {
+  getResultedDemographicTitle(): PlayingCardDetails[] {
     return this.characterDescription.demographicResults
       .map(dr => {
         let title = dr.resultedDemographicGroup.scaleSectors[0].name;
         let consumption = dr.consumption;
         let sentiment = dr.resultedDemographicGroup.scaleSectors[0].sentiment;
         let targetConsumption = dr.targetDemographicGroup.scaleSectors[0].range;
+        let description = dr.resultedDemographicGroup.scaleSectors[0].description.get;
         let nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
-        return new Subtitle(title, consumption, targetConsumption,
+        return new PlayingCardDetails(title, consumption, description, targetConsumption,
           this.nutrientService.getUnitByNutrientTypeId(nutrientId).get, sentiment);
       });
   }
@@ -72,20 +73,22 @@ export class PlayingCardComponent implements OnInit {
 
 }
 
-class Subtitle {
+export class PlayingCardDetails {
 
   readonly title: string;
   readonly consumption: number;
+  readonly description: string;
   readonly targetConsumption: DemographicRange;
   readonly units: string;
   readonly sentiment: DemographicScaleSectorSentimentEnum;
   readonly textClass: string;
   readonly iconClass: string;
 
-  constructor(title: string, consumption: number, targetConsumption: DemographicRange, units: string,
-              sentiment: DemographicScaleSectorSentimentEnum) {
+  constructor(title: string, consumption: number, description: string, targetConsumption: DemographicRange,
+              units: string, sentiment: DemographicScaleSectorSentimentEnum) {
     this.title = title;
     this.consumption = Math.round(consumption * 100) / 100;
+    this.description = description;
     this.targetConsumption = new DemographicRange(Math.round(targetConsumption.start * 100) / 100,
       Math.round(targetConsumption.end * 100) / 100);
     this.units = units;
