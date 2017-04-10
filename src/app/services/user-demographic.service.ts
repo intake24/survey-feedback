@@ -5,31 +5,25 @@ import {ApiEndpoints} from "../api-endpoints";
 import {HenryCoefficientsCalculator} from "../classes/henry-coefficient.class";
 import {Option, none, some} from "ts-option";
 import {UserDemographic, DemographicSexEnum} from "../classes/demographic-group.class";
+import {UserInfoService} from "./user-info.service";
 
 @Injectable()
 export class UserDemographicService {
 
-  private henryCoefficientsCalculator: Option<HenryCoefficientsCalculator> = none;
-
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: AppHttp, private userInfoService: UserInfoService) {
   }
 
-  get(): Observable<HenryCoefficientsCalculator> {
-    return this.httpService
-      .get(ApiEndpoints.henryCoefficients())
-      .map(res => {
-        return HenryCoefficientsCalculator.fromJson(res.json());
-      });
-  }
-
-  getUserDemographic(): Observable<UserDemographic> {
-    return this.henryCoefficientsCalculator.match({
-      some: hc => Observable.of(new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc)),
-      none: () => this.get().map(hc => {
-        this.henryCoefficientsCalculator = some(hc);
-        return new UserDemographic("Super Tim", DemographicSexEnum.MALE, 28, 1.78, 78, hc);
-      })
+  private getBmrCalculator(): Observable<HenryCoefficientsCalculator> {
+    return this.httpService.get(ApiEndpoints.henryCoefficients()).map(res => {
+      return HenryCoefficientsCalculator.fromJson(res.json());
     });
+  }
+
+  getUserDemographic(): Observable<Option<UserDemographic>> {
+    return this.userInfoService.getMyInfo()
+      .flatMap(ui =>
+        this.getBmrCalculator().map(hc => UserDemographic.fromUserInfo(ui, hc)))
+      .catch(_ => Observable.of(none))
   }
 
 }
