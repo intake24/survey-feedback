@@ -19,15 +19,10 @@ export class AppHttp {
                     options?: RequestOptionsArgs,
                     requestMethod?: RequestMethod,
                     body?: any): Observable<Response> {
-    if (options) {
-      options.method = requestMethod;
-      options.body = body;
-    }
-    return this.getRequestOptions(options).flatMap(reqOptions => {
-        return this.http.request(url, reqOptions).catch(err => {
-          return this.handleError(err, url, reqOptions);
-        })
-
+    return this.getRequestOptions(options, requestMethod, body).flatMap(reqOptions => {
+      return this.http.request(url, reqOptions).catch(err => {
+        return this.handleError(err, url, reqOptions);
+      });
     });
   }
 
@@ -63,36 +58,42 @@ export class AppHttp {
     return this.doRequest(url, options, RequestMethod.Options);
   }
 
-  private handleError(error: Response, url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
-    if (error.status != 401) {
-      return Observable.throw(error);
+  private handleError(err: Response, url: string | Request, reqOptions: RequestOptionsArgs): any {
+    if (err.status != 401) {
+      return Observable.throw(err);
     } else {
       let subject = new Subject();
       this.toBeReplayed.push(new ReplayableRequest(url, reqOptions, subject));
-      this.userService.refreshAccessToken().subscribe(_ => this.replayRequests());
-      return subject.asObservable();
+      if (this.toBeReplayed.length <= 1) {
+        this.userService.refreshAccessToken().subscribe(_ => this.replayRequests());
+      }
+      return subject;
     }
   }
 
   private replayRequests(): void {
-    let r = this.toBeReplayed.shift();
-    while (r) {
-      this.http.request(r.url, r.reqOptions).map(response => {
-        r.subject.next(response);
-      }).catch(err => {
-        return this.handleError(err, r.url, r.reqOptions);
-      });
-      r = this.toBeReplayed.shift();
-    }
+    this.toBeReplayed.map(r =>
+      this.getRequestOptions(r.reqOptions)
+        .flatMap(reqOptions => this.http.request(r.url, reqOptions))
+        .subscribe(
+          response => r.subject.next(response),
+          err => r.subject.error(err)
+        )
+    );
+    this.toBeReplayed.length = 0;
   }
 
-  private getRequestOptions(options?: RequestOptionsArgs): Observable<RequestOptions> {
+  private getRequestOptions(options?: RequestOptionsArgs,
+                            requestMethod?: RequestMethod,
+                            body?: any): Observable<RequestOptions> {
     return this.userService.getAccessToken().map(token => {
       let reqOptions = new RequestOptions(options);
       reqOptions.headers = new Headers({
         "Content-Type": "application/json",
         "X-Auth-Token": token
       });
+      reqOptions.method = requestMethod;
+      reqOptions.body = body;
       return reqOptions;
     });
   }
