@@ -9,6 +9,7 @@ import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
+import {Option} from "ts-option";
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
@@ -86,7 +87,6 @@ export class PlayingCardsComponent {
 
   ngOnInit(): void {
 
-
     Observable.forkJoin(
       this.dictionariesService.get(),
       this.userDemographicService.getUserDemographic()
@@ -95,7 +95,6 @@ export class PlayingCardsComponent {
   }
 
   onTellMeMore(playingCardDetails: PlayingCardDetails[]): void {
-    console.log(playingCardDetails);
     this.tellMeMoreVisible = true;
     this.tellMeMoreDetails = playingCardDetails;
   }
@@ -110,12 +109,18 @@ export class PlayingCardsComponent {
     return result;
   }
 
-  private buildView(dictionariesRes: [Dictionaries, UserDemographic]): void {
+  private buildView(dictionariesRes: [Dictionaries, Option<UserDemographic>]): void {
+
     let foods: Food[] = dictionariesRes[0].surveyResult.getReducedFoods();
-    this.userDemographic = dictionariesRes[1];
-    this.buildCHaracterCards(foods, dictionariesRes[0].characterRules);
-    this.getTopFoods(foods);
-    this.isLoading = false;
+    dictionariesRes[1].match({
+      some: ud => {
+        this.userDemographic = ud;
+        this.buildCHaracterCards(foods, dictionariesRes[0].characterRules);
+        this.getTopFoods(foods);
+        this.isLoading = false;
+      },
+      none: () => {}
+    })
   }
 
   private buildCHaracterCards(foods: Food[], characterRules: CharacterRules[]): void {

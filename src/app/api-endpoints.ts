@@ -21,4 +21,8 @@ export class ApiEndpoints {
   static mySurveyResults(surveyId: string): string {
     return ApiEndpoints.baseUrl + `surveys/${surveyId}/my-submissions`;
   }
+
+  static myUserInfo(): string {
+    return ApiEndpoints.baseUrl + `users/my-info`;
+  }
 }

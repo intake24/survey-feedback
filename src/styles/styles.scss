@@ -91,4 +91,23 @@ h2, h3, h4, h5 {
 
 }
 
+.border {
+  $border-conf: 1px solid #ccc;
+
+  &-bottom {
+    border-bottom: $border-conf;
+  }
+
+  &-top {
+    border-top: $border-conf;
+  }
+
+}
+
+.vertical-align {
+  &-top {
+    vertical-align: top;
+  }
+}
+
 

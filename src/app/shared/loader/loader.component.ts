@@ -2,8 +2,8 @@ import {Component, OnInit, trigger, state, style, transition, animate, Input} fr
 
 @Component({
   selector: 'i24-loader',
-  templateUrl: './loader.component.html',
-  styleUrls: ['./loader.component.scss'],
+  templateUrl: 'loader.component.html',
+  styleUrls: ['loader.component.scss'],
   animations: [
     trigger('fadeInOut', [
       state('visible', style({

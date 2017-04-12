@@ -1,5 +1,3 @@
-import {Option} from "ts-option";
-
 export class User {
   readonly userName: string;
   readonly surveyId: string;

@@ -27,7 +27,7 @@ export class HenryCoefficientsCalculator {
     private calculateBMR(userDemographic: UserDemographic, hCoef: HenryCoefficient): number {
 
         return hCoef.weightCoefficient * userDemographic.weight +
-            hCoef.heightCoefficient * userDemographic.height + hCoef.constant;
+            hCoef.heightCoefficient * (userDemographic.height / 100) + hCoef.constant;
     }
 
 }

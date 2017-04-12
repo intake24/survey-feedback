@@ -2,19 +2,23 @@
   <span class="profile-picture"></span>
   <div class="profile-info">
     <i24-appear-in-viewport [animation]="animation">
-      <h5 class="display-4 profile-title">{{userDemographic?.name}}, {{userDemographic?.age}} y.o.</h5>
+      <h5 class="display-4 profile-title">
+        Super {{userDemographic?.name}}, {{userDemographic?.yearOfBirth}}
+      </h5>
     </i24-appear-in-viewport>
     <i24-appear-in-viewport [animation]="animation" [animationDelay]="400">
       <ul class="list-inline">
-        <li class="list-inline-item">
+        <li class="list-inline-item vertical-align-top">
           Weight: {{userDemographic?.weight}}kg
           <br>
-          Height: {{userDemographic?.height}}m
+          Height: {{userDemographic?.height}}cm
         </li>
         <li class="list-inline-item">
           Physical activity: Moderate
           <br>
           BMR: {{userDemographic?.getBmr().get}}kCal
+          <br>
+          <a [href]="'#/welcome'">Change my info</a>
         </li>
       </ul>
     </i24-appear-in-viewport>

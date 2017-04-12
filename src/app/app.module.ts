@@ -17,6 +17,7 @@ import {UserStateService} from "./services/user-state.service";
 import {AppHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
+import {UserInfoService} from "./services/user-info.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {WelcomeModule} from "./welcome/welcome.module";
     DictionariesService,
     UserStateService,
     AppHttp,
-    WindowRefService
+    WindowRefService,
+    UserInfoService
   ],
   bootstrap: [AppComponent]
 })

@@ -10,7 +10,6 @@ import {UserDemographicInfoComponent} from "./user-demographic-info/user-demogra
 import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import {PieChartComponent} from './pie-chart/pie-chart.component';
-import {LoaderComponent} from './loader/loader.component';
 import {AnimatedListComponent} from "./animated-list/animated-list.component";
 import {AnimateModule} from "../../animations/animate.module";
 import {AppearInViewportComponent} from './appear-in-viewport/appear-in-viewport.component';
@@ -25,7 +24,6 @@ import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
     PlayingCardComponent,
     UserDemographicInfoComponent,
     PieChartComponent,
-    LoaderComponent,
     AnimatedListComponent,
     AppearInViewportComponent,
     TellMeMoreComponent
