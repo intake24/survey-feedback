@@ -75,6 +75,7 @@ export class AppHttp {
     this.toBeReplayed.map(r =>
       this.getRequestOptions(r.reqOptions)
         .flatMap(reqOptions => this.http.request(r.url, reqOptions))
+        .finally(() => r.subject.complete())
         .subscribe(
           response => r.subject.next(response),
           err => r.subject.error(err)
