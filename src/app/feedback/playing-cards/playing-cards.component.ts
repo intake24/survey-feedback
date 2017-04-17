@@ -48,9 +48,9 @@ export class PlayingCardsComponent {
   sugarChartData: PieChardData[];
   satFatChartData: PieChardData[];
 
-  nutrientTypeIdEnergy: NutrientTypeIdEnum = NutrientTypeIdEnum.ENERGEY;
-  nutrientTypeIdSugar: NutrientTypeIdEnum = NutrientTypeIdEnum.SUGAR;
-  nutrientTypeIdSatFat: NutrientTypeIdEnum = NutrientTypeIdEnum.SATD_FAT;
+  nutrientTypeIdEnergy: NutrientTypeIdEnum = NutrientTypeIdEnum.Energy;
+  nutrientTypeIdSugar: NutrientTypeIdEnum = NutrientTypeIdEnum.Sugar;
+  nutrientTypeIdSatFat: NutrientTypeIdEnum = NutrientTypeIdEnum.SatdFat;
 
   tellMeMoreVisible: boolean = false;
   tellMeMoreDetails: PlayingCardDetails[];
@@ -135,26 +135,26 @@ export class PlayingCardsComponent {
 
   private getTopFoods(foods: Food[]): void {
 
-    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.ENERGEY, foods);
-    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SUGAR, foods);
-    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SATD_FAT, foods);
+    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.Energy, foods);
+    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.Sugar, foods);
+    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SatdFat, foods);
 
     let otherCalories = foodHighInCalories.slice(this.showTopNumber);
     let otherSugar = foodHighInSugar.slice(this.showTopNumber);
     let otherSatdFat = foodHighInSatFat.slice(this.showTopNumber);
 
-    this.foodHighInCalories = foodHighInCalories.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.ENERGEY, otherCalories));
-    this.foodHighInSugar = foodHighInSugar.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.SUGAR, otherSugar));
-    this.foodHighInSatFat = foodHighInSatFat.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.SATD_FAT, otherSatdFat));
+    this.foodHighInCalories = foodHighInCalories.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.Energy, otherCalories));
+    this.foodHighInSugar = foodHighInSugar.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.Sugar, otherSugar));
+    this.foodHighInSatFat = foodHighInSatFat.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.SatdFat, otherSatdFat));
 
     this.caloriesChartData = this.foodHighInCalories
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.ENERGEY), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.Energy), f.englishName, this.ColorNamesMap[i][1]));
 
     this.sugarChartData = this.foodHighInSugar
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SUGAR), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.Sugar), f.englishName, this.ColorNamesMap[i][1]));
 
     this.satFatChartData = this.foodHighInSatFat
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SATD_FAT), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SatdFat), f.englishName, this.ColorNamesMap[i][1]));
   }
 
   private sortFoodByNutrientTypeId(nutrientTypeId: number, foods: Food[]): Food[] {

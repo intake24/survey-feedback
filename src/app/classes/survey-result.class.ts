@@ -130,7 +130,7 @@ export class Food {
   }
 
   getEnergy(): number {
-    return this.getConsumption(NutrientTypeIdEnum.ENERGEY);
+    return this.getConsumption(NutrientTypeIdEnum.Energy);
   }
 
 }
