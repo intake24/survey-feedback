@@ -18,10 +18,12 @@ import {AppHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
+import { GitComponent } from './git/git.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GitComponent
   ],
   imports: [
     BrowserModule,

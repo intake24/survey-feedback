@@ -1,0 +1,8 @@
+<bm-wrapper [label]="label" [filled]="getFilled()" [focused]="focused">
+  <select class="form-control"
+          [(ngModel)]="value"
+          (focus)="onFocus()"
+          (blur)="onBlur()">
+    <ng-content></ng-content>
+  </select>
+</bm-wrapper>

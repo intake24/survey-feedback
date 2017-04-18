@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BmWrapperComponent } from './wrapper.component';
+import { GitComponent } from './git.component';
 
-describe('BmWrapperComponent', () => {
-  let component: BmWrapperComponent;
-  let fixture: ComponentFixture<BmWrapperComponent>;
+describe('GitComponent', () => {
+  let component: GitComponent;
+  let fixture: ComponentFixture<GitComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BmWrapperComponent ]
+      declarations: [ GitComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BmWrapperComponent);
+    fixture = TestBed.createComponent(GitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

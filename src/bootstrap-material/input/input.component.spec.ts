@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormControlMaterialComponent } from './form-control-material.component';
+import { BmInputComponent } from './input.component';
 
-describe('FormControlMaterialComponent', () => {
-  let component: FormControlMaterialComponent;
-  let fixture: ComponentFixture<FormControlMaterialComponent>;
+describe('BmInputComponent', () => {
+  let component: BmInputComponent;
+  let fixture: ComponentFixture<BmInputComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormControlMaterialComponent ]
+      declarations: [ BmInputComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormControlMaterialComponent);
+    fixture = TestBed.createComponent(BmInputComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

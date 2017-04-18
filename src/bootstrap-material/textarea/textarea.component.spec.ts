@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormControlMaterialComponent } from './form-control-material.component';
+import { BmTextareaComponent } from './textarea.component';
 
-describe('FormControlMaterialComponent', () => {
-  let component: FormControlMaterialComponent;
-  let fixture: ComponentFixture<FormControlMaterialComponent>;
+describe('BmTextareaComponent', () => {
+  let component: BmTextareaComponent;
+  let fixture: ComponentFixture<BmTextareaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormControlMaterialComponent ]
+      declarations: [ BmTextareaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormControlMaterialComponent);
+    fixture = TestBed.createComponent(BmTextareaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

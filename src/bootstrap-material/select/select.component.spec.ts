@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BmWrapperComponent } from './wrapper.component';
+import { BmSelectComponent } from './select.component';
 
-describe('BmWrapperComponent', () => {
-  let component: BmWrapperComponent;
-  let fixture: ComponentFixture<BmWrapperComponent>;
+describe('BmSelectComponent', () => {
+  let component: BmSelectComponent;
+  let fixture: ComponentFixture<BmSelectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BmWrapperComponent ]
+      declarations: [ BmSelectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BmWrapperComponent);
+    fixture = TestBed.createComponent(BmSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
