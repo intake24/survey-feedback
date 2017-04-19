@@ -5,18 +5,34 @@ $profile-picture-size: 100px;
 $fold-width: 960px;
 
 .profile {
+  &-letter,
   &-picture {
     display: block;
     width: $profile-picture-size;
     height: $profile-picture-size;
-    background-image: url("./boy.svg");
     background-color: cornflowerblue;
     border-radius: 100%;
     box-shadow: 2px 2px 0px 5px #ea4a1f;
     border: 3px solid #fff;
     float: none;
     margin: auto;
+    position: relative;
+  }
 
+  &-letter {
+    text-align: center;
+    &-content {
+      line-height: 1em;
+      font-size: 0.9 * $profile-picture-size;
+      vertical-align: middle;
+      font-family: 'Slabo 27px', cursive;
+      color: #283b5f;
+      text-shadow: 2px 4px 0px #4b6fb1;
+    }
+  }
+
+  &-picture {
+    background-image: url("./boy.svg");
   }
 
   &-info {
