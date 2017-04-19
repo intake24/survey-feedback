@@ -237,6 +237,14 @@ export class DemographicRange {
     return n >= this.start && n < this.end;
   }
 
+  toString(): string {
+    if (this.end > 999999) {
+      return `>${this.start}`;
+    } else {
+      return `${this.start}-${this.end}`;
+    }
+  }
+
 }
 
 export class UserDemographic {

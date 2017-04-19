@@ -7,7 +7,10 @@ import {
   CharacterSentimentWithDescription
 } from "../../classes/character.class";
 import {NutrientTypesService} from "../../services/nutrient-types.service";
-import {DemographicRange, DemographicScaleSectorSentimentEnum} from "../../classes/demographic-group.class";
+import {
+  DemographicRange, DemographicScaleSectorSentimentEnum,
+  DemographicNutrientRuleTypeEnum
+} from "../../classes/demographic-group.class";
 
 const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
 
@@ -62,9 +65,25 @@ export class PlayingCardComponent implements OnInit {
         let targetConsumption = dr.targetDemographicGroup.scaleSectors[0].range;
         let description = dr.resultedDemographicGroup.scaleSectors[0].description.get;
         let nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
-        return new PlayingCardDetails(title, consumption, description, targetConsumption,
-          this.nutrientService.getUnitByNutrientTypeId(nutrientId).get, sentiment);
+        let unit = this.getUnitFromNutrientRule(dr.resultedDemographicGroup.nutrientRuleType,
+          this.nutrientService.getUnitByNutrientTypeId(nutrientId).get);
+        return new PlayingCardDetails(title, consumption, description, targetConsumption, unit, sentiment);
       });
+  }
+
+  private getUnitFromNutrientRule(nutrientRule: DemographicNutrientRuleTypeEnum, defaultUnit: string): string {
+    switch (nutrientRule) {
+      case DemographicNutrientRuleTypeEnum.ENERGY_DIVIDED_BY_BMR:
+        return "%";
+      case DemographicNutrientRuleTypeEnum.PER_UNIT_OF_WEIGHT:
+        return defaultUnit;
+      case DemographicNutrientRuleTypeEnum.PERCENTAGE_OF_ENERGEY:
+        return "%";
+      case DemographicNutrientRuleTypeEnum.RANGE:
+        return defaultUnit;
+      default:
+        return defaultUnit;
+    }
   }
 
   private setScene(): void {
