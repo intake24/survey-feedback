@@ -8,7 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "buildForPlay": "ng build -op=../SurveyServer/surveyFeedback"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +39,7 @@
     "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.2",
+    "@angular/cli": "^1.0.0",
     "@angular/compiler-cli": "^4.0.1",
     "@types/chartjs": "0.0.29",
     "@types/jasmine": "2.5.38",
