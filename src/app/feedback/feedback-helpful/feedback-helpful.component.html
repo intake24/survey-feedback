@@ -1,0 +1,31 @@
+<div class="text-center">
+  <food-smile [character]="characterType" [scene]="characterSentiment"></food-smile>
+</div>
+<animate [action]="feedbackRequestAnimation" [display]="false" (onHidden)="onFeedbackRequestDisappeared($event)">
+  <h2 class="text-center">
+    Was our feedback helpful?
+  </h2>
+  <div class="text-center">
+    <button class="btn btn-lg btn-outline-danger" [class.active]="disliked" (click)="dislike()">
+      <i class="fa fa-thumbs-down"></i>
+    </button>
+    <button class="btn btn-lg btn-outline-primary" [class.active]="liked" (click)="like()">
+      <i class="fa fa-thumbs-up"></i>
+    </button>
+  </div>
+  <animate [action]="feedbackFormAnimation" [display]="false">
+    <div class="form-group">
+      <bm-textarea class="bm-material-primary"
+                   [label]="'What could we do better?'"
+                   [(ngModel)]="feedbackText"></bm-textarea>
+    </div>
+    <div class="form-group">
+      <button type="button" class="btn btn-primary btn-block" (click)="submitFeedback()">
+        Submit
+      </button>
+    </div>
+  </animate>
+</animate>
+<animate [action]="thankYouAnimation" [display]="false">
+  <h2 class="text-center">Thank you so much!</h2>
+</animate>

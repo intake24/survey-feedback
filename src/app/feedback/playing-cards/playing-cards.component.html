@@ -104,60 +104,9 @@
   <div class="container-fluid pt-2 mb-4">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
-          <h1 class="display-1 text-center mb-2">Add these to your menu</h1>
-        </i24-appear-in-viewport>
-        <div class="row mb-2">
-          <div class="col-md-6 col-lg-4" *ngFor="let item of diets; let i = index;">
-            <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250" [animationDelay]="i*200">
-              <feedback-result-list-diet-item
-                [imgSrc]="item.src"
-                [title]="item.title"
-                [sourceOf]="item.sourceOf"
-                [howMany]="item.howMany"
-              ></feedback-result-list-diet-item>
-            </i24-appear-in-viewport>
-          </div>
-        </div>
-        <div class="text-center mb-2">
-          <i24-appear-in-viewport [animation]="buttonsAnimation" [scrollOffset]="200" [animationDelay]="400" [style.display]="'inline-block'">
-            <button type="button" class="btn btn-rounded btn-rounded-yellow">
-                    <span class="btn-rounded-icon">
-                        <i class="fa fa-cutlery"></i>
-                    </span>
-              <span class="btn-rounded-text">
-                        More food
-                    </span>
-            </button>
-          </i24-appear-in-viewport>
-          <i24-appear-in-viewport [animation]="buttonsAnimation" [scrollOffset]="200" [animationDelay]="100" [style.display]="'inline-block'">
-            <button type="button" class="btn btn-rounded btn-rounded-blue">
-                    <span class="btn-rounded-icon">
-                        <i class="fa fa-shopping-basket"></i>
-                    </span>
-              <span class="btn-rounded-text">
-                        Make a shopping list
-                    </span>
-            </button>
-          </i24-appear-in-viewport>
-          <i24-appear-in-viewport [animation]="buttonsAnimation" [scrollOffset]="200" [animationDelay]="200" [style.display]="'inline-block'">
-            <button type="button" class="btn btn-rounded btn-rounded-green">
-                    <span class="btn-rounded-icon">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-              <span class="btn-rounded-text">
-                        Mail
-                    </span>
-            </button>
-          </i24-appear-in-viewport>
-        </div>
-        <div class="text-center mb-3">
-          <i24-appear-in-viewport [animation]="textAnimation">
-            <span class="lead">
-                You can bookmark and always come back to this page later.
-            </span>
-          </i24-appear-in-viewport>
-        </div>
+
+        <i24-feedback-helpful></i24-feedback-helpful>
+
       </div>
     </div>
   </div>

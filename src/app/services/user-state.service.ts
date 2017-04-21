@@ -18,18 +18,17 @@ export class UserStateService {
   private authenticated: boolean;
   authenticatedSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  constructor(private cookieService: CookieService,
-              private http: Http) {
+  constructor(private http: Http) {
   }
 
   setRefreshToken(token: string): void {
     this.notifyAuthSubscribers();
-    this.cookieService.put(this.REFRESH_TOKEN_COOKIE_NAME, token);
+    localStorage.setItem(this.REFRESH_TOKEN_COOKIE_NAME, token);
   }
 
   getAccessToken(): Observable<string> {
     this.notifyAuthSubscribers();
-    let accToken = this.cookieService.get(this.ACCESS_TOKEN_COOKIE_NAME);
+    let accToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
     if (accToken != null) {
       return Observable.of(accToken);
     } else {
@@ -63,18 +62,18 @@ export class UserStateService {
   }
 
   private dropAccessToken(): void {
-    this.cookieService.remove(this.ACCESS_TOKEN_COOKIE_NAME);
+    localStorage.removeItem(this.ACCESS_TOKEN_COOKIE_NAME);
   }
 
   private setAccessToken(token: string): void {
     this.notifyAuthSubscribers();
     this.accessTokenSubject.next(token);
     this.accessTokenSubject.complete();
-    this.cookieService.put(this.ACCESS_TOKEN_COOKIE_NAME, token);
+    localStorage.setItem(this.ACCESS_TOKEN_COOKIE_NAME, token);
   }
 
   private getRefreshToken(): Observable<string> {
-    let token = this.cookieService.get(this.REFRESH_TOKEN_COOKIE_NAME);
+    let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
       return Observable.throw(`${UserStateService.Name}: Refresh token is not set`);
     } else {
@@ -88,8 +87,8 @@ export class UserStateService {
   }
 
   private notifyAuthSubscribers(): void {
-    let refreshToken = this.cookieService.get(this.REFRESH_TOKEN_COOKIE_NAME);
-    let accessToken = this.cookieService.get(this.ACCESS_TOKEN_COOKIE_NAME);
+    let refreshToken = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
+    let accessToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
     let auth = refreshToken != null && accessToken != null;
     if (auth != this.authenticated) {
       this.authenticatedSubject.next(auth);

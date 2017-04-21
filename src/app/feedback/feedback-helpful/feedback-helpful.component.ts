@@ -3,11 +3,11 @@ import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 
 @Component({
-  selector: 'i24-feedback',
-  templateUrl: 'feedback.component.html',
-  styleUrls: ['feedback.component.scss']
+  selector: 'i24-feedback-helpful',
+  templateUrl: 'feedback-helpful.component.html',
+  styleUrls: ['feedback-helpful.component.scss']
 })
-export class FeedbackComponent implements OnInit {
+export class FeedbackHelpfulComponent implements OnInit {
 
   feedbackText: string;
   liked: boolean;

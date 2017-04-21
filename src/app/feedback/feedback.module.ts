@@ -15,6 +15,8 @@ import {AnimateModule} from "../../animations/animate.module";
 import {AppearInViewportComponent} from './appear-in-viewport/appear-in-viewport.component';
 import {SharedModule} from "../shared/shared.module";
 import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
+import {FeedbackHelpfulComponent} from "./feedback-helpful/feedback-helpful.component";
+import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
     PieChartComponent,
     AnimatedListComponent,
     AppearInViewportComponent,
-    TellMeMoreComponent
+    TellMeMoreComponent,
+    FeedbackHelpfulComponent
   ],
   imports: [BrowserModule,
     FormsModule,
@@ -34,7 +37,8 @@ import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
     FeedbackRoutingModule,
     ChartsModule,
     AnimateModule,
-    SharedModule],
+    SharedModule,
+    BootstrapMaterialModule],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
