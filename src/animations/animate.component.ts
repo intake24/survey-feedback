@@ -197,7 +197,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
             transform: "-translateX(" + FADE_START_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
-          style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 1.0})
+          style({opacity: 0, transform: "translateX(${FADE_BIG_START_OFFSET})", offset: 1.0})
         ]))
       ]),
 
