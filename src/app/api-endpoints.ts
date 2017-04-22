@@ -1,5 +1,12 @@
+import {isDevMode} from "@angular/core";
+
 export class ApiEndpoints {
-  static readonly baseUrl = "http://api-test.intake24.co.uk/";
+
+  private static get windowRef(): any {
+    return window;
+  }
+
+  static readonly baseUrl = isDevMode() ? "http://api-test.intake24.co.uk/" : ApiEndpoints.windowRef.apiBaseUrl;
   // static readonly baseUrl = "http://localhost:9000/";
 
   static refreshUserToken(): string {
