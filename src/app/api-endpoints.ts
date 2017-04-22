@@ -1,4 +1,4 @@
-import {isDevMode} from "@angular/core";
+import { environment } from '../environments/environment';
 
 export class ApiEndpoints {
 
@@ -6,7 +6,7 @@ export class ApiEndpoints {
     return window;
   }
 
-  static readonly baseUrl = isDevMode() ? "http://api-test.intake24.co.uk/" : ApiEndpoints.windowRef.apiBaseUrl;
+  static readonly baseUrl = environment.production ? ApiEndpoints.windowRef.apiBaseUrl : "http://api-test.intake24.co.uk/";
   // static readonly baseUrl = "http://localhost:9000/";
 
   static refreshUserToken(): string {
