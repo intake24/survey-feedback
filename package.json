@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildForPlay": "ng build -op=../SurveyServer/public/survey-feedback"
+    "buildForPlay": "ng build --prod -op=../SurveyServer/public/survey-feedback"
   },
   "private": true,
   "dependencies": {
