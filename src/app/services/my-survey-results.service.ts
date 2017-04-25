@@ -20,8 +20,9 @@ export class MySurveyResultsService {
         let surveyResult = SurveyResult.fromJson(res.json());
         if (surveyResult.surveySubmissions.length == 0) {
           location.pathname = AppConfig.surveyPath;
+        } else {
+          return surveyResult;
         }
-        return surveyResult;
       });
   }
 
