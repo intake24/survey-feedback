@@ -6,11 +6,12 @@ import {
   CharacterSentiment, CharacterRules
 } from "../classes/character.class";
 import {DemographicScaleSectorSentimentEnum, DemographicGroup} from "../classes/demographic-group.class";
-import {MySurveyResultsService} from "./my-survey-results.service";
+import {SurveysService} from "./surveys.service";
 import {DemographicGroupsService} from "./demographic-groups.service";
 import {NutrientTypesService} from "./nutrient-types.service";
 import {SurveyResult} from "../classes/survey-result.class";
 import {NutrientType} from "../classes/nutrient-types.class";
+import {AppConfig} from "../conf";
 
 
 export enum NutrientTypeIdEnum {
@@ -265,7 +266,7 @@ export class DictionariesService {
 
   private cachedDictionaries: Option<Dictionaries> = none;
 
-  constructor(private mySurveyResultsService: MySurveyResultsService,
+  constructor(private mySurveyResultsService: SurveysService,
               private demographicGroupsService: DemographicGroupsService,
               private nutrientTypesService: NutrientTypesService) {
   }
@@ -274,7 +275,7 @@ export class DictionariesService {
     return this.cachedDictionaries.match({
       some: dictionaries => Observable.of(dictionaries),
       none: () => Observable.forkJoin(
-        this.mySurveyResultsService.getSurveyResult(),
+        this.mySurveyResultsService.getMySurveyResults(AppConfig.surveyId),
         this.demographicGroupsService.list(),
         this.nutrientTypesService.list()
       ).map(res => {

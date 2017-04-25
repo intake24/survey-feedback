@@ -8,7 +8,7 @@ import {FeedbackModule} from "./feedback/feedback.module";
 import {AppRoutingModule} from "./app-routing.module";
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {CookieService} from "angular2-cookie/services/cookies.service";
-import {MySurveyResultsService} from "./services/my-survey-results.service";
+import {SurveysService} from "./services/surveys.service";
 import {DemographicGroupsService} from "./services/demographic-groups.service";
 import {UserDemographicService} from "./services/user-demographic.service";
 import {NutrientTypesService} from "./services/nutrient-types.service";
@@ -19,6 +19,7 @@ import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
 import { GitComponent } from './git/git.component';
+import {TokenLoginModule} from "./token-login/token-login.module";
 
 @NgModule({
   declarations: [
@@ -31,12 +32,13 @@ import { GitComponent } from './git/git.component';
     HttpModule,
     FeedbackModule,
     WelcomeModule,
+    TokenLoginModule,
     AppRoutingModule
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    MySurveyResultsService,
+    SurveysService,
     DemographicGroupsService,
     UserDemographicService,
     NutrientTypesService,

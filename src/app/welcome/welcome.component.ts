@@ -6,7 +6,7 @@ import {UserInfo} from "../classes/user-info.class";
 import {Option, some, none} from "ts-option";
 import {Router} from "@angular/router";
 
-const WELCOME_PATH = "/welcome";
+const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";
 const FEEDBACK_PATH = "/";
 

@@ -10,6 +10,9 @@ import {PieChardData} from "../pie-chart/pie-chart.component";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
 import {Option} from "ts-option";
+import {Router} from "@angular/router";
+
+const USER_INFO_PATH = "/user-info";
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
@@ -80,7 +83,8 @@ export class PlayingCardsComponent {
     },
   ];
 
-  constructor(private dictionariesService: DictionariesService,
+  constructor(private router: Router,
+              private dictionariesService: DictionariesService,
               private userDemographicService: UserDemographicService) {
     this.colorClasses = this.ColorNamesMap.map(cn => cn[0]);
   }
@@ -119,7 +123,9 @@ export class PlayingCardsComponent {
         this.getTopFoods(foods);
         this.isLoading = false;
       },
-      none: () => {}
+      none: () => {
+        this.router.navigate([USER_INFO_PATH]);
+      }
     })
   }
 

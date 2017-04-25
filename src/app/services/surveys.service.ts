@@ -5,17 +5,18 @@ import {UserStateService} from "./user-state.service";
 import {SurveyResult} from "../classes/survey-result.class";
 import {ApiEndpoints} from "../api-endpoints";
 import {AppConfig} from "../conf";
+import {SurveyPublicParameters} from "../classes/survey-public-parameters.class";
 
 
 @Injectable()
-export class MySurveyResultsService {
+export class SurveysService {
 
   constructor(private httpService: AppHttp, private userService: UserStateService) {
   }
 
-  getSurveyResult(): Observable<SurveyResult> {
+  getMySurveyResults(surveyId: string): Observable<SurveyResult> {
     return this.httpService
-      .get(ApiEndpoints.mySurveyResults(AppConfig.surveyId))
+      .get(ApiEndpoints.mySurveyResults(surveyId))
       .map(res => {
         let surveyResult = SurveyResult.fromJson(res.json());
         if (surveyResult.surveySubmissions.length == 0) {
@@ -24,6 +25,11 @@ export class MySurveyResultsService {
           return surveyResult;
         }
       });
+  }
+
+  getSurveyPublicInfo(surveyId: string): Observable<SurveyPublicParameters> {
+    return this.httpService.get(ApiEndpoints.surveyPublicParameters(surveyId))
+      .map(res => SurveyPublicParameters.fromJson(res.json()));
   }
 
 }

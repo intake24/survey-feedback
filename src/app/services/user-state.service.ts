@@ -63,6 +63,14 @@ export class UserStateService {
     });
   }
 
+  loginWithToken(token: string): Observable<Response> {
+    return this.http.post(ApiEndpoints.loginWithToken(token), {})
+      .map(res => {
+        this.setRefreshToken(res.json().refreshToken);
+        return res;
+      })
+  }
+
   private dropAccessToken(): void {
     localStorage.removeItem(this.ACCESS_TOKEN_COOKIE_NAME);
   }

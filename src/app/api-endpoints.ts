@@ -8,6 +8,10 @@ export class ApiEndpoints {
 
   static readonly apiBaseUrl = AppConfig.apiBaseUrl;
 
+  static loginWithToken(token: string): string {
+    return  `${ApiEndpoints.apiBaseUrl}signin/token/${token}`
+  };
+
   static refreshUserToken(): string {
     return  `${ApiEndpoints.apiBaseUrl}refresh`
   };
@@ -26,6 +30,10 @@ export class ApiEndpoints {
 
   static mySurveyResults(surveyId: string): string {
     return  `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
+  }
+
+  static surveyPublicParameters(surveyId: string): string {
+    return  `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/public-parameters`;
   }
 
   static myUserInfo(): string {

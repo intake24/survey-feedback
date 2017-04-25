@@ -1,10 +1,9 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from "@angular/router";
-import {WelcomeComponent} from "./welcome.component";
+import {TokenLoginComponent} from "./token-login.component";
 
 export const rootRouterConfig: Routes = [
-  {path: "user-info", component: WelcomeComponent},
-  {path: "thanks", component: WelcomeComponent},
+  {path: "token-login/:token", component: TokenLoginComponent},
 ];
 
 @NgModule({
@@ -15,5 +14,5 @@ export const rootRouterConfig: Routes = [
     RouterModule
   ]
 })
-export class WelcomeRoutingModule {
+export class TokenLoginRoutingModule {
 }
