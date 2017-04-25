@@ -70,7 +70,7 @@ export class WelcomeComponent implements OnInit {
       some: ui => {
         return ui.firstName.isDefined &&
           ui.sex.isDefined &&
-          ui.yearOfBirth.isDefined &&
+          ui.birthdate.isDefined &&
           ui.weight.isDefined &&
           ui.height.isDefined;
       },

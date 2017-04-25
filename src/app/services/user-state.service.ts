@@ -4,6 +4,7 @@ import {User} from "../classes/user.class";
 import {RequestOptions, Http, Response, Headers} from "@angular/http";
 import {ApiEndpoints} from "../api-endpoints";
 import {Observable, ReplaySubject, BehaviorSubject} from "rxjs";
+import {AppConfig} from "../conf";
 
 @Injectable()
 export class UserStateService {
@@ -55,6 +56,7 @@ export class UserStateService {
           this.setAccessToken(res.json().accessToken);
           return res;
         }).catch(err => {
+          location.pathname = AppConfig.surveyPath;
           this.notifyAuthSubscribers();
           return Observable.throw(err);
         });
@@ -75,7 +77,7 @@ export class UserStateService {
   private getRefreshToken(): Observable<string> {
     let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
-      return Observable.throw(`${UserStateService.Name}: Refresh token is not set`);
+      location.pathname = AppConfig.surveyPath;
     } else {
       this.notifyAuthSubscribers();
       return Observable.of(token);
@@ -100,6 +102,7 @@ export class UserStateService {
       parsedToken = JSON.parse(atob(tokenPart)),
       credentials = JSON.parse(atob(parsedToken.sub)),
       providerParts = credentials.providerKey.split("#");
+    console.log(parsedToken, credentials, providerParts);
     if (providerParts.length < 2) {
       throw "Access token format changed. Could not retrieve surveyId and userName";
     }

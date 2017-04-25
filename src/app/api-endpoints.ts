@@ -1,4 +1,4 @@
-import {environment} from '../environments/environment';
+import {AppConfig} from "./conf";
 
 export class ApiEndpoints {
 
@@ -6,30 +6,29 @@ export class ApiEndpoints {
     return window;
   }
 
-  static readonly baseUrl = environment.production ? ApiEndpoints.windowRef.apiBaseUrl : "http://api-test.intake24.co.uk/";
-  // static readonly baseUrl = "http://localhost:9000/";
+  static readonly apiBaseUrl = AppConfig.apiBaseUrl;
 
   static refreshUserToken(): string {
-    return ApiEndpoints.baseUrl + "refresh"
+    return  `${ApiEndpoints.apiBaseUrl}refresh`
   };
 
   static demographicGroups(): string {
-    return ApiEndpoints.baseUrl + "admin/demographic-groups";
+    return `${ApiEndpoints.apiBaseUrl}admin/demographic-groups`;
   };
 
   static nutrientTypes(): string {
-    return ApiEndpoints.baseUrl + "admin/nutrient-types";
+    return `${ApiEndpoints.apiBaseUrl}admin/nutrient-types`;
   };
 
   static henryCoefficients(): string {
-    return ApiEndpoints.baseUrl + "admin/henry-coefficients";
+    return `${ApiEndpoints.apiBaseUrl}admin/henry-coefficients`;
   };
 
   static mySurveyResults(surveyId: string): string {
-    return ApiEndpoints.baseUrl + `surveys/${surveyId}/my-submissions`;
+    return  `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
   }
 
   static myUserInfo(): string {
-    return ApiEndpoints.baseUrl + `users/my-info`;
+    return  `${ApiEndpoints.apiBaseUrl}users/my-info`;
   }
 }

@@ -279,6 +279,7 @@ export class DictionariesService {
         this.nutrientTypesService.list()
       ).map(res => {
         let surveySubmissions = res[0];
+        console.log(surveySubmissions);
         let nutrientTypes = res[2];
         let demographicGroups = res[1].map(dg =>
           dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));

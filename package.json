@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildForPlay": "ng build --prod --aot false -op=../SurveyServer/public/survey-feedback"
+    "buildForPlay": "ng build --prod --aot false -ec -d=/assets/survey-feedback/ -op=../SurveyServer/public/survey-feedback && cp ../SurveyServer/public/survey-feedback/index.html ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html"
   },
   "private": true,
   "dependencies": {

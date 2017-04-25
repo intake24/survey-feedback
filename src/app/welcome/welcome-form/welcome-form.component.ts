@@ -40,7 +40,7 @@ export class WelcomeFormComponent implements OnInit {
       none,
       some(this.name),
       some(this.sex),
-      some(this.stringToNumeric(this.yearOfBirth)),
+      some(new Date(`${this.yearOfBirth}-01-01`)),
       some(this.stringToNumeric(this.weight)),
       some(this.stringToNumeric(this.height)),
       none
@@ -70,7 +70,10 @@ export class WelcomeFormComponent implements OnInit {
       some: ui => {
         this.name = ui.firstName.getOrElse(() => "");
         this.sex = ui.sex.getOrElse(() => null);
-        this.yearOfBirth = this.getOptionalNumericAsString(ui.yearOfBirth);
+        this.yearOfBirth = ui.birthdate.match({
+          some: d => String(d.getFullYear()),
+          none: () => ""
+        });
         this.weight = this.getOptionalNumericAsString(ui.weight);
         this.height = this.getOptionalNumericAsString(ui.height);
       },
@@ -82,6 +85,9 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   private isNumeric(num): boolean {
+    if (num == null || num == "") {
+      return false;
+    }
     let n = num.replace(",",".");
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
