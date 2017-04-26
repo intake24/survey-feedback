@@ -9,7 +9,7 @@ import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
-import {Option} from "ts-option";
+import {Option, none, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../../conf";
 
@@ -138,10 +138,19 @@ export class PlayingCardsComponent {
   }
 
   private buildCHaracterCards(foods: Food[], characterRules: CharacterRules[]): void {
-    this.results = characterRules.map(characterRule => {
-      let sentiment = characterRule.getSentiment(this.userDemographic, foods);
-      return sentiment.get;
-    });
+    this.results = characterRules.map(characterRule =>
+      characterRule.getSentiment(this.userDemographic, foods).match({
+        some: sent => some(sent),
+        none: () => {
+          console.warn("Sentiment for character",
+            characterRule.type, "nutrientTypeIds",
+            characterRule.nutrientTypeIds,
+            "resulted empty. Demographic groups",
+            characterRule.demographicGroups);
+          return none;
+        }
+      })
+    ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
     this.resultsInThreeCols = this.getByColumns(3);
     this.resultsInTwoCols = this.getByColumns(2);
     this.resultsInOneCols = this.getByColumns(1);

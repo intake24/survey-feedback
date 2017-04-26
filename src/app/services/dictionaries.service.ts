@@ -290,7 +290,7 @@ export class DictionariesService {
         let characterRules = CharacterBuilders.map(characterBuilder => {
           let nutrientTypeIds = characterBuilder.nutrientTypeIds;
           let dgs = demographicGroups.filter(dg => nutrientTypeIds.indexOf(dg.nutrientTypeId) > -1);
-          return new CharacterRules(dgs, characterBuilder.type,
+          return new CharacterRules(nutrientTypeIds, dgs, characterBuilder.type,
             characterBuilder.sentiments);
         });
 

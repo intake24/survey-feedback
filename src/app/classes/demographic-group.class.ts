@@ -62,21 +62,18 @@ export class DemographicGroup {
 
   getResult(userDemographic: UserDemographic,
             foods: Food[]): Option<DemographicResult> {
-    return this.getConsumption(userDemographic, foods)
-      .flatMap(cons => {
-        let scaleSector = this.getScaleSectorByValue(cons);
-        let bestScaleSector = this.getScaleSectorByBestSentiment();
+    let cons = this.getConsumption(userDemographic, foods);
+    let scaleSector = this.getScaleSectorByValue(cons);
+    let bestScaleSector = this.getScaleSectorByBestSentiment();
 
-        return scaleSector.flatMap(ss => {
-          return bestScaleSector.flatMap(bss => {
-            return some(new DemographicResult(
-              this.cloneWithCustomScalesectors([ss]),
-              this.cloneWithCustomScalesectors([bss]),
-              cons));
-          })
-        })
-
-      });
+    return scaleSector.flatMap(ss => {
+      return bestScaleSector.flatMap(bss => {
+        return some(new DemographicResult(
+          this.cloneWithCustomScalesectors([ss]),
+          this.cloneWithCustomScalesectors([bss]),
+          cons));
+      })
+    });
   }
 
   addNutrient(nutrient: NutrientType): DemographicGroup {
@@ -107,28 +104,27 @@ export class DemographicGroup {
     return result;
   }
 
-  private getConsumption(userDemographic: UserDemographic, foods: Food[]): Option<number> {
+  private getConsumption(userDemographic: UserDemographic, foods: Food[]): number {
     let consumption = foods.map(f => f.getConsumption(this.nutrientTypeId))
       .reduce((a, b) => a + b);
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.ENERGY_DIVIDED_BY_BMR) {
-      return userDemographic.getBmr().map(bmr => consumption / bmr);
+      return consumption / userDemographic.getBmr();
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PER_UNIT_OF_WEIGHT) {
-      return some(consumption / userDemographic.weight);
+      return consumption / userDemographic.weight;
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PERCENTAGE_OF_ENERGEY) {
       let energy = foods.map(f => f.getEnergy()).reduce((a, b) => a + b);
       if (energy == 0) {
-        return some(0);
+        return 0;
       } else {
-        let v = this.nutrientTypeKCalPerUnit.match({
+        return this.nutrientTypeKCalPerUnit.match({
             some: a => consumption * a,
             none: () => 0
           }) * 100 / energy;
-        return some(v);
       }
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.RANGE) {
-      return some(consumption);
+      return consumption;
     } else {
-      return none;
+      throw new Error("Unknown nutrient rule type: " + this.nutrientRuleType);
     }
   }
 
@@ -279,8 +275,8 @@ export class UserDemographic {
       this.age, this.height, this.weight, this.bmrCalculator);
   }
 
-  getBmr(): Option<number> {
-    return this.bmrCalculator.getBMR(this).map(n => Math.round(n * 100) / 100);
+  getBmr(): number {
+    return Math.round(this.bmrCalculator.getBMR(this) * 100) / 100;
   }
 
   static fromUserInfo(userInfo: UserInfo, hc: HenryCoefficientsCalculator): Option<UserDemographic> {

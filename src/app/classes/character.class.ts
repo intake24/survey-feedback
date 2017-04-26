@@ -7,13 +7,16 @@ import {Option, none, some} from "ts-option";
 
 
 export class CharacterRules {
+  readonly nutrientTypeIds: number[];
   readonly demographicGroups: DemographicGroup[];
   readonly type: CharacterTypeEnum;
   readonly sentiments: CharacterSentiment[];
 
-  constructor(demographicGroups: DemographicGroup[],
+  constructor(nutrientTypeIds: number[],
+              demographicGroups: DemographicGroup[],
               type: CharacterTypeEnum,
               sentiments: CharacterSentiment[]) {
+    this.nutrientTypeIds = nutrientTypeIds.slice();
     this.demographicGroups = demographicGroups.map(dg => dg.clone());
     this.type = type;
     this.sentiments = sentiments.map(sent => sent.clone());

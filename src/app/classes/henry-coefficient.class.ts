@@ -14,13 +14,13 @@ export class HenryCoefficientsCalculator {
         return new HenryCoefficientsCalculator(json.map(js => HenryCoefficient.fromJson(js)));
     }
 
-    getBMR(userDemographic: UserDemographic): Option<number> {
+    getBMR(userDemographic: UserDemographic): number {
         let coefs = this.coefficients.filter(c => c.matchesUserDemographic(userDemographic));
 
         if (!coefs.length) {
-            return none;
+            throw new Error("Henry coefficients matching user demographic were not found");
         } else {
-            return some(this.calculateBMR(userDemographic, coefs[0]));
+            return this.calculateBMR(userDemographic, coefs[0]);
         }
     }
 
