@@ -33,7 +33,7 @@ export class UserInfo {
       firstName: OptionToRequest.toRequest(this.firstName),
       sex: OptionToRequest.toRequest(this.sex),
       birthdate: this.birthdate.match({
-        some: d => [d.toISOString()],
+        some: d => [d.toISOString().replace(/T.*/, "")],
         none: () => []
       }),
       weight: OptionToRequest.toRequest(this.weight),
