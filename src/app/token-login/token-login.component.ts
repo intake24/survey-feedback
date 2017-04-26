@@ -29,7 +29,7 @@ export class TokenLoginComponent implements OnInit {
             if (result.surveySubmissions.length == 0) {
               this.goToDefaultPage();
             } else {
-              this.router.navigate([""]);
+              this.goToFeedback();
             }
           }),
         err => this.surveyService.getSurveyPublicInfo(AppConfig.surveyId)
@@ -45,6 +45,10 @@ export class TokenLoginComponent implements OnInit {
 
   private goToDefaultPage(): void {
     location.pathname = AppConfig.surveyPath;
+  }
+
+  private goToFeedback(): void {
+    this.router.navigate([""]);
   }
 
   private goToUrl(url: string): void {
