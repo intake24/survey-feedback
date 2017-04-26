@@ -31,7 +31,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(" + FADE_START_OFFSET + ")",
+            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -40,10 +40,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
 
       transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInUpBig.toString(), [
         animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 0}),
+          style({opacity: 0, transform: "translateY(" + FADE_BIG_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(-" + FADE_START_OFFSET + ")",
+            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -55,7 +55,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 0, transform: "translateY(-" + FADE_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(" + FADE_START_OFFSET + ")",
+            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -64,10 +64,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
 
       transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInDownBig.toString(), [
         animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(-" + FADE_START_OFFSET + ")", offset: 0}),
+          style({opacity: 0, transform: "translateY(-" + FADE_BIG_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(" + FADE_START_OFFSET + ")",
+            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -79,7 +79,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -88,10 +88,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
 
       transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInLeftBig.toString(), [
         animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 0}),
+          style({opacity: 0, transform: "translateX(-" + FADE_BIG_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -103,7 +103,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 1.0})
@@ -122,7 +122,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(-" + FADE_START_OFFSET + ")",
+            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 1.0})
@@ -134,10 +134,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateY(-" + FADE_START_OFFSET + ")",
+            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
-          style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 1.0})
+          style({opacity: 0, transform: "translateY(" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
         ]))
       ]),
 
@@ -146,10 +146,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
-          style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 1.0})
+          style({opacity: 0, transform: "translateX(-" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
         ]))
       ]),
 
@@ -158,7 +158,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(-" + FADE_START_OFFSET + ")",
+            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -167,10 +167,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
 
       transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInRightBig.toString(), [
         animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 0}),
+          style({opacity: 0, transform: "translateX(" + FADE_BIG_START_OFFSET + ")", offset: 0}),
           style({
             opacity: 1,
-            transform: "translateX(-" + FADE_START_OFFSET + ")",
+            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
@@ -182,7 +182,7 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "-translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
           style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 1.0})
@@ -194,10 +194,10 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
           style({
             opacity: 1,
-            transform: "-translateX(" + FADE_START_OFFSET + ")",
+            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
             offset: FADE_BOUNCE_START_FRAME_OFFSET
           }),
-          style({opacity: 0, transform: "translateX(${FADE_BIG_START_OFFSET})", offset: 1.0})
+          style({opacity: 0, transform: "translateX(" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
         ]))
       ]),
 

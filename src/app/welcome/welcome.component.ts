@@ -30,7 +30,7 @@ export class WelcomeComponent implements OnInit {
               private router: Router,
               private userInfoService: UserInfoService,
               private surveyService: SurveysService) {
-    this.thanksAnimation = AnimateActionEnum.Visible;
+    this.thanksAnimation = AnimateActionEnum.Hidden;
     this.welcomeFormAnimation = AnimateActionEnum.Hidden;
   }
 
@@ -38,8 +38,8 @@ export class WelcomeComponent implements OnInit {
     this.checkSurveyResults().subscribe(_ => {
       this.userInfoService.getMyInfo()
         .finally(() => {
-          this.loading = false;
           this.setView();
+          this.loading = false;
         })
         .subscribe(ui => this.userInfo = some(ui), err => this.userInfo = none);
     });
@@ -55,9 +55,14 @@ export class WelcomeComponent implements OnInit {
 
   onUserInfo(userInfo: UserInfo): void {
     this.loading = true;
+    this.welcomeFormAnimation = AnimateActionEnum.FadeOutDownBig;
     this.userInfoService.updateMyInfo(userInfo)
-      .finally(() => this.loading = false)
-      .subscribe(_ => this.router.navigate([FEEDBACK_PATH]));
+      .subscribe(_ => {
+        this.router.navigate([FEEDBACK_PATH]);
+      }, error => {
+        this.loading = false;
+        this.welcomeFormAnimation = AnimateActionEnum.FadeInUpBig;
+      });
   }
 
   private checkSurveyResults(): Observable<SurveyResult> {
@@ -74,7 +79,9 @@ export class WelcomeComponent implements OnInit {
 
   private setView(): void {
     if (this.location.path() == WELCOME_PATH) {
-      this.switchModals();
+      this.welcomeFormAnimation = AnimateActionEnum.FadeInUp;
+    } else {
+      this.thanksAnimation = AnimateActionEnum.FadeInUp;
     }
   }
 

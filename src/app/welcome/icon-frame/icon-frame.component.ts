@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 
 @Component({
   selector: 'i24-icon-frame',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IconFrameComponent implements OnInit {
 
-  constructor() { }
+  animation: AnimateActionEnum;
+
+  constructor() {
+    this.animation = AnimateActionEnum.Hidden;
+  }
 
   ngOnInit() {
+    this.animation = AnimateActionEnum.ZoomIn;
   }
 
 }
