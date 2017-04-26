@@ -1,6 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {UserDemographic} from "../../classes/demographic-group.class";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
+import {AppConfig} from "../../conf";
 
 @Component({
   selector: "user-demographic-info",
@@ -11,8 +12,10 @@ import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 export class UserDemographicInfoComponent {
 
   readonly animation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
+  readonly surveyPath: string = AppConfig.surveyPath;
 
   @Input() userDemographic: UserDemographic;
+  @Input() daysRecorded: number;
 
   constructor() {
   }

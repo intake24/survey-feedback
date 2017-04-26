@@ -36,6 +36,8 @@ export class PlayingCardsComponent {
   readonly textAnimation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
   readonly cardsAnimation: AnimateActionEnum = AnimateActionEnum.FadeInLeft;
   readonly buttonsAnimation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
+  readonly surveyPath: string = AppConfig.surveyPath;
+  readonly showTopNumber: number = 5;
 
   isLoading: boolean = true;
 
@@ -58,8 +60,7 @@ export class PlayingCardsComponent {
 
   tellMeMoreVisible: boolean = false;
   tellMeMoreDetails: PlayingCardDetails[];
-
-  showTopNumber: number = 5;
+  daysRecorded: number;
 
   diets: any = [
     {
@@ -122,6 +123,8 @@ export class PlayingCardsComponent {
       location.pathname = AppConfig.surveyPath;
       return;
     }
+
+    this.daysRecorded = surveyResult.surveySubmissions.length;
 
     let foods: Food[] = surveyResult.getReducedFoods();
     dictionariesRes[1].match({

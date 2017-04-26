@@ -16,11 +16,15 @@
           Weight: {{userDemographic?.weight}}kg
           <br>
           Height: {{userDemographic?.height}}cm
-        </li>
-        <li class="list-inline-item">
-          BMR: {{userDemographic?.getBmr().get}}kCal
           <br>
           <a [href]="'#/user-info'">Change my info</a>
+        </li>
+        <li class="list-inline-item">
+          BMR: {{userDemographic?.getBmr()}}kCal
+          <br>
+          Days recorded: {{daysRecorded}}
+          <br>
+          <a [href]="surveyPath">Record another day</a>
         </li>
       </ul>
     </i24-appear-in-viewport>

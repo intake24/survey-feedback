@@ -3,7 +3,9 @@
 <div *ngIf="results">
 
   <div class="pt-5">
-    <user-demographic-info *ngIf="userDemographic" [userDemographic]="userDemographic"></user-demographic-info>
+    <user-demographic-info *ngIf="userDemographic"
+                           [userDemographic]="userDemographic"
+                           [daysRecorded]="daysRecorded"></user-demographic-info>
   </div>
 
   <div class="container-fluid pt-2 mb-4">
@@ -21,7 +23,8 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item"
+                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -34,7 +37,8 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item"
+                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -47,7 +51,8 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
                                       [animationDelay]="(i+j+1)*100">
-                <feedback-playing-card [characterDescription]="item" (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+                <feedback-playing-card [characterDescription]="item"
+                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
 
@@ -104,6 +109,12 @@
   <div class="container-fluid pt-4 pb-4 mb-4">
     <div class="row">
       <div class="col-sm-4 offset-sm-4">
+
+        <div class="mb-4">
+          <a [href]="surveyPath" class="btn btn-outline-primary btn-block btn-lg">
+            Record another day
+          </a>
+        </div>
 
         <i24-feedback-helpful></i24-feedback-helpful>
 
