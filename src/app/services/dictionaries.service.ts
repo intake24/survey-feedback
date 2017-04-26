@@ -2,8 +2,11 @@ import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {Option, none, some} from "ts-option";
 import {
-  CharacterTypeEnum, CharacterBuilder, CharacterSentimentEnum,
-  CharacterSentiment, CharacterRules
+  CharacterTypeEnum,
+  CharacterBuilder,
+  CharacterSentimentEnum,
+  CharacterSentiment,
+  CharacterRules
 } from "../classes/character.class";
 import {DemographicScaleSectorSentimentEnum, DemographicGroup} from "../classes/demographic-group.class";
 import {SurveysService} from "./surveys.service";
@@ -279,8 +282,7 @@ export class DictionariesService {
         this.demographicGroupsService.list(),
         this.nutrientTypesService.list()
       ).map(res => {
-        let surveySubmissions = res[0];
-        console.log(surveySubmissions);
+        let surveyResult = res[0];
         let nutrientTypes = res[2];
         let demographicGroups = res[1].map(dg =>
           dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
@@ -292,7 +294,7 @@ export class DictionariesService {
             characterBuilder.sentiments);
         });
 
-        let dictionaries = new Dictionaries(surveySubmissions, demographicGroups,
+        let dictionaries = new Dictionaries(surveyResult, demographicGroups,
           nutrientTypes, characterRules);
 
         this.cachedDictionaries = some(dictionaries);
@@ -310,11 +312,11 @@ export class Dictionaries {
   readonly nutrientTypes: NutrientType[];
   readonly characterRules: CharacterRules[];
 
-  constructor(surveySubmissions: SurveyResult,
+  constructor(surveyResult: SurveyResult,
               demographicGroups: DemographicGroup[],
               nutrientTypes: NutrientType[],
               characterRules: CharacterRules[]) {
-    this.surveyResult = surveySubmissions;
+    this.surveyResult = surveyResult;
     this.demographicGroups = demographicGroups;
     this.nutrientTypes = nutrientTypes;
     this.characterRules = characterRules;

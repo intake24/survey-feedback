@@ -62,7 +62,6 @@ export class DemographicGroup {
 
   getResult(userDemographic: UserDemographic,
             foods: Food[]): Option<DemographicResult> {
-
     return this.getConsumption(userDemographic, foods)
       .flatMap(cons => {
         let scaleSector = this.getScaleSectorByValue(cons);
@@ -111,18 +110,21 @@ export class DemographicGroup {
   private getConsumption(userDemographic: UserDemographic, foods: Food[]): Option<number> {
     let consumption = foods.map(f => f.getConsumption(this.nutrientTypeId))
       .reduce((a, b) => a + b);
-
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.ENERGY_DIVIDED_BY_BMR) {
       return userDemographic.getBmr().map(bmr => consumption / bmr);
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PER_UNIT_OF_WEIGHT) {
       return some(consumption / userDemographic.weight);
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PERCENTAGE_OF_ENERGEY) {
       let energy = foods.map(f => f.getEnergy()).reduce((a, b) => a + b);
-      let v = this.nutrientTypeKCalPerUnit.match({
-          some: a => consumption * a,
-          none: () => 0
-        }) * 100 / energy;
-      return some(v);
+      if (energy == 0) {
+        return some(0);
+      } else {
+        let v = this.nutrientTypeKCalPerUnit.match({
+            some: a => consumption * a,
+            none: () => 0
+          }) * 100 / energy;
+        return some(v);
+      }
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.RANGE) {
       return some(consumption);
     } else {

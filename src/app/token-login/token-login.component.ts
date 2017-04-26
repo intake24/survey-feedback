@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserStateService} from "../services/user-state.service";
 import {AppConfig} from "../conf";
 import {SurveysService} from "../services/surveys.service";
@@ -12,6 +12,7 @@ import {SurveysService} from "../services/surveys.service";
 export class TokenLoginComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private userService: UserStateService,
               private surveyService: SurveysService) {
   }
@@ -23,7 +24,14 @@ export class TokenLoginComponent implements OnInit {
   private loginWithToken(token: string): void {
     this.userService.loginWithToken(token)
       .subscribe(
-        res => this.goToDefaultPage(),
+        res => this.surveyService.getMySurveyResults(AppConfig.surveyId)
+          .subscribe(result => {
+            if (result.surveySubmissions.length == 0) {
+              this.goToDefaultPage();
+            } else {
+              this.router.navigate([""]);
+            }
+          }),
         err => this.surveyService.getSurveyPublicInfo(AppConfig.surveyId)
           .subscribe(
             surveyInfo => surveyInfo.originatingURL.match({

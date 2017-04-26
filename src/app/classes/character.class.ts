@@ -19,28 +19,24 @@ export class CharacterRules {
     this.sentiments = sentiments.map(sent => sent.clone());
   }
 
-  getDemographicsGroups(userDemographic: UserDemographic, foods: Food[]): Option<DemographicResult>[] {
-    let demographicGroups = this.demographicGroups
-      .filter(dg => dg.matchesUserDemographic(userDemographic));
-    if (demographicGroups.length == 0) {
-      return [];
-    } else {
-      return demographicGroups.map(dg => dg.getResult(userDemographic, foods))
-        .filter(dg => dg.match({
-          some: dg => dg.resultedDemographicGroup.scaleSectors.length != 0,
-          none: () => false
-        }));
-    }
-  }
-
   getSentiment(userDemographic: UserDemographic, foods: Food[]): Option<CharacterSentimentWithDescription> {
     let demographicGroups = this.getDemographicsGroups(userDemographic, foods)
       .map(dg => dg.get);
     let scaleSectors = demographicGroups
       .map(dg => dg.resultedDemographicGroup.scaleSectors)
-      .reduce((a, b) => a.slice().concat(b));
+      .reduce((a, b) => a.slice().concat(b), []);
     return this.pickAverageSentiment(scaleSectors)
       .map(cs => new CharacterSentimentWithDescription(this.type, cs, demographicGroups));
+  }
+
+  private getDemographicsGroups(userDemographic: UserDemographic, foods: Food[]): Option<DemographicResult>[] {
+    let demographicGroups = this.demographicGroups
+      .filter(dg => dg.matchesUserDemographic(userDemographic));
+    return demographicGroups.map(dg => dg.getResult(userDemographic, foods))
+      .filter(dg => dg.match({
+        some: dg => dg.resultedDemographicGroup.scaleSectors.length != 0,
+        none: () => false
+      }));
   }
 
   private pickAverageSentiment(scaleSectors: DemographicScaleSector[]): Option<CharacterSentiment> {

@@ -18,12 +18,7 @@ export class SurveysService {
     return this.httpService
       .get(ApiEndpoints.mySurveyResults(surveyId))
       .map(res => {
-        let surveyResult = SurveyResult.fromJson(res.json());
-        if (surveyResult.surveySubmissions.length == 0) {
-          location.pathname = AppConfig.surveyPath;
-        } else {
-          return surveyResult;
-        }
+        return SurveyResult.fromJson(res.json());
       });
   }
 

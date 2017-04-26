@@ -11,6 +11,7 @@ import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
 import {Option} from "ts-option";
 import {Router} from "@angular/router";
+import {AppConfig} from "../../conf";
 
 const USER_INFO_PATH = "/user-info";
 
@@ -115,7 +116,14 @@ export class PlayingCardsComponent {
 
   private buildView(dictionariesRes: [Dictionaries, Option<UserDemographic>]): void {
 
-    let foods: Food[] = dictionariesRes[0].surveyResult.getReducedFoods();
+    let surveyResult = dictionariesRes[0].surveyResult;
+
+    if (surveyResult.surveySubmissions.length == 0) {
+      location.pathname = AppConfig.surveyPath;
+      return;
+    }
+
+    let foods: Food[] = surveyResult.getReducedFoods();
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
@@ -169,8 +177,12 @@ export class PlayingCardsComponent {
   }
 
   private summeriseOtherFood(nutrientTypeId: number, foods: Food[]): Food[] {
-    let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
-    return [new Food("other", "Other food", "Other food", new Map([[nutrientTypeId, total]]))];
+    if (!foods.length) {
+      return [];
+    } else {
+      let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
+      return [new Food("other", "Other food", "Other food", new Map([[nutrientTypeId, total]]))];
+    }
   }
 
 }

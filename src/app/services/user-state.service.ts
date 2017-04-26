@@ -40,6 +40,11 @@ export class UserStateService {
     }
   }
 
+  logout(): void {
+    localStorage.removeItem(this.REFRESH_TOKEN_COOKIE_NAME);
+    localStorage.removeItem(this.ACCESS_TOKEN_COOKIE_NAME);
+  }
+
   getSurveyId(): Observable<string> {
     return this.getCredentialsFromToken().map(uc => uc.surveyId);
   }
@@ -64,6 +69,7 @@ export class UserStateService {
   }
 
   loginWithToken(token: string): Observable<Response> {
+    this.logout();
     return this.http.post(ApiEndpoints.loginWithToken(token), {})
       .map(res => {
         this.setRefreshToken(res.json().refreshToken);
