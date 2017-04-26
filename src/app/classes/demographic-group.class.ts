@@ -66,6 +66,16 @@ export class DemographicGroup {
     let scaleSector = this.getScaleSectorByValue(cons);
     let bestScaleSector = this.getScaleSectorByBestSentiment();
 
+    if (scaleSector.isEmpty) {
+      console.warn("Scale sector for user demographic",
+        userDemographic,
+        "and consumption",
+        cons,
+        "was not found in demographic group",
+        this
+      )
+    }
+
     return scaleSector.flatMap(ss => {
       return bestScaleSector.flatMap(bss => {
         return some(new DemographicResult(
