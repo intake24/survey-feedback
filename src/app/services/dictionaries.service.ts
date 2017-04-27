@@ -40,7 +40,7 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "Big things require more energy"),
+      "You need more energy"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
