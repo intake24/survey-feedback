@@ -61,7 +61,7 @@ export class UserStateService {
           this.setAccessToken(res.json().accessToken);
           return res;
         }).catch(err => {
-          location.pathname = AppConfig.surveyPath;
+          location.href = AppConfig.surveyPath;
           this.notifyAuthSubscribers();
           return Observable.throw(err);
         });
@@ -91,7 +91,7 @@ export class UserStateService {
   private getRefreshToken(): Observable<string> {
     let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
-      location.pathname = AppConfig.surveyPath;
+      location.href = AppConfig.surveyPath;
       return Observable.empty();
     } else {
       this.notifyAuthSubscribers();

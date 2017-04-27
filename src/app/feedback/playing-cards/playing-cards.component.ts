@@ -120,7 +120,7 @@ export class PlayingCardsComponent {
     let surveyResult = dictionariesRes[0].surveyResult;
 
     if (surveyResult.surveySubmissions.length == 0) {
-      location.pathname = AppConfig.surveyPath;
+      location.href = AppConfig.surveyPath;
       return;
     }
 

@@ -44,7 +44,7 @@ export class TokenLoginComponent implements OnInit {
   }
 
   private goToDefaultPage(): void {
-    location.pathname = AppConfig.surveyPath;
+    location.href = AppConfig.surveyPath;
   }
 
   private goToFeedback(): void {
