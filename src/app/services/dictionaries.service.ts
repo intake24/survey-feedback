@@ -26,7 +26,7 @@ export enum NutrientTypeIdEnum {
   SatdFat = <number>50,
   Fibre = <number>15,
   VitaminA = <number>120,
-  Calcium = <number>129,
+  Calcium = <number>140,
   VitaminC = <number>129
 }
 
