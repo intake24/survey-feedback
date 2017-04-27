@@ -92,6 +92,7 @@ export class UserStateService {
     let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
       location.pathname = AppConfig.surveyPath;
+      return Observable.empty();
     } else {
       this.notifyAuthSubscribers();
       return Observable.of(token);
