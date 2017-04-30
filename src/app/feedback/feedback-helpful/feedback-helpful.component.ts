@@ -86,15 +86,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
   }
 
   constructor() {
-    this.feedbackFormAnimation = AnimateActionEnum.Hidden;
-    this.feedbackRequestAnimation = AnimateActionEnum.Visible;
-    this.thankYouAnimation = AnimateActionEnum.Hidden;
-    this.characterType = CharacterTypeEnum.STRAWBERRY;
-    this.characterSentiment = CharacterSentimentEnum.HAPPY;
-    this.liked = false;
-    this.disliked = false;
-    this.showThankYouText = false;
-    this.showFeedbackForm = false;
+    this.reset();
   }
 
   ngOnInit() {
@@ -128,6 +120,21 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
 
   closeModal(): void {
     this.modalIsActive = false;
+    if (!this.showThankYouText) {
+      this.reset();
+    }
+  }
+
+  private reset(): void {
+    this.feedbackFormAnimation = AnimateActionEnum.Hidden;
+    this.feedbackRequestAnimation = AnimateActionEnum.Visible;
+    this.thankYouAnimation = AnimateActionEnum.Hidden;
+    this.characterType = CharacterTypeEnum.STRAWBERRY;
+    this.characterSentiment = CharacterSentimentEnum.HAPPY;
+    this.liked = false;
+    this.disliked = false;
+    this.showThankYouText = false;
+    this.showFeedbackForm = false;
   }
 
 }

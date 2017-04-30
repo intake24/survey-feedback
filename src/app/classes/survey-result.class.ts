@@ -16,9 +16,13 @@ export class SurveyResult {
     return new SurveyResult(jsonList.map(js => SurveySubmission.fromJson(js)));
   }
 
-  getReducedFoods(): Food[] {
-    let foods = this.surveySubmissions.map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
+  getReducedFoods(day?: number): Food[] {
+    let foods = this.surveySubmissions
+        .filter((ss, i) => day == null || day == i)
+        .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
+
     let uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
+
     return uniqueCodes.map(code => {
       let totalConsumptionMap: Map<number, number> = new Map();
       let matchingFoods = foods.filter(f => f.code == code);
