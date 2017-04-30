@@ -1,7 +1,7 @@
 import {Component, Input} from "@angular/core";
-import {UserDemographic} from "../../classes/demographic-group.class";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {AppConfig} from "../../conf";
+import {UserDemographic} from "../../classes/user-demographic.class";
 
 @Component({
   selector: "user-demographic-info",

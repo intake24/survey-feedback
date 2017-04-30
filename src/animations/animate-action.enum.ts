@@ -11,6 +11,7 @@ export enum AnimateActionEnum {
   FadeInRight = <any>"FadeInRight",
   FadeInRightBig = <any>"FadeInRightBig",
   FadeOut = <any>"FadeOut",
+  FadeOutUp = <any>"FadeOutUp",
   FadeOutDown = <any>"FadeOutDown",
   FadeOutDownBig = <any>"FadeOutDownBig",
   FadeOutLeft = <any>"FadeOutLeft",
@@ -21,7 +22,7 @@ export enum AnimateActionEnum {
 }
 
 export class AnimateActionAlias {
-  static readonly aliasMap: Map<AnimateActionEnum, AnimateActionEnum> = new Map([
+  private static readonly aliasMap: Map<AnimateActionEnum, AnimateActionEnum> = new Map([
     [AnimateActionEnum.Visible, AnimateActionEnum.Visible],
     [AnimateActionEnum.FadeIn, AnimateActionEnum.Visible],
     [AnimateActionEnum.FadeInUp, AnimateActionEnum.Visible],
@@ -36,11 +37,17 @@ export class AnimateActionAlias {
 
     [AnimateActionEnum.Hidden, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOut, AnimateActionEnum.Hidden],
+    [AnimateActionEnum.FadeOutUp, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutDown, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutDownBig, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutLeft, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutLeftBig, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutRight, AnimateActionEnum.Hidden],
     [AnimateActionEnum.FadeOutRightBig, AnimateActionEnum.Hidden],
-  ])
+  ]);
+
+  static getItem(animateActionEnum: AnimateActionEnum): AnimateActionEnum {
+    return AnimateActionAlias.aliasMap.get(animateActionEnum);
+  }
+
 }

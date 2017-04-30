@@ -6,20 +6,33 @@
           &times;
         </button>
         <div *ngFor="let det of details; let index = index;">
-          <div class="border-bottom pt-4 pb-4 mb-4" [class.border-top]="index > 0">
+          <div class="border-bottom pt-4 mb-4" [class.border-top]="index > 0">
             <h2>{{det.title}}</h2>
-            <div class="row">
+            <div class="row mb-2">
               <div class="col-6">
                 <strong>Estimated intake:</strong>
-                <span [ngClass]="det.textClass">{{det.consumption}}{{det.units}}</span>
+                <span class="text-nowrap">
+                  <span [ngClass]="det.textClass">{{det.consumption}}{{det.units}}</span>
+                  <button type="button"
+                          class="btn btn-outline-primary btn-sm btn-rounded"
+                          title="Explain the estimate"
+                          (click)="toggleAlert()">
+                    ?
+                  </button>
+                </span>
               </div>
               <div class="col-6">
                 <strong>Optimal intake:</strong>
                 <span class="text-nowrap">
-                {{det.targetConsumption.toString()}}{{det.units}}
-              </span>
+                  {{det.targetConsumption.toString()}}{{det.units}}
+                </span>
               </div>
             </div>
+            <animate [display]="false" [action]="alertAnimation">
+              <div class="alert alert-info">
+                {{det.unitDescription}}
+              </div>
+            </animate>
           </div>
           <p [innerHTML]="det.description"></p>
         </div>

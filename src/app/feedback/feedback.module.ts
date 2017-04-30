@@ -6,7 +6,6 @@ import {LocationStrategy, HashLocationStrategy} from "@angular/common";
 import {ResultListDietItemComponent} from "./result-list-diet-item/result-list-diet-item.component";
 import {PlayingCardsComponent} from "./playing-cards/playing-cards.component";
 import {PlayingCardComponent} from "./playing-card/playing-card.component";
-import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import {PieChartComponent} from './pie-chart/pie-chart.component';
@@ -17,6 +16,7 @@ import {SharedModule} from "../shared/shared.module";
 import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
 import {FeedbackHelpfulComponent} from "./feedback-helpful/feedback-helpful.component";
 import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
+import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 
 
 @NgModule({

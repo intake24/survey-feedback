@@ -1,8 +1,7 @@
-import {Component, ChangeDetectionStrategy} from "@angular/core";
+import {Component} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {Observable} from "rxjs";
 import {CharacterSentimentWithDescription, CharacterRules} from "../../classes/character.class";
-import {UserDemographic} from "../../classes/demographic-group.class";
 import {Food} from "../../classes/survey-result.class";
 import {NutrientTypeIdEnum, DictionariesService, Dictionaries} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
@@ -12,6 +11,7 @@ import {PlayingCardDetails} from "../playing-card/playing-card.component";
 import {Option, none, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../../conf";
+import {UserDemographic} from "../../classes/user-demographic.class";
 
 const USER_INFO_PATH = "/user-info";
 

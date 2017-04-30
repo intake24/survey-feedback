@@ -1,0 +1,10 @@
+.btn-rounded {
+  padding: 0.5rem 0.5rem;
+  border-radius: 100%;
+  width: 38px;
+
+  &.btn-sm {
+    padding: 0.25rem 0.25rem;
+    width: 27px;
+  }
+}

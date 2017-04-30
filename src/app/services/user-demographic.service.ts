@@ -3,9 +3,9 @@ import {AppHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {ApiEndpoints} from "../api-endpoints";
 import {HenryCoefficientsCalculator} from "../classes/henry-coefficient.class";
-import {Option, none, some} from "ts-option";
-import {UserDemographic, DemographicSexEnum} from "../classes/demographic-group.class";
+import {Option, none} from "ts-option";
 import {UserInfoService} from "./user-info.service";
+import {UserDemographic} from "../classes/user-demographic.class";
 
 @Injectable()
 export class UserDemographicService {

@@ -18,13 +18,11 @@ import {AppHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
-import { GitComponent } from './git/git.component';
 import {TokenLoginModule} from "./token-login/token-login.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    GitComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

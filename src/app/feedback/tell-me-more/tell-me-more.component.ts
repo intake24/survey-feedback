@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, OnChanges, Output, EventEmitter} from '@angular/core';
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
+import {AnimateActionEnum, AnimateActionAlias} from "../../../animations/animate-action.enum";
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
 
@@ -69,8 +69,10 @@ export class TellMeMoreComponent implements OnChanges {
   @Input() details: PlayingCardDetails[];
   @Output() activeChange = new EventEmitter<any>();
 
-  constructor() {
+  alertAnimation: AnimateActionEnum;
 
+  constructor() {
+    this.alertAnimation = AnimateActionEnum.Hidden;
   }
 
   ngOnChanges() {
@@ -78,6 +80,14 @@ export class TellMeMoreComponent implements OnChanges {
       document.body.classList.add("modal-open");
     } else {
       document.body.classList.remove("modal-open");
+    }
+  }
+
+  toggleAlert(): void {
+    if (AnimateActionAlias.getItem(this.alertAnimation) == AnimateActionEnum.Hidden) {
+      this.alertAnimation = AnimateActionEnum.FadeInDown;
+    } else {
+      this.alertAnimation = AnimateActionEnum.FadeOutUp;
     }
   }
 

@@ -1,9 +1,10 @@
 import {
   DemographicScaleSectorSentimentEnum, DemographicGroup,
-  UserDemographic, DemographicScaleSector, DemographicResult
+  DemographicScaleSector, DemographicResult
 } from "../classes/demographic-group.class";
 import {Food} from "../classes/survey-result.class";
 import {Option, none, some} from "ts-option";
+import {UserDemographic} from "./user-demographic.class";
 
 
 export class CharacterRules {

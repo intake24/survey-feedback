@@ -1,7 +1,9 @@
-@import "config";
-@import "placeholder-mixin";
-@import "transition-mixin";
-@import "transform-mixin";
+@import "../config";
+@import "../placeholder-mixin";
+@import "../transition-mixin";
+@import "../transform-mixin";
+
+@import "./buttons";
 
 @mixin bootstrap-input-default-sizing {
   padding: 0.5rem 0.75rem;
@@ -34,102 +36,6 @@
   padding: 1px 4px;
   font-size: 12px;
   display: inline-block;
-}
-
-.btn-rounded {
-  $yellow: #ffbf00;
-  $green: #339973;
-  $blue: #337899;
-
-  $border-color: #ccc;
-  $size: 170px;
-  width: $size;
-  height: $size;
-  background: transparent;
-  border: 1px solid $border-color;
-  white-space: normal;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-
-  &-icon {
-
-    display: block;
-    height: 72%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    border-bottom: 1px solid $border-color;
-    color: #fff;
-
-    i {
-      $height: 80px;
-      $width: 96px;
-      width: $width;
-      height: $height;
-      font-size: $height;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: -$height / 2;
-      margin-left: -$width / 2;
-    }
-
-  }
-
-  &-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: block;
-    width: 100%;
-    height: 28%;
-    padding: 4px 25px;
-    font-size: 13px;
-    background: #fff;
-    color: #666;
-  }
-
-  &-yellow {
-
-    .btn-rounded {
-      &-icon {
-        background: $yellow;
-      }
-      &-text {
-
-      }
-    }
-  }
-
-  &-green {
-
-    .btn-rounded {
-      &-icon {
-        background: $green;
-      }
-      &-text {
-
-      }
-    }
-  }
-
-  &-blue {
-
-    .btn-rounded {
-      &-icon {
-        background: $blue;
-      }
-      &-text {
-
-      }
-    }
-
-  }
-
 }
 
 .no-gutters {

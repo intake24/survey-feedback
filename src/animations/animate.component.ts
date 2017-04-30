@@ -117,6 +117,18 @@ import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
         ]))
       ]),
 
+      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutUp.toString(), [
+        animate(ANIMATION_DURATION, keyframes([
+          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
+          style({
+            opacity: 1,
+            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
+            offset: FADE_BOUNCE_START_FRAME_OFFSET
+          }),
+          style({opacity: 0, transform: "translateY(-" + FADE_START_OFFSET + ")", offset: 1.0})
+        ]))
+      ]),
+
       transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutDown.toString(), [
         animate(ANIMATION_DURATION, keyframes([
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
@@ -245,23 +257,23 @@ export class AnimateComponent implements OnChanges {
   }
 
   private setDisplayed(): void {
-    if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Visible || this.display != false) {
+    if (AnimateActionAlias.getItem(this.action) == AnimateActionEnum.Visible || this.display != false) {
       this.displayed = true;
     }
   }
 
   private setNotDisplayed(): void {
-    if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Hidden && this.display == false) {
+    if (AnimateActionAlias.getItem(this.action) == AnimateActionEnum.Hidden && this.display == false) {
       this.displayed = false;
     }
   }
 
   private refreshAction(): void {
-    this.action = AnimateActionAlias.aliasMap.get(this.action);
+    this.action = AnimateActionAlias.getItem(this.action);
   }
 
   private emitVisibility($event): void {
-    if (AnimateActionAlias.aliasMap.get(this.action) == AnimateActionEnum.Hidden) {
+    if (AnimateActionAlias.getItem(this.action) == AnimateActionEnum.Hidden) {
       this.onHidden.emit($event);
     } else {
       this.onShown.emit($event);

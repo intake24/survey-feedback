@@ -11,6 +11,7 @@ import {
   DemographicRange, DemographicScaleSectorSentimentEnum,
   DemographicNutrientRuleTypeEnum
 } from "../../classes/demographic-group.class";
+import {DemographicNutrientRuleTypeDescriptions} from "../../classes/demographic-nutrient-rule-type-description.class";
 
 const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
 
@@ -67,19 +68,22 @@ export class PlayingCardComponent implements OnInit {
         let nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
         let unit = this.getUnitFromNutrientRule(dr.resultedDemographicGroup.nutrientRuleType,
           this.nutrientService.getUnitByNutrientTypeId(nutrientId).get);
-        return new PlayingCardDetails(title, consumption, description, targetConsumption, unit, sentiment);
+        let unitDescription = DemographicNutrientRuleTypeDescriptions
+          .getItem(dr.resultedDemographicGroup.nutrientRuleType);
+        return new PlayingCardDetails(title, consumption, description, targetConsumption,
+          unit, unitDescription, sentiment);
       });
   }
 
   private getUnitFromNutrientRule(nutrientRule: DemographicNutrientRuleTypeEnum, defaultUnit: string): string {
     switch (nutrientRule) {
-      case DemographicNutrientRuleTypeEnum.ENERGY_DIVIDED_BY_BMR:
+      case DemographicNutrientRuleTypeEnum.EnergyDividedByBmr:
         return "%";
-      case DemographicNutrientRuleTypeEnum.PER_UNIT_OF_WEIGHT:
-        return defaultUnit;
-      case DemographicNutrientRuleTypeEnum.PERCENTAGE_OF_ENERGEY:
+      case DemographicNutrientRuleTypeEnum.PerUnitOfWeight:
+        return `${defaultUnit} per kg`;
+      case DemographicNutrientRuleTypeEnum.PercentageOfEnergy:
         return "%";
-      case DemographicNutrientRuleTypeEnum.RANGE:
+      case DemographicNutrientRuleTypeEnum.Range:
         return defaultUnit;
       default:
         return defaultUnit;
@@ -99,18 +103,21 @@ export class PlayingCardDetails {
   readonly description: string;
   readonly targetConsumption: DemographicRange;
   readonly units: string;
+  readonly unitDescription: string;
   readonly sentiment: DemographicScaleSectorSentimentEnum;
   readonly textClass: string;
   readonly iconClass: string;
 
   constructor(title: string, consumption: number, description: string, targetConsumption: DemographicRange,
-              units: string, sentiment: DemographicScaleSectorSentimentEnum) {
+              units: string, unitDescription: string,
+              sentiment: DemographicScaleSectorSentimentEnum) {
     this.title = title;
     this.consumption = Math.round(consumption * 100) / 100;
     this.description = description;
     this.targetConsumption = new DemographicRange(Math.round(targetConsumption.start * 100) / 100,
       Math.round(targetConsumption.end * 100) / 100);
     this.units = units;
+    this.unitDescription = unitDescription;
     this.sentiment = sentiment;
     this.textClass = this.getTextClass(sentiment);
     this.iconClass = this.getIconClass(sentiment);
