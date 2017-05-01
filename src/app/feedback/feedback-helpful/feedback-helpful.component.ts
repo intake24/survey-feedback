@@ -96,7 +96,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.liked = true;
     this.disliked = false;
     this.characterSentiment = CharacterSentimentEnum.EXCITING;
-    this.feedbackFormAnimation = AnimateActionEnum.FadeInDown;
+    this.feedbackFormAnimation = AnimateActionEnum.BounceInDown;
     this.modalIsActive = !this.modalIsActive ? true : this.modalIsActive;
     this.openModalIfClosed();
   }
@@ -105,18 +105,18 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.disliked = true;
     this.liked = false;
     this.characterSentiment = CharacterSentimentEnum.WARNING;
-    this.feedbackFormAnimation = AnimateActionEnum.FadeInDown;
+    this.feedbackFormAnimation = AnimateActionEnum.BounceInDown;
     this.openModalIfClosed();
   }
 
   submitFeedback(): void {
     this.characterSentiment = CharacterSentimentEnum.HAPPY;
-    this.feedbackRequestAnimation = AnimateActionEnum.FadeOutRight;
+    this.feedbackRequestAnimation = AnimateActionEnum.BounceOutRight;
     this.showThankYouText = true;
   }
 
   onFeedbackRequestDisappeared($event): void {
-    this.thankYouAnimation = AnimateActionEnum.FadeInRight;
+    this.thankYouAnimation = AnimateActionEnum.BounceInRight;
   }
 
   closeModal(): void {

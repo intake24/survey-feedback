@@ -13,6 +13,8 @@
       <div class="col-lg-10 offset-lg-1">
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
           <h1 class="display-1 text-center mb-2">Story of your Diet</h1>
+          <i24-day-counter [dayNumber]="currentDay" [totalDays]="daysRecorded"
+                           (onNext)="buildView()" (onPrevious)="buildView()"></i24-day-counter>
         </i24-appear-in-viewport>
         <div class="row no-gutters">
 
@@ -22,7 +24,7 @@
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
-                                      [animationDelay]="(i+j+1)*100">
+                                      [animationDelay]="(i+j)*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -36,7 +38,7 @@
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
-                                      [animationDelay]="(i+j+1)*100">
+                                      [animationDelay]="(i+j)*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -50,7 +52,7 @@
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
-                                      [animationDelay]="(i+j+1)*100">
+                                      [animationDelay]="(i+j)*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -77,7 +79,6 @@
               </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInCalories"
                                  [classList]="colorClasses"
-                                 [animationDelay]="200"
                                  [nutrientTypeId]="nutrientTypeIdEnergy"></i24-animated-list>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
@@ -91,13 +92,13 @@
                                  [nutrientTypeId]="nutrientTypeIdSugar"></i24-animated-list>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
-              <i24-pie-chart [data]="satFatChartData" [animateDelay]="600"></i24-pie-chart>
+              <i24-pie-chart [data]="satFatChartData" [animateDelay]="500"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
                 <h1>Highest in saturated fat</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInSatFat"
                                  [classList]="colorClasses"
-                                 [animationDelay]="600"
+                                 [animationDelay]="500"
                                  [nutrientTypeId]="nutrientTypeIdSatFat"></i24-animated-list>
             </div>
           </div>

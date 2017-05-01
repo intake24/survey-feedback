@@ -17,6 +17,7 @@ import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
 import {FeedbackHelpfulComponent} from "./feedback-helpful/feedback-helpful.component";
 import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
+import { DayCounterComponent } from './day-counter/day-counter.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {UserDemographicInfoComponent} from "./user-demographic-info/user-demogra
     AnimatedListComponent,
     AppearInViewportComponent,
     TellMeMoreComponent,
-    FeedbackHelpfulComponent
+    FeedbackHelpfulComponent,
+    DayCounterComponent
   ],
   imports: [BrowserModule,
     FormsModule,

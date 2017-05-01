@@ -14,7 +14,7 @@ import {NutrientTypesService} from "../../services/nutrient-types.service";
 
 export class AnimatedListComponent implements OnInit {
 
-  readonly animation: AnimateActionEnum = AnimateActionEnum.FadeInLeft;
+  readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInLeft;
 
   @Input() items: Food[];
   @Input() classList: string[];

@@ -85,9 +85,9 @@ export class TellMeMoreComponent implements OnChanges {
 
   toggleAlert(): void {
     if (AnimateActionAlias.getItem(this.alertAnimation) == AnimateActionEnum.Hidden) {
-      this.alertAnimation = AnimateActionEnum.FadeInDown;
+      this.alertAnimation = AnimateActionEnum.BounceInDown;
     } else {
-      this.alertAnimation = AnimateActionEnum.FadeOutUp;
+      this.alertAnimation = AnimateActionEnum.BounceOutUp;
     }
   }
 

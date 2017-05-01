@@ -11,7 +11,7 @@ import {UserDemographic} from "../../classes/user-demographic.class";
 
 export class UserDemographicInfoComponent {
 
-  readonly animation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
+  readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInDown;
   readonly surveyPath: string = AppConfig.surveyPath;
 
   @Input() userDemographic: UserDemographic;

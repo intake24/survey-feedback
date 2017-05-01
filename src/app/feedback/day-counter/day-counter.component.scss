@@ -1,0 +1,30 @@
+.i24-day-counter {
+  width: 320px;
+  position: relative;
+  text-align: center;
+  height: 50px;
+  overflow: hidden;
+
+  .right-btn,
+  .left-btn {
+    position: absolute;
+    top: 0;
+  }
+
+  .left-btn {
+    left: 0;
+  }
+
+  .right-btn {
+    right: 0;
+  }
+
+  .day-title {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 50px 0 50px;
+  }
+
+}

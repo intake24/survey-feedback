@@ -33,8 +33,8 @@ export class PlayingCardsComponent {
   ];
 
   readonly colorClasses: string[];
-  readonly textAnimation: AnimateActionEnum = AnimateActionEnum.FadeInDown;
-  readonly cardsAnimation: AnimateActionEnum = AnimateActionEnum.FadeInLeft;
+  readonly textAnimation: AnimateActionEnum = AnimateActionEnum.BounceInDown;
+  readonly cardsAnimation: AnimateActionEnum = AnimateActionEnum.BounceInLeft;
   readonly buttonsAnimation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
   readonly surveyPath: string = AppConfig.surveyPath;
   readonly showTopNumber: number = 5;
@@ -61,29 +61,9 @@ export class PlayingCardsComponent {
   tellMeMoreVisible: boolean = false;
   tellMeMoreDetails: PlayingCardDetails[];
   daysRecorded: number;
+  currentDay: number;
 
-  diets: any = [
-    {
-      src: "/assets/img/salmon-pic.jpg",
-      title: "Salmon",
-      howMany: "At least 2 portions a week. Portion is around 140g.",
-      sourceOf: ["healthy fats", "protein", "Vitamin D"]
-    },
-
-    {
-      src: "/assets/img/egg-pic.jpg",
-      title: "Eggs",
-      howMany: "No more than 3 whole eggs a day",
-      sourceOf: ["healthy fats", "protein"]
-    },
-
-    {
-      src: "/assets/img/blue-pic.jpg",
-      title: "Blueberries",
-      howMany: "50g a day",
-      sourceOf: ["Vitamin B", "Vitamin E"]
-    },
-  ];
+  private cachedDictionariesRes: [Dictionaries, Option<UserDemographic>];
 
   constructor(private router: Router,
               private dictionariesService: DictionariesService,
@@ -96,7 +76,10 @@ export class PlayingCardsComponent {
     Observable.forkJoin(
       this.dictionariesService.get(),
       this.userDemographicService.getUserDemographic()
-    ).subscribe(res => this.buildView(res));
+    ).subscribe(res => {
+      this.cachedDictionariesRes = res;
+      this.buildView();
+    });
 
   }
 
@@ -115,8 +98,8 @@ export class PlayingCardsComponent {
     return result;
   }
 
-  private buildView(dictionariesRes: [Dictionaries, Option<UserDemographic>]): void {
-
+  buildView(): void {
+    let dictionariesRes = this.cachedDictionariesRes;
     let surveyResult = dictionariesRes[0].surveyResult;
 
     if (surveyResult.surveySubmissions.length == 0) {
@@ -126,11 +109,11 @@ export class PlayingCardsComponent {
 
     this.daysRecorded = surveyResult.surveySubmissions.length;
 
-    let foods: Food[] = surveyResult.getReducedFoods();
+    let foods: Food[] = surveyResult.getReducedFoods(this.currentDay);
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
-        this.buildCHaracterCards(foods, dictionariesRes[0].characterRules);
+        this.buildCharacterCards(foods, dictionariesRes[0].characterRules);
         this.getTopFoods(foods);
         this.isLoading = false;
       },
@@ -140,7 +123,7 @@ export class PlayingCardsComponent {
     })
   }
 
-  private buildCHaracterCards(foods: Food[], characterRules: CharacterRules[]): void {
+  private buildCharacterCards(foods: Food[], characterRules: CharacterRules[]): void {
     this.results = characterRules.map(characterRule =>
       characterRule.getSentiment(this.userDemographic, foods).match({
         some: sent => some(sent),
