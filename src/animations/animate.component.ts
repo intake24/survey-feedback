@@ -1,233 +1,33 @@
-import {
-  Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnInit, OnChanges
-} from "@angular/core";
-import {
-  trigger, state, style, transition, animate, keyframes, AnimationEvent
-} from "@angular/animations";
-import {
-  ANIMATION_DURATION, FADE_START_OFFSET, FADE_BOUNCE_OFFSET,
-  FADE_BOUNCE_START_FRAME_OFFSET, FADE_BIG_START_OFFSET, ANIMATION_BIG_DURATION
-} from "./animate.config";
+import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges} from "@angular/core";
+import {trigger, state, style, animate, AnimationEvent} from "@angular/animations";
 import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
+import {AnimateFrame} from "./animate-frame.class";
+import {AnimateBounces} from "./animate-bounces.class";
+import {AnimateFades} from "./animate-fades.class";
+import {AnimateZooms} from "./animate-zooms.class";
+
+let AnimateTransitions = [
+  state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
+  state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+];
+
+AnimateTransitions.push.apply(AnimateTransitions, AnimateBounces.animations);
+AnimateTransitions.push.apply(AnimateTransitions, AnimateFades.animations);
+AnimateTransitions.push.apply(AnimateTransitions, AnimateZooms.animations);
 
 @Component({
   selector: "animate",
   templateUrl: "./animate.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
-    trigger("animateState", [
-      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
-      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeIn.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, offset: 0}),
-          style({opacity: 1, offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInUp.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInUpBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(" + FADE_BIG_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInDown.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(-" + FADE_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInDownBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateY(-" + FADE_BIG_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInLeft.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInLeftBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(-" + FADE_BIG_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutLeft.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateX(-" + FADE_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOut.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, offset: 0}),
-          style({opacity: 0, offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutUp.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateY(-" + FADE_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutDown.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateY(" + FADE_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutDownBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateY(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateY(" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutLeftBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateX(-" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInRight.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.FadeInRightBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 0, transform: "translateX(" + FADE_BIG_START_OFFSET + ")", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 1, transform: "translate(0,0)", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutRight.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateX(" + FADE_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.FadeOutRightBig.toString(), [
-        animate(ANIMATION_BIG_DURATION, keyframes([
-          style({opacity: 1, transform: "translate(0,0)", offset: 0}),
-          style({
-            opacity: 1,
-            transform: "translateX(-" + FADE_BOUNCE_OFFSET + ")",
-            offset: FADE_BOUNCE_START_FRAME_OFFSET
-          }),
-          style({opacity: 0, transform: "translateX(" + FADE_BIG_START_OFFSET + ")", offset: 1.0})
-        ]))
-      ]),
-
-      transition(AnimateActionEnum.Hidden.toString() + "=>" + AnimateActionEnum.ZoomIn.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 0, transform: 'scale(0)'}),
-          style({opacity: 1, transform: 'scale(1.1)'}),
-          style({opacity: 1, transform: 'scale(1)'})
-        ]))
-      ])
-
-    ])
+    trigger("animateState", AnimateTransitions)
   ]
 })
 
 export class AnimateComponent implements OnChanges {
 
   @Input() action: AnimateActionEnum;
+  @Input() actionQueue: AnimateFrame[];
   @Input() display: boolean;
 
   @Output() started: EventEmitter<any> = new EventEmitter();
@@ -242,18 +42,26 @@ export class AnimateComponent implements OnChanges {
   }
 
   ngOnChanges(): void {
-    this.setDisplayed();
+    if (this.actionQueue != null &&
+      this.actionQueue.length != 0) {
+      this.startAnimationQueue();
+    }
   }
 
   emitStarted($event: AnimationEvent): void {
+    this.setDisplayed();
     this.started.emit($event);
   }
 
   emitDone($event: AnimationEvent): void {
     this.setNotDisplayed();
     this.refreshAction();
-    this.done.emit($event);
     this.emitVisibility($event);
+  }
+
+  private startAnimationQueue(): void {
+    let nextFrame = this.actionQueue.shift();
+    this.action = nextFrame.action
   }
 
   private setDisplayed(): void {
@@ -269,10 +77,15 @@ export class AnimateComponent implements OnChanges {
   }
 
   private refreshAction(): void {
-    this.action = AnimateActionAlias.getItem(this.action);
+    if (this.actionQueue && this.actionQueue.length) {
+      this.startAnimationQueue();
+    } else {
+      this.action = AnimateActionAlias.getItem(this.action);
+    }
   }
 
   private emitVisibility($event): void {
+    this.done.emit($event);
     if (AnimateActionAlias.getItem(this.action) == AnimateActionEnum.Hidden) {
       this.onHidden.emit($event);
     } else {

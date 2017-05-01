@@ -55,13 +55,13 @@ export class WelcomeComponent implements OnInit {
 
   onUserInfo(userInfo: UserInfo): void {
     this.loading = true;
-    this.welcomeFormAnimation = AnimateActionEnum.FadeOutDownBig;
+    this.welcomeFormAnimation = AnimateActionEnum.BounceOutDownBig;
     this.userInfoService.updateMyInfo(userInfo)
       .subscribe(_ => {
         this.router.navigate([FEEDBACK_PATH]);
       }, error => {
         this.loading = false;
-        this.welcomeFormAnimation = AnimateActionEnum.FadeInUpBig;
+        this.welcomeFormAnimation = AnimateActionEnum.BounceInUpBig;
       });
   }
 
@@ -79,16 +79,16 @@ export class WelcomeComponent implements OnInit {
 
   private setView(): void {
     if (this.location.path() == WELCOME_PATH) {
-      this.welcomeFormAnimation = AnimateActionEnum.FadeInUp;
+      this.welcomeFormAnimation = AnimateActionEnum.BounceInUp;
     } else {
-      this.thanksAnimation = AnimateActionEnum.FadeInUp;
+      this.thanksAnimation = AnimateActionEnum.BounceInUp;
     }
   }
 
   private switchModals(): void {
     this.location.replaceState(WELCOME_PATH);
-    this.thanksAnimation = AnimateActionEnum.FadeOutLeftBig;
-    this.welcomeFormAnimation = AnimateActionEnum.FadeInRightBig;
+    this.thanksAnimation = AnimateActionEnum.BounceOutLeftBig;
+    this.welcomeFormAnimation = AnimateActionEnum.BounceInRightBig;
   }
 
   private getUserInfoProvided(): boolean {
