@@ -98,6 +98,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.characterSentiment = CharacterSentimentEnum.EXCITING;
     this.feedbackFormAnimation = AnimateActionEnum.FadeInDown;
     this.modalIsActive = !this.modalIsActive ? true : this.modalIsActive;
+    this.openModalIfClosed();
   }
 
   dislike(): void {
@@ -105,7 +106,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.liked = false;
     this.characterSentiment = CharacterSentimentEnum.WARNING;
     this.feedbackFormAnimation = AnimateActionEnum.FadeInDown;
-    this.modalIsActive = !this.modalIsActive ? true : this.modalIsActive;
+    this.openModalIfClosed();
   }
 
   submitFeedback(): void {
@@ -122,6 +123,20 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.modalIsActive = false;
     if (!this.showThankYouText) {
       this.reset();
+    }
+    this.setBodyClass();
+  }
+
+  private openModalIfClosed(): void {
+    this.modalIsActive = !this.modalIsActive ? true : this.modalIsActive;
+    this.setBodyClass();
+  }
+
+  private setBodyClass(): void {
+    if (this.modalIsActive) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
     }
   }
 
