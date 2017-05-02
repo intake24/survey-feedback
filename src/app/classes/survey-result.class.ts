@@ -37,7 +37,7 @@ export class SurveyResult {
       // We need to get average consumption per day.
       // At the moment we do that by getting average consumption of nutrient per one submission
       Array.from(totalConsumptionMap.keys()).map(k => {
-        totalConsumptionMap.set(k, totalConsumptionMap.get(k) / this.surveySubmissions.length);
+        totalConsumptionMap.set(k, totalConsumptionMap.get(k) / (day == null ? this.surveySubmissions.length : 1));
       });
       let firstFood = matchingFoods[0];
       return new Food(firstFood.code, firstFood.englishName, firstFood.localName, totalConsumptionMap);

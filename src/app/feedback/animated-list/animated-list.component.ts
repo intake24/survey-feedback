@@ -9,7 +9,7 @@ import {NutrientTypesService} from "../../services/nutrient-types.service";
   selector: 'i24-animated-list',
   templateUrl: 'animated-list.component.html',
   styleUrls: ['animated-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class AnimatedListComponent implements OnInit {

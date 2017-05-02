@@ -1,22 +1,25 @@
 import {
-  Component, OnInit, ElementRef, HostListener, Input, ChangeDetectionStrategy
+  Component, OnInit, ElementRef, HostListener, Input, ChangeDetectionStrategy, OnChanges
 } from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
 
+const MAX_LABEL_LENGTH = 20;
 
 @Component({
   selector: 'i24-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
+
+  chart: any;
 
   @Input() animateDelay: number;
   @Input() data: PieChardData[];
 
-  private built: boolean = false;
+  private appeared: boolean = false;
 
   height: number;
 
@@ -38,24 +41,34 @@ export class PieChartComponent implements OnInit {
     this.setSize();
   }
 
+  ngOnChanges() {
+    if (this.chart != null) {
+      this.chart.destroy();
+      this.chart = null;
+      this.buildChart();
+    }
+  }
+
   buildChart() {
 
-    if (this.built) {
+    if (this.chart != null) {
       return;
     }
-    this.built = true;
 
     let canvas = this.elementRef.nativeElement.querySelector('canvas');
 
-    new this._window.Chart(canvas, {
+    let data = this.data.filter(d => d.value > 0);
+
+    this.chart = new this._window.Chart(canvas, {
       type: "doughnut",
       data: {
-        labels: this.data.map(d => d.label),
+        labels: data.map(d => d.label.length >= MAX_LABEL_LENGTH ?
+          d.label.slice(0, MAX_LABEL_LENGTH - 3) + "..." : d.label),
         datasets: [
           {
-            data: this.data.map(d => d.value),
-            backgroundColor: this.data.map(d => d.color),
-            hoverBackgroundColor: this.data.map(d => d.color),
+            data: data.map(d => d.value),
+            backgroundColor: data.map(d => d.color),
+            hoverBackgroundColor: data.map(d => d.color),
           }]
       },
       options: {
@@ -64,6 +77,9 @@ export class PieChartComponent implements OnInit {
         }
       }
     });
+
+    this.appeared = true;
+
   }
 
   private setSize(): void {

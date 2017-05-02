@@ -1,15 +1,15 @@
 import {
   Component, OnInit, HostListener, Input, ChangeDetectorRef, ElementRef,
-  ChangeDetectionStrategy, OnChanges, Output, EventEmitter
+  ChangeDetectionStrategy, OnChanges, Output, EventEmitter, AfterViewChecked
 } from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
 
 @Component({
   selector: 'i24-appear-in-viewport',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './appear-in-viewport.component.html',
-  styleUrls: ['./appear-in-viewport.component.scss']
+  styleUrls: ['./appear-in-viewport.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppearInViewportComponent implements OnInit, OnChanges {
 
@@ -17,6 +17,8 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
 
   private _previousVisible: boolean;
   isVisible: boolean;
+
+
 
   @Input() scrollOffset: number;
   @Input() animationDelay: number;
@@ -42,7 +44,7 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.setVisible();
+    setTimeout(() => this.setVisible());
   }
 
   private setVisible(): void {
@@ -59,17 +61,17 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
         this.out.emit();
       }
     }
-
   }
 
   private isElementInViewport(el: HTMLElement, window: Window): boolean {
 
     let top = el.offsetTop;
     let height = el.offsetHeight;
+    let parEl = el;
 
-    while (el.offsetParent) {
-      el = <HTMLElement>el.offsetParent;
-      top += el.offsetTop;
+    while (parEl.offsetParent) {
+      parEl = <HTMLElement>parEl.offsetParent;
+      top += parEl.offsetTop;
     }
 
     return window.pageYOffset <= top + height &&

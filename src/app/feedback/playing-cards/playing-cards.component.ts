@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnChanges, OnInit} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {Observable} from "rxjs";
 import {CharacterSentimentWithDescription, CharacterRules} from "../../classes/character.class";
@@ -21,7 +21,7 @@ const USER_INFO_PATH = "/user-info";
   styleUrls: ["./playing-cards.component.scss"]
 })
 
-export class PlayingCardsComponent {
+export class PlayingCardsComponent implements OnInit, OnChanges {
 
   readonly ColorNamesMap: [string, string][] = [
     ["ch-red", "#FF6384"],
@@ -83,6 +83,10 @@ export class PlayingCardsComponent {
 
   }
 
+  ngOnChanges(): void {
+    console.log(this.currentDay);
+  }
+
   onTellMeMore(playingCardDetails: PlayingCardDetails[]): void {
     this.tellMeMoreVisible = true;
     this.tellMeMoreDetails = playingCardDetails;
@@ -98,7 +102,9 @@ export class PlayingCardsComponent {
     return result;
   }
 
-  buildView(): void {
+  buildView($event?: number): void {
+    this.currentDay = $event;
+
     let dictionariesRes = this.cachedDictionariesRes;
     let surveyResult = dictionariesRes[0].surveyResult;
 
@@ -144,9 +150,9 @@ export class PlayingCardsComponent {
 
   private getTopFoods(foods: Food[]): void {
 
-    let foodHighInCalories = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.Energy, foods);
-    let foodHighInSugar = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.Sugar, foods);
-    let foodHighInSatFat = this.sortFoodByNutrientTypeId(NutrientTypeIdEnum.SatdFat, foods);
+    let foodHighInCalories = this.filterAndSortFoodByNutrientTypeId(NutrientTypeIdEnum.Energy, foods);
+    let foodHighInSugar = this.filterAndSortFoodByNutrientTypeId(NutrientTypeIdEnum.Sugar, foods);
+    let foodHighInSatFat = this.filterAndSortFoodByNutrientTypeId(NutrientTypeIdEnum.SatdFat, foods);
 
     let otherCalories = foodHighInCalories.slice(this.showTopNumber);
     let otherSugar = foodHighInSugar.slice(this.showTopNumber);
@@ -166,8 +172,9 @@ export class PlayingCardsComponent {
       .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SatdFat), f.englishName, this.ColorNamesMap[i][1]));
   }
 
-  private sortFoodByNutrientTypeId(nutrientTypeId: number, foods: Food[]): Food[] {
+  private filterAndSortFoodByNutrientTypeId(nutrientTypeId: number, foods: Food[]): Food[] {
     return foods.map(food => food.clone())
+      .filter(f => f.getConsumption(nutrientTypeId) > 0)
       .sort((a, b) => b.getConsumption(nutrientTypeId) - a.getConsumption(nutrientTypeId));
   }
 

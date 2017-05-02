@@ -8,14 +8,31 @@
                            [daysRecorded]="daysRecorded"></user-demographic-info>
   </div>
 
-  <div class="container-fluid pt-2 mb-4">
+  <div class="container-fluid pt-2">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
           <h1 class="display-1 text-center mb-2">Story of your Diet</h1>
-          <i24-day-counter [dayNumber]="currentDay" [totalDays]="daysRecorded"
-                           (onNext)="buildView()" (onPrevious)="buildView()"></i24-day-counter>
         </i24-appear-in-viewport>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid pt-2">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+          <i24-day-counter [dayNumber]="currentDay" (dayNumberChange)="buildView($event)"
+                           [totalDays]="daysRecorded"></i24-day-counter>
+        </i24-appear-in-viewport>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid pt-2 mb-4">
+    <div class="row">
+      <div class="col-lg-10 offset-lg-1">
+
         <div class="row no-gutters">
 
           <div class="col-12 row hidden-md-down">
@@ -38,7 +55,7 @@
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
-                                      [animationDelay]="(i+j)*50">
+                                      [animationDelay]="(i+j)*100">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -46,13 +63,13 @@
 
           </div>
 
-          <div class="col-12 row hidden-md-up">
+          <div class="col-12 row hidden-md-up no-gutters">
 
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="250"
-                                      [animationDelay]="(i+j)*50">
+                                      [animationDelay]="(i+j)*100">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -61,7 +78,6 @@
           </div>
 
         </div>
-
 
       </div>
     </div>
@@ -112,15 +128,21 @@
       <div class="col-md-6 offset-md-3">
 
         <div class="mb-5">
-          <h2 class="text-center">
-            Record another day to make your feedback more accurate
-          </h2>
-          <a [href]="surveyPath" class="btn btn-outline-primary btn-block btn-lg">
-            Record another day
-          </a>
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+            <h2 class="text-center">
+              Record another day to make your feedback more accurate
+            </h2>
+          </i24-appear-in-viewport>
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+            <a [href]="surveyPath" class="btn btn-outline-primary btn-block btn-lg">
+              Record another day
+            </a>
+          </i24-appear-in-viewport>
         </div>
 
-        <i24-feedback-helpful></i24-feedback-helpful>
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+          <i24-feedback-helpful></i24-feedback-helpful>
+        </i24-appear-in-viewport>
 
       </div>
     </div>

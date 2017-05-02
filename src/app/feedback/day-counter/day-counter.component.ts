@@ -10,10 +10,9 @@ import {AnimateFrame} from "../../../animations/animate-frame.class";
 export class DayCounterComponent implements OnInit {
 
   @Input() dayNumber: number;
-  @Input() totalDays: number;
+  @Output() dayNumberChange: EventEmitter<number> = new EventEmitter();
 
-  @Output() onNext: EventEmitter<number> = new EventEmitter();
-  @Output() onPrevious: EventEmitter<number> = new EventEmitter();
+  @Input() totalDays: number;
 
   previousDayNumber: number;
 
@@ -43,7 +42,7 @@ export class DayCounterComponent implements OnInit {
         this.dayNumber = null;
       }
     });
-    this.onNext.emit();
+    this.dayNumberChange.emit(this.dayNumber);
   }
 
   previousDay(): void {
@@ -57,7 +56,7 @@ export class DayCounterComponent implements OnInit {
         this.dayNumber--;
       }
     });
-    this.onPrevious.emit();
+    this.dayNumberChange.emit(this.dayNumber);
   }
 
   private getDayTitle(): string {
