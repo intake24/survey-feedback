@@ -92,13 +92,6 @@ export class AnimateBounces {
         ]))
       ]),
 
-      transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.BounceOut.toString(), [
-        animate(ANIMATION_DURATION, keyframes([
-          style({opacity: 1, offset: 0}),
-          style({opacity: 0, offset: 1.0})
-        ]))
-      ]),
-
       transition(AnimateActionEnum.Visible.toString() + "=>" + AnimateActionEnum.BounceOutUp.toString(), [
         animate(ANIMATION_DURATION, keyframes([
           style({opacity: 1, transform: "translate(0,0)", offset: 0}),
