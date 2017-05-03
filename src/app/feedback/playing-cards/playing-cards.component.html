@@ -18,7 +18,7 @@
     </div>
   </div>
 
-  <div class="container-fluid pt-2">
+  <div class="container-fluid pt-2" *ngIf="daysRecorded > 0">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
