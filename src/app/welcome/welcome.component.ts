@@ -94,7 +94,7 @@ export class WelcomeComponent implements OnInit {
   private getUserInfoProvided(): boolean {
     return this.userInfo.match({
       some: ui => {
-        return ui.firstName.isDefined &&
+        return ui.name.isDefined &&
           ui.sex.isDefined &&
           ui.birthdate.isDefined &&
           ui.weight.isDefined &&

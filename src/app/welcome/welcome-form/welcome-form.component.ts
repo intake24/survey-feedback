@@ -36,15 +36,14 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   save(): void {
-    this.onSaved.emit(new UserInfo(
-      none,
-      some(this.name),
-      some(this.sex),
-      some(new Date(`${this.yearOfBirth}-01-01`)),
-      some(this.stringToNumeric(this.weight)),
-      some(this.stringToNumeric(this.height)),
-      none
-    ));
+    this.userInfo.map(ui => {
+      ui.name = some(this.name);
+      ui.sex = some(this.sex);
+      ui.birthdate = some(new Date(`${this.yearOfBirth}-01-01`));
+      ui.weight = some(this.stringToNumeric(this.weight));
+      ui.height = some(this.stringToNumeric(this.height));
+      this.onSaved.emit(ui);
+    });
   }
 
   getFormIsValid(): boolean {
@@ -68,7 +67,7 @@ export class WelcomeFormComponent implements OnInit {
   private setFieldsFromInput(): void {
     this.userInfo.match({
       some: ui => {
-        this.name = ui.firstName.getOrElse(() => "");
+        this.name = ui.name.getOrElse(() => "");
         this.sex = ui.sex.getOrElse(() => null);
         this.yearOfBirth = ui.birthdate.match({
           some: d => String(d.getFullYear()),

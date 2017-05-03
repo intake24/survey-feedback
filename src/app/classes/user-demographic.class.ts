@@ -38,14 +38,14 @@ export class UserDemographic {
   }
 
   static fromUserInfo(userInfo: UserInfo, hc: HenryCoefficientsCalculator): Option<UserDemographic> {
-    if (userInfo.firstName.isEmpty ||
+    if (userInfo.name.isEmpty ||
       userInfo.sex.isEmpty ||
       userInfo.birthdate.isEmpty ||
       userInfo.weight.isEmpty ||
       userInfo.height.isEmpty) {
       return none;
     } else {
-      return some(new UserDemographic(userInfo.firstName.get, userInfo.sex.get,
+      return some(new UserDemographic(userInfo.name.get, userInfo.sex.get,
         userInfo.birthdate.get.getFullYear(),
         (new Date()).getFullYear() - userInfo.birthdate.get.getFullYear(),
         userInfo.height.get, userInfo.weight.get, hc));

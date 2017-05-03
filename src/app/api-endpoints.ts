@@ -9,11 +9,11 @@ export class ApiEndpoints {
   static readonly apiBaseUrl = AppConfig.apiBaseUrl;
 
   static loginWithToken(token: string): string {
-    return  `${ApiEndpoints.apiBaseUrl}signin/token/${token}`
+    return `${ApiEndpoints.apiBaseUrl}signin/token/${token}`
   };
 
   static refreshUserToken(): string {
-    return  `${ApiEndpoints.apiBaseUrl}refresh`
+    return `${ApiEndpoints.apiBaseUrl}refresh`
   };
 
   static demographicGroups(): string {
@@ -29,14 +29,19 @@ export class ApiEndpoints {
   };
 
   static mySurveyResults(surveyId: string): string {
-    return  `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
+    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
   }
 
   static surveyPublicParameters(surveyId: string): string {
-    return  `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/public-parameters`;
+    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/public-parameters`;
   }
 
-  static myUserInfo(): string {
-    return  `${ApiEndpoints.apiBaseUrl}users/my-info`;
+  static myPhysicalData(): string {
+    return `${ApiEndpoints.apiBaseUrl}users/my-physical-data`;
   }
+
+  static myProfile(): string {
+    return `${ApiEndpoints.apiBaseUrl}users/my-profile`;
+  }
+
 }
