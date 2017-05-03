@@ -12,7 +12,7 @@ $fold-width: 960px;
     height: $profile-picture-size;
     background-color: cornflowerblue;
     border-radius: 100%;
-    box-shadow: 2px 2px 0px 5px #ea4a1f;
+    box-shadow: 2px 2px 0px 5px $brand-color;
     border: 3px solid #fff;
     float: none;
     margin: auto;

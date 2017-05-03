@@ -127,6 +127,11 @@
     select.form-control {
       margin-left: -0.25rem;
       padding-left: 0.25rem;
+
+      option {
+        color: $text-color;
+      }
+
     }
 
     &.focused,

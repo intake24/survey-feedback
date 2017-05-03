@@ -8,7 +8,7 @@ body {
 
 h1 {
   font-family: 'Bahiana', cursive;
-  color: #ea4a1f;
+  color: $brand-color;
 }
 
 h2, h3, h4, h5 {
@@ -42,7 +42,7 @@ h2, h3, h4, h5 {
 .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #ea4a1f;
+  background-color: $brand-color;
 
   border-radius: 100%;
   display: inline-block;
