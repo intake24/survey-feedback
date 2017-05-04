@@ -16,9 +16,6 @@ export class UserInfo {
   emailNotifications: boolean;
   phone: Option<string>;
   smsNotifications: boolean;
-  roles: string[];
-
-  customFields: any;
 
   constructor(userId: Option<number>,
               name: Option<string>,
@@ -31,10 +28,7 @@ export class UserInfo {
               email: Option<string>,
               emailNotifications: boolean,
               phone: Option<string>,
-              smsNotifications: boolean,
-
-              roles: string[],
-              customFields: any) {
+              smsNotifications: boolean) {
     this.userId = userId;
     this.name = name;
     this.sex = sex;
@@ -47,8 +41,6 @@ export class UserInfo {
     this.emailNotifications = emailNotifications;
     this.phone = phone;
     this.smsNotifications = smsNotifications;
-    this.roles = roles;
-    this.customFields = customFields;
   }
 
   static fromJson(js: any): UserInfo {
@@ -64,9 +56,7 @@ export class UserInfo {
       OptionToRequest.fromJson<string>(js.userProfile.email),
       js.userProfile.emailNotifications,
       OptionToRequest.fromJson<string>(js.userProfile.phone),
-      js.userProfile.smsNotifications,
-      js.userProfile.roles,
-      js.userProfile.customFields
+      js.userProfile.smsNotifications
     );
   }
 

@@ -29,9 +29,7 @@ export class UserInfoService {
       email: OptionToRequest.toRequest(userInfo.email),
       emailNotifications: userInfo.emailNotifications,
       phone: OptionToRequest.toRequest(userInfo.phone),
-      roles: userInfo.roles,
-      smsNotifications: userInfo.smsNotifications,
-      customFields: userInfo.customFields
+      smsNotifications: userInfo.smsNotifications
     };
   }
 
