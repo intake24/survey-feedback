@@ -70,7 +70,7 @@ export class DayCounterComponent implements OnInit {
     this.currentDayTitle = this.getDayTitle();
     this.previousDayAnimation = [new AnimateFrame(AnimateActionEnum.Visible)];
     this.currentDayAnimation = [new AnimateFrame(AnimateActionEnum.Hidden)];
-    if (this.dayNumber == null || this.dayNumber > this.previousDayNumber) {
+    if (this.previousDayNumber != null && (this.dayNumber == null || this.dayNumber > this.previousDayNumber)) {
       this.previousDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeOutRight));
       this.currentDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeInLeft));
     } else {
