@@ -22,7 +22,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-        <button type="button" class="close" (click)="closeModal()">
+        <button type="button" class="close"
+                (click)="closeModal()"
+                [disabled]="submitting">
           &times;
         </button>
         <div>
@@ -49,15 +51,30 @@
                              [(ngModel)]="feedbackText"></bm-textarea>
               </div>
               <div class="form-group">
-                <button type="button" class="btn btn-primary btn-block" (click)="submitFeedback()">
-                  Submit
+                <button type="button" class="btn btn-primary btn-block"
+                        (click)="submitFeedback()"
+                        [disabled]="submitting">
+                  {{ submitting ? 'Submitting...' : 'Submit'}}
                 </button>
               </div>
             </animate>
           </animate>
           <animate [action]="thankYouAnimation" [display]="false">
             <h2 class="text-center">Thank you so much!</h2>
-            <button type="button" class="btn btn-secondary btn-block" (click)="closeModal()">Close</button>
+            <button type="button" class="btn btn-secondary btn-block"
+                    (click)="closeModal()"
+                    [disabled]="submitting">Close
+            </button>
+          </animate>
+          <animate [action]="tooMuchOfFeedbackAnimation" [display]="false">
+            <h2 class="text-center">
+              We've already received your previous feedback.
+              If you want to submit another one please come back later.
+            </h2>
+            <button type="button" class="btn btn-secondary btn-block"
+                    (click)="closeModal()"
+                    [disabled]="submitting">Close
+            </button>
           </animate>
         </div>
       </div>

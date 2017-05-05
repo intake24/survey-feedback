@@ -44,4 +44,8 @@ export class ApiEndpoints {
     return `${ApiEndpoints.apiBaseUrl}users/my-profile`;
   }
 
+  static helpFeedback(): string {
+    return `${ApiEndpoints.apiBaseUrl}help/feedback`;
+  }
+
 }

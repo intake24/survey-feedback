@@ -4,7 +4,6 @@ import {AppHttp} from "./app-http.service";
 import {UserStateService} from "./user-state.service";
 import {SurveyResult} from "../classes/survey-result.class";
 import {ApiEndpoints} from "../api-endpoints";
-import {AppConfig} from "../conf";
 import {SurveyPublicParameters} from "../classes/survey-public-parameters.class";
 
 

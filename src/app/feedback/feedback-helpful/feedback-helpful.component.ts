@@ -2,6 +2,8 @@ import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
+import {HelpService} from "../../services/help.service";
+import {FeedbackMessage} from "../../classes/feedback-message.class";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -74,6 +76,9 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
   feedbackFormAnimation: AnimateActionEnum;
   feedbackRequestAnimation: AnimateActionEnum;
   thankYouAnimation: AnimateActionEnum;
+  tooMuchOfFeedbackAnimation: AnimateActionEnum;
+  submitting: boolean;
+  tooMuchOfFeedback: boolean;
 
   modalIsActive: boolean;
 
@@ -85,7 +90,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     }
   }
 
-  constructor() {
+  constructor(private helpService: HelpService) {
     this.reset();
   }
 
@@ -110,13 +115,29 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
   }
 
   submitFeedback(): void {
-    this.characterSentiment = CharacterSentimentEnum.HAPPY;
-    this.feedbackRequestAnimation = AnimateActionEnum.BounceOutRight;
-    this.showThankYouText = true;
+    this.submitting = true;
+    this.helpService.sendFeedback(new FeedbackMessage(this.liked && !this.disliked, window.location.href, this.feedbackText))
+      .finally(() => this.submitting = false)
+      .subscribe(() => {
+        this.characterSentiment = CharacterSentimentEnum.HAPPY;
+        this.feedbackRequestAnimation = AnimateActionEnum.BounceOutRight;
+        this.showThankYouText = true;
+      }, (err) => {
+        if (err.status == 429) {
+          this.characterSentiment = CharacterSentimentEnum.HAPPY;
+          this.feedbackRequestAnimation = AnimateActionEnum.BounceOutRight;
+          this.tooMuchOfFeedback = true;
+        }
+      });
   }
 
   onFeedbackRequestDisappeared($event): void {
-    this.thankYouAnimation = AnimateActionEnum.BounceInRight;
+    if (this.showThankYouText) {
+      this.thankYouAnimation = AnimateActionEnum.BounceInRight;
+    }
+    if (this.tooMuchOfFeedback) {
+      this.tooMuchOfFeedbackAnimation = AnimateActionEnum.BounceInRight;
+    }
   }
 
   closeModal(): void {
@@ -144,12 +165,16 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
     this.feedbackFormAnimation = AnimateActionEnum.Hidden;
     this.feedbackRequestAnimation = AnimateActionEnum.Visible;
     this.thankYouAnimation = AnimateActionEnum.Hidden;
+    this.tooMuchOfFeedbackAnimation = AnimateActionEnum.Hidden;
     this.characterType = CharacterTypeEnum.STRAWBERRY;
     this.characterSentiment = CharacterSentimentEnum.HAPPY;
     this.liked = false;
     this.disliked = false;
+    this.feedbackText = "";
     this.showThankYouText = false;
     this.showFeedbackForm = false;
+    this.tooMuchOfFeedback = false;
+    this.submitting = false;
   }
 
 }
