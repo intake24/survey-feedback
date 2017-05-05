@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, OnInit, OnChanges} from "@angular/core";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
