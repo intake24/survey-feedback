@@ -10,7 +10,7 @@ export class UserInfo {
   birthdate: Option<Date>;
   weight: Option<number>;
   height: Option<number>;
-  levelOfPhysicalActivityId: Option<number>;
+  physicalActivityLevelId: Option<number>;
 
   email: Option<string>;
   emailNotifications: boolean;
@@ -23,7 +23,7 @@ export class UserInfo {
               birthdate: Option<Date>,
               weight: Option<number>,
               height: Option<number>,
-              levelOfPhysicalActivityId: Option<number>,
+              physicalActivityLevelId: Option<number>,
 
               email: Option<string>,
               emailNotifications: boolean,
@@ -35,7 +35,7 @@ export class UserInfo {
     this.birthdate = birthdate;
     this.weight = weight;
     this.height = height;
-    this.levelOfPhysicalActivityId = levelOfPhysicalActivityId;
+    this.physicalActivityLevelId = physicalActivityLevelId;
 
     this.email = email;
     this.emailNotifications = emailNotifications;

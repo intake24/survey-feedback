@@ -6,7 +6,7 @@
       {{food.localName}}:
       <strong class="text-nowrap">
         {{food.getConsumption(nutrientTypeId)}}
-        {{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}
+        {{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}{{showPerDay ? '/day' : ''}}
       </strong>
     </li>
   </ol>

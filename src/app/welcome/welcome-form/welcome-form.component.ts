@@ -3,6 +3,7 @@ import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character
 import {UserInfo} from "../../classes/user-info.class";
 import {none, some, Option} from "ts-option";
 import {DemographicSexEnum} from "../../classes/demographic-group.class";
+import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
 
 @Component({
   selector: 'i24-welcome-form',
@@ -12,6 +13,7 @@ import {DemographicSexEnum} from "../../classes/demographic-group.class";
 export class WelcomeFormComponent implements OnInit {
 
   @Input() userInfo: Option<UserInfo>;
+  @Input() physicalActivityLevels: PhysicalActivityLevel[];
   @Output() onSaved: EventEmitter<UserInfo> = new EventEmitter();
 
   name: string;
@@ -20,6 +22,7 @@ export class WelcomeFormComponent implements OnInit {
   yearOfBirth: string;
   weight: string;
   height: string;
+  physicalActivityLevelId: number;
 
   yearsOptions: number[];
   private minYearOption: number = 1899;
@@ -42,6 +45,7 @@ export class WelcomeFormComponent implements OnInit {
       ui.birthdate = some(new Date(`${this.yearOfBirth}-01-01`));
       ui.weight = some(this.stringToNumeric(this.weight));
       ui.height = some(this.stringToNumeric(this.height));
+      ui.physicalActivityLevelId = some(this.physicalActivityLevelId);
       this.onSaved.emit(ui);
     });
   }
@@ -75,6 +79,7 @@ export class WelcomeFormComponent implements OnInit {
         });
         this.weight = this.getOptionalNumericAsString(ui.weight);
         this.height = this.getOptionalNumericAsString(ui.height);
+        this.physicalActivityLevelId = ui.physicalActivityLevelId.getOrElse(() => this.physicalActivityLevels[0].id);
       },
       none: () => {
         this.name = "";
@@ -87,7 +92,7 @@ export class WelcomeFormComponent implements OnInit {
     if (num == null || num == "") {
       return false;
     }
-    let n = num.replace(",",".");
+    let n = num.replace(",", ".");
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
 
@@ -97,7 +102,7 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   private stringToNumeric(num): number {
-    return parseFloat(num.replace(",","."));
+    return parseFloat(num.replace(",", "."));
   }
 
   private getOptionalNumericAsString(opt: Option<number>, def?: string): string {

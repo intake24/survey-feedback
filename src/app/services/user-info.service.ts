@@ -42,7 +42,7 @@ export class UserInfoService {
       }),
       weight: OptionToRequest.toRequest(userInfo.weight),
       height: OptionToRequest.toRequest(userInfo.height),
-      levelOfPhysicalActivityId: OptionToRequest.toRequest(userInfo.levelOfPhysicalActivityId)
+      levelOfPhysicalActivityId: OptionToRequest.toRequest(userInfo.physicalActivityLevelId)
     }
   }
 

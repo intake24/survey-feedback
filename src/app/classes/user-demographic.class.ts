@@ -1,7 +1,6 @@
 import {DemographicSexEnum} from "./demographic-group.class";
 import {HenryCoefficientsCalculator} from "./henry-coefficient.class";
-import {UserInfo} from "./user-info.class";
-import {Option, none, some} from "ts-option";
+import {PhysicalActivityLevel} from "./physical-activity-level.class";
 
 export class UserDemographic {
   readonly name: string;
@@ -10,6 +9,7 @@ export class UserDemographic {
   readonly age: number;
   readonly height: number;
   readonly weight: number;
+  readonly physicalActivity: PhysicalActivityLevel;
   private readonly bmrCalculator: HenryCoefficientsCalculator;
 
   constructor(name: string,
@@ -18,6 +18,7 @@ export class UserDemographic {
               age: number,
               height: number,
               weight: number,
+              physicalActivity: PhysicalActivityLevel,
               bmrCalculator: HenryCoefficientsCalculator) {
     this.name = name;
     this.sex = sex;
@@ -25,31 +26,17 @@ export class UserDemographic {
     this.age = age;
     this.height = height;
     this.weight = weight;
+    this.physicalActivity = physicalActivity;
     this.bmrCalculator = bmrCalculator
   }
 
   clone(): UserDemographic {
     return new UserDemographic(this.name, this.sex, this.yearOfBirth,
-      this.age, this.height, this.weight, this.bmrCalculator);
+      this.age, this.height, this.weight, this.physicalActivity, this.bmrCalculator);
   }
 
   getBmr(): number {
-    return Math.round(this.bmrCalculator.getBMR(this) * 100) / 100;
-  }
-
-  static fromUserInfo(userInfo: UserInfo, hc: HenryCoefficientsCalculator): Option<UserDemographic> {
-    if (userInfo.name.isEmpty ||
-      userInfo.sex.isEmpty ||
-      userInfo.birthdate.isEmpty ||
-      userInfo.weight.isEmpty ||
-      userInfo.height.isEmpty) {
-      return none;
-    } else {
-      return some(new UserDemographic(userInfo.name.get, userInfo.sex.get,
-        userInfo.birthdate.get.getFullYear(),
-        (new Date()).getFullYear() - userInfo.birthdate.get.getFullYear(),
-        userInfo.height.get, userInfo.weight.get, hc));
-    }
+    return Math.round(this.bmrCalculator.getBMR(this) * 10) / 10;
   }
 
 }

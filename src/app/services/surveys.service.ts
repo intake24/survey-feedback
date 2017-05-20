@@ -16,9 +16,7 @@ export class SurveysService {
   getMySurveyResults(surveyId: string): Observable<SurveyResult> {
     return this.httpService
       .get(ApiEndpoints.mySurveyResults(surveyId))
-      .map(res => {
-        return SurveyResult.fromJson(res.json());
-      });
+      .map(res => SurveyResult.fromJson(res.json()));
   }
 
   getSurveyPublicInfo(surveyId: string): Observable<SurveyPublicParameters> {

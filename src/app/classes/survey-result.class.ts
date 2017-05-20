@@ -130,7 +130,7 @@ export class Food {
   }
 
   getConsumption(nutrientTypeId: number): number {
-    return Math.round((this.nutrientIdConsumptionMap.get(nutrientTypeId) || 0) * 100) / 100;
+    return Math.round((this.nutrientIdConsumptionMap.get(nutrientTypeId) || 0) * 10) / 10;
   }
 
   getEnergy(): number {

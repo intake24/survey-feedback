@@ -112,10 +112,10 @@ export class PlayingCardDetails {
               units: string, unitDescription: string,
               sentiment: DemographicScaleSectorSentimentEnum) {
     this.title = title;
-    this.consumption = Math.round(consumption * 100) / 100;
+    this.consumption = Math.round(consumption * 10) / 10;
     this.description = description;
-    this.targetConsumption = new DemographicRange(Math.round(targetConsumption.start * 100) / 100,
-      Math.round(targetConsumption.end * 100) / 100);
+    this.targetConsumption = new DemographicRange(Math.round(targetConsumption.start * 10) / 10,
+      Math.round(targetConsumption.end * 10) / 10);
     this.units = units;
     this.unitDescription = unitDescription;
     this.sentiment = sentiment;

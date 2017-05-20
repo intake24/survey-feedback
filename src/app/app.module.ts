@@ -20,6 +20,7 @@ import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
 import {TokenLoginModule} from "./token-login/token-login.module";
 import {HelpService} from "./services/help.service";
+import {PhysicalActivityLevelsService} from "./services/physical-activity-levels.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {HelpService} from "./services/help.service";
     AppHttp,
     WindowRefService,
     UserInfoService,
-    HelpService
+    HelpService,
+    PhysicalActivityLevelsService
   ],
   bootstrap: [AppComponent]
 })

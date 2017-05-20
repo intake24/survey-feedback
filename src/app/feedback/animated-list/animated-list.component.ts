@@ -20,6 +20,7 @@ export class AnimatedListComponent implements OnInit {
   @Input() classList: string[];
   @Input() nutrientTypeId: number;
   @Input() animationDelay: number;
+  @Input() showPerDay: boolean;
 
   constructor(private nutrientService: NutrientTypesService) {
   }

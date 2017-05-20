@@ -9,9 +9,12 @@
       <h5 class="display-4 profile-title">
         {{userDemographic?.name}}, {{userDemographic?.yearOfBirth}}
       </h5>
+      <h5 class="profile-title">
+        {{userDemographic?.physicalActivity.name}}
+      </h5>
     </i24-appear-in-viewport>
     <i24-appear-in-viewport [animation]="animation" [animationDelay]="400">
-      <ul class="list-inline">
+      <ul class="list-inline user-demographic-info-details">
         <li class="list-inline-item vertical-align-top">
           Weight: {{userDemographic?.weight}}kg
           <br>
@@ -20,9 +23,8 @@
           <a [href]="'#/user-info'">Change my info</a>
         </li>
         <li class="list-inline-item">
-          BMR: {{userDemographic?.getBmr()}}kCal
-          <br>
           Days recorded: {{daysRecorded}}
+          <br>
           <br>
           <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
         </li>

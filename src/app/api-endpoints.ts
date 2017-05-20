@@ -28,6 +28,10 @@ export class ApiEndpoints {
     return `${ApiEndpoints.apiBaseUrl}admin/henry-coefficients`;
   };
 
+  static physicalActivityLevels(): string {
+    return `${ApiEndpoints.apiBaseUrl}admin/physical-activity-levels`;
+  }
+
   static mySurveyResults(surveyId: string): string {
     return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
   }

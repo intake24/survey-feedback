@@ -95,7 +95,11 @@
               </i24-appear-in-viewport>
               <i24-animated-list [items]="foodHighInCalories"
                                  [classList]="colorClasses"
-                                 [nutrientTypeId]="nutrientTypeIdEnergy"></i24-animated-list>
+                                 [nutrientTypeId]="nutrientTypeIdEnergy"
+                                 [showPerDay]="currentDay == null"></i24-animated-list>
+              <h4 class="nutrient-summary">
+                Total calorie intake: {{totalCalorieIntake}}&nbsp;kcal{{currentDay ? '' : '/day'}}
+              </h4>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="sugarChartData" [animateDelay]="400"></i24-pie-chart>
@@ -105,7 +109,11 @@
               <i24-animated-list [items]="foodHighInSugar"
                                  [classList]="colorClasses"
                                  [animationDelay]="400"
-                                 [nutrientTypeId]="nutrientTypeIdSugar"></i24-animated-list>
+                                 [nutrientTypeId]="nutrientTypeIdSugar"
+                                 [showPerDay]="currentDay == null"></i24-animated-list>
+              <h4 class="nutrient-summary">
+                Total sugar intake: {{totalSugarIntake}}&nbsp;kcal{{currentDay ? '' : '/day'}}
+              </h4>
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="satFatChartData" [animateDelay]="500"></i24-pie-chart>
@@ -115,7 +123,11 @@
               <i24-animated-list [items]="foodHighInSatFat"
                                  [classList]="colorClasses"
                                  [animationDelay]="500"
-                                 [nutrientTypeId]="nutrientTypeIdSatFat"></i24-animated-list>
+                                 [nutrientTypeId]="nutrientTypeIdSatFat"
+                                 [showPerDay]="currentDay == null"></i24-animated-list>
+              <h4 class="nutrient-summary">
+                Total saturated fat intake: {{totalSatFatIntake}}&nbsp;kcal{{currentDay ? '' : '/day'}}
+              </h4>
             </div>
           </div>
         </div>

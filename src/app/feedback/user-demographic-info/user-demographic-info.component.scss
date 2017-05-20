@@ -43,6 +43,7 @@ $fold-width: 960px;
 
       li {
         text-align: left;
+        max-width: 160px;
         &:first-child {
           padding-right: 10px;
           border-right: 1px solid #999;

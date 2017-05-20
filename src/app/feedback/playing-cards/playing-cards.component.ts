@@ -50,6 +50,10 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   foodHighInSugar: Food[] = [];
   foodHighInSatFat: Food[] = [];
 
+  totalCalorieIntake: number;
+  totalSugarIntake: number;
+  totalSatFatIntake: number;
+
   caloriesChartData: PieChardData[];
   sugarChartData: PieChardData[];
   satFatChartData: PieChardData[];
@@ -170,6 +174,8 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
     this.satFatChartData = this.foodHighInSatFat
       .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SatdFat), f.englishName, this.ColorNamesMap[i][1]));
+
+    this.getTotalFoodConsumptions(foods);
   }
 
   private filterAndSortFoodByNutrientTypeId(nutrientTypeId: number, foods: Food[]): Food[] {
@@ -185,6 +191,16 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
       let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
       return [new Food("other", "Other food", "Other food", new Map([[nutrientTypeId, total]]))];
     }
+  }
+
+  private getTotalFoodConsumptions(foods: Food[]): void {
+    this.totalCalorieIntake = foods.map(f => f.getEnergy()).reduce((a, b) => a + b, 0);
+    this.totalSugarIntake = foods.map(f => f.getConsumption(NutrientTypeIdEnum.Sugar)).reduce((a, b) => a + b, 0);
+    this.totalSatFatIntake = foods.map(f => f.getConsumption(NutrientTypeIdEnum.SatdFat)).reduce((a, b) => a + b, 0);
+
+    this.totalCalorieIntake = Math.round(this.totalCalorieIntake * 10) / 10;
+    this.totalSugarIntake = Math.round(this.totalSugarIntake * 10) / 10;
+    this.totalSatFatIntake = Math.round(this.totalSatFatIntake * 10) / 10;
   }
 
 }
