@@ -1,6 +1,7 @@
 import {DemographicSexEnum} from "./demographic-group.class";
 import {HenryCoefficientsCalculator} from "./henry-coefficient.class";
 import {PhysicalActivityLevel} from "./physical-activity-level.class";
+import {WeightTarget} from "../services/weight-targets.service";
 
 export class UserDemographic {
   readonly name: string;
@@ -9,6 +10,7 @@ export class UserDemographic {
   readonly age: number;
   readonly height: number;
   readonly weight: number;
+  readonly weighTarget: WeightTarget;
   readonly physicalActivity: PhysicalActivityLevel;
   private readonly bmrCalculator: HenryCoefficientsCalculator;
 
@@ -18,6 +20,7 @@ export class UserDemographic {
               age: number,
               height: number,
               weight: number,
+              weighTarget: WeightTarget,
               physicalActivity: PhysicalActivityLevel,
               bmrCalculator: HenryCoefficientsCalculator) {
     this.name = name;
@@ -26,13 +29,14 @@ export class UserDemographic {
     this.age = age;
     this.height = height;
     this.weight = weight;
+    this.weighTarget = weighTarget;
     this.physicalActivity = physicalActivity;
     this.bmrCalculator = bmrCalculator
   }
 
   clone(): UserDemographic {
     return new UserDemographic(this.name, this.sex, this.yearOfBirth,
-      this.age, this.height, this.weight, this.physicalActivity, this.bmrCalculator);
+      this.age, this.height, this.weight, this.weighTarget, this.physicalActivity, this.bmrCalculator);
   }
 
   getBmr(): number {

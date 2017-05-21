@@ -41,8 +41,9 @@ export class UserInfoService {
         none: () => []
       }),
       weight: OptionToRequest.toRequest(userInfo.weight),
+      weightTarget: OptionToRequest.toRequest(userInfo.weightTarget),
       height: OptionToRequest.toRequest(userInfo.height),
-      levelOfPhysicalActivityId: OptionToRequest.toRequest(userInfo.physicalActivityLevelId)
+      physicalActivityLevelId: OptionToRequest.toRequest(userInfo.physicalActivityLevelId)
     }
   }
 

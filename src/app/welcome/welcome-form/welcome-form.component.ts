@@ -4,6 +4,7 @@ import {UserInfo} from "../../classes/user-info.class";
 import {none, some, Option} from "ts-option";
 import {DemographicSexEnum} from "../../classes/demographic-group.class";
 import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
+import {WeightTarget} from "../../services/weight-targets.service";
 
 @Component({
   selector: 'i24-welcome-form',
@@ -13,16 +14,19 @@ import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class
 export class WelcomeFormComponent implements OnInit {
 
   @Input() userInfo: Option<UserInfo>;
+  @Input() weightTargets: WeightTarget[];
   @Input() physicalActivityLevels: PhysicalActivityLevel[];
   @Output() onSaved: EventEmitter<UserInfo> = new EventEmitter();
 
   name: string;
   sex: DemographicSexEnum;
-  sexOptions = [new SexOption(DemographicSexEnum.FEMALE, "Female"), new SexOption(DemographicSexEnum.MALE, "Male")];
+  sexOptions = [new SexOption(DemographicSexEnum.FEMALE, "Female"),
+    new SexOption(DemographicSexEnum.MALE, "Male")];
   yearOfBirth: string;
   weight: string;
   height: string;
   physicalActivityLevelId: number;
+  weightTarget: string;
 
   yearsOptions: number[];
   private minYearOption: number = 1899;
@@ -46,6 +50,7 @@ export class WelcomeFormComponent implements OnInit {
       ui.weight = some(this.stringToNumeric(this.weight));
       ui.height = some(this.stringToNumeric(this.height));
       ui.physicalActivityLevelId = some(this.physicalActivityLevelId);
+      ui.weightTarget = some(this.weightTarget);
       this.onSaved.emit(ui);
     });
   }
@@ -80,6 +85,7 @@ export class WelcomeFormComponent implements OnInit {
         this.weight = this.getOptionalNumericAsString(ui.weight);
         this.height = this.getOptionalNumericAsString(ui.height);
         this.physicalActivityLevelId = ui.physicalActivityLevelId.getOrElse(() => this.physicalActivityLevels[0].id);
+        this.weightTarget = ui.weightTarget.getOrElse(() => this.weightTargets[0].id);
       },
       none: () => {
         this.name = "";

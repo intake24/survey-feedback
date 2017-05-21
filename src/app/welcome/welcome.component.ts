@@ -11,6 +11,7 @@ import {Observable} from "rxjs";
 import {SurveyResult} from "../classes/survey-result.class";
 import {PhysicalActivityLevelsService} from "../services/physical-activity-levels.service";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
+import {WeightTargetsService, WeightTarget} from "../services/weight-targets.service";
 
 const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";
@@ -27,13 +28,15 @@ export class WelcomeComponent implements OnInit {
   welcomeFormAnimation: AnimateActionEnum;
   userInfo: Option<UserInfo>;
   physicalActivityLevels: PhysicalActivityLevel[];
+  weightTargets: WeightTarget[];
   loading: boolean = true;
 
   constructor(private location: Location,
               private router: Router,
               private userInfoService: UserInfoService,
               private surveyService: SurveysService,
-              private physicalActivityLevelsService: PhysicalActivityLevelsService) {
+              private physicalActivityLevelsService: PhysicalActivityLevelsService,
+              private weightTargetsService: WeightTargetsService) {
     this.thanksAnimation = AnimateActionEnum.Hidden;
     this.welcomeFormAnimation = AnimateActionEnum.Hidden;
   }
@@ -42,13 +45,15 @@ export class WelcomeComponent implements OnInit {
     Observable.forkJoin(
       this.checkSurveyResults(),
       this.physicalActivityLevelsService.list(),
+      this.weightTargetsService.list(),
       this.userInfoService.getMyInfo()
     ).finally(() => {
       this.setView();
       this.loading = false;
     }).subscribe(res => {
-      this.userInfo = some(res[2]);
       this.physicalActivityLevels = res[1];
+      this.weightTargets = res[2];
+      this.userInfo = some(res[3]);
     }, err => {
       console.error(err);
       this.userInfo = none;

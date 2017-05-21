@@ -9,13 +9,15 @@ import {UserDemographic} from "../classes/user-demographic.class";
 import {PhysicalActivityLevelsService} from "./physical-activity-levels.service";
 import {UserInfo} from "../classes/user-info.class";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
+import {WeightTarget, WeightTargetsService} from "./weight-targets.service";
 
 @Injectable()
 export class UserDemographicService {
 
   constructor(private httpService: AppHttp,
               private userInfoService: UserInfoService,
-              private palService: PhysicalActivityLevelsService) {
+              private palService: PhysicalActivityLevelsService,
+              private weightTargetsService: WeightTargetsService) {
   }
 
   private getBmrCalculator(): Observable<HenryCoefficientsCalculator> {
@@ -29,30 +31,37 @@ export class UserDemographicService {
       .flatMap(ui =>
         Observable.forkJoin(
           this.palService.list(),
+          this.weightTargetsService.list(),
           this.getBmrCalculator()
-        ).map(res => this.userInfoToUserDemographic(ui, res[0], res[1])))
+        ).map(res => this.userInfoToUserDemographic(ui, res[0], res[1], res[2])))
       .catch(_ => Observable.of(none));
   }
 
   private userInfoToUserDemographic(userInfo: UserInfo,
                                     physicalActivityLevels: PhysicalActivityLevel[],
+                                    weightTargets: WeightTarget[],
                                     hc: HenryCoefficientsCalculator): Option<UserDemographic> {
     if (userInfo.name.isEmpty ||
       userInfo.sex.isEmpty ||
       userInfo.birthdate.isEmpty ||
       userInfo.weight.isEmpty ||
+      userInfo.weightTarget.isEmpty ||
       userInfo.height.isEmpty ||
       userInfo.physicalActivityLevelId.isEmpty) {
       return none;
     } else {
       let pals = physicalActivityLevels.filter(pal => pal.id == userInfo.physicalActivityLevelId.get);
+      let wts = weightTargets.filter(wt => wt.id == userInfo.weightTarget.get);
       if (!pals.length) {
         throw "Unknown physical activity level Id."
+      }
+      if (!wts.length) {
+        throw "Unknown weight target."
       }
       return some(new UserDemographic(userInfo.name.get, userInfo.sex.get,
         userInfo.birthdate.get.getFullYear(),
         (new Date()).getFullYear() - userInfo.birthdate.get.getFullYear(),
-        userInfo.height.get, userInfo.weight.get, pals[0], hc));
+        userInfo.height.get, userInfo.weight.get, wts[0], pals[0], hc));
     }
   }
 

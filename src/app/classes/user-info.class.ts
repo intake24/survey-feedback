@@ -1,4 +1,4 @@
-import {Option, some, none} from "ts-option";
+import {Option, some} from "ts-option";
 import {DemographicSexEnum} from "./demographic-group.class";
 import {OptionToRequest} from "../utils/option-to-request";
 
@@ -9,6 +9,7 @@ export class UserInfo {
   sex: Option<DemographicSexEnum>;
   birthdate: Option<Date>;
   weight: Option<number>;
+  weightTarget: Option<string>;
   height: Option<number>;
   physicalActivityLevelId: Option<number>;
 
@@ -22,6 +23,7 @@ export class UserInfo {
               sex: Option<DemographicSexEnum>,
               birthdate: Option<Date>,
               weight: Option<number>,
+              weightTarget: Option<string>,
               height: Option<number>,
               physicalActivityLevelId: Option<number>,
 
@@ -34,6 +36,7 @@ export class UserInfo {
     this.sex = sex;
     this.birthdate = birthdate;
     this.weight = weight;
+    this.weightTarget = weightTarget;
     this.height = height;
     this.physicalActivityLevelId = physicalActivityLevelId;
 
@@ -51,8 +54,9 @@ export class UserInfo {
       OptionToRequest.fromJson<any>(js.physicalData)
         .flatMap(pd => OptionToRequest.fromJson<string>(pd.birthdate).map(bd => new Date(bd))),
       OptionToRequest.fromJson<any>(js.physicalData).flatMap(pd => OptionToRequest.fromJson<number>(pd.weight)),
+      OptionToRequest.fromJson<any>(js.physicalData).flatMap(pd => OptionToRequest.fromJson<string>(pd.weightTarget)),
       OptionToRequest.fromJson<any>(js.physicalData).flatMap(pd => OptionToRequest.fromJson<number>(pd.height)),
-      OptionToRequest.fromJson<any>(js.physicalData).flatMap(pd => OptionToRequest.fromJson<number>(pd.levelOfPhysicalActivityId)),
+      OptionToRequest.fromJson<any>(js.physicalData).flatMap(pd => OptionToRequest.fromJson<number>(pd.physicalActivityLevelId)),
       OptionToRequest.fromJson<string>(js.userProfile.email),
       js.userProfile.emailNotifications,
       OptionToRequest.fromJson<string>(js.userProfile.phone),

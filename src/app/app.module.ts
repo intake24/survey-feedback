@@ -21,6 +21,7 @@ import {UserInfoService} from "./services/user-info.service";
 import {TokenLoginModule} from "./token-login/token-login.module";
 import {HelpService} from "./services/help.service";
 import {PhysicalActivityLevelsService} from "./services/physical-activity-levels.service";
+import {WeightTargetsService} from "./services/weight-targets.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {PhysicalActivityLevelsService} from "./services/physical-activity-levels
     WindowRefService,
     UserInfoService,
     HelpService,
-    PhysicalActivityLevelsService
+    PhysicalActivityLevelsService,
+    WeightTargetsService
   ],
   bootstrap: [AppComponent]
 })

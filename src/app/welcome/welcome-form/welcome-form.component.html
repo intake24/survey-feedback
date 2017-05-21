@@ -20,6 +20,11 @@
     </bm-select>
     <bm-input class="bm-material-white" [(ngModel)]="height" [label]="'Height in centimeters'" name="height"></bm-input>
     <bm-input class="bm-material-white" [(ngModel)]="weight" [label]="'Weight in kilograms'" name="weight"></bm-input>
+    <bm-select class="bm-material-white" [(ngModel)]="weightTarget" [label]="'Weight target'" name="weightTarget">
+      <option *ngFor="let wt of weightTargets" [value]="wt.id">
+        {{wt.description}}
+      </option>
+    </bm-select>
     <bm-select class="bm-material-white" [(ngModel)]="physicalActivityLevelId" [label]="'Physical activity'" name="physicalActivityLevelId">
       <option *ngFor="let pal of physicalActivityLevels" [value]="pal.id">
         {{pal.name}}
