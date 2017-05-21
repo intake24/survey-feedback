@@ -13,9 +13,7 @@ export class PhysicalActivityLevelsService {
   list(): Observable<PhysicalActivityLevel[]> {
     return this.httpService
       .get(ApiEndpoints.physicalActivityLevels())
-      .map(res => {
-        return res.json().map(this.jsonToPhysicalActivityLevel);
-      });
+      .map(res => res.json().map(this.jsonToPhysicalActivityLevel));
   }
 
   private jsonToPhysicalActivityLevel(json: any): PhysicalActivityLevel {

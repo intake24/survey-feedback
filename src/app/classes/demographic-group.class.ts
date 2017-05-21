@@ -117,7 +117,7 @@ export class DemographicGroup {
     let consumption = foods.map(f => f.getConsumption(this.nutrientTypeId))
       .reduce((a, b) => a + b);
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.EnergyDividedByBmr) {
-      return consumption * 100 / (userDemographic.getBmr() * userDemographic.physicalActivity.coefficient);
+      return consumption * 100 / userDemographic.getEnergyRequirement();
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PerUnitOfWeight) {
       return consumption / userDemographic.weight;
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PercentageOfEnergy) {

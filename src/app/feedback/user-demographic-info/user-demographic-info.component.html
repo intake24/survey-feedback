@@ -23,8 +23,9 @@
           <a [href]="'#/user-info'">Change my info</a>
         </li>
         <li class="list-inline-item">
-          Days recorded: {{daysRecorded}}
+          Weight target:
           <br>
+          {{userDemographic?.weighTarget.description}}
           <br>
           <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
         </li>

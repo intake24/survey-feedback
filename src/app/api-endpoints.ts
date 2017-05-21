@@ -32,6 +32,10 @@ export class ApiEndpoints {
     return `${ApiEndpoints.apiBaseUrl}admin/physical-activity-levels`;
   }
 
+  static weightTargets(): string {
+    return `${ApiEndpoints.apiBaseUrl}admin/weight-targets`;
+  }
+
   static mySurveyResults(surveyId: string): string {
     return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
   }

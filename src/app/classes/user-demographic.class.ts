@@ -43,4 +43,8 @@ export class UserDemographic {
     return Math.round(this.bmrCalculator.getBMR(this) * 10) / 10;
   }
 
+  getEnergyRequirement(): number {
+    return Math.round((this.getBmr() * this.physicalActivity.coefficient + this.weighTarget.coefficient) * 10) / 10;
+  }
+
 }
