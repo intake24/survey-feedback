@@ -7,17 +7,10 @@
                 [scene]="characterDescription.characterSentiment.sentimentType"></food-smile>
   </div>
   <div class="feedback-playing-card-body">
-    <h5>
-      {{characterDescription.characterSentiment.title}}
-    </h5>
     <p class="separated" *ngFor="let des of getResultedDemographicTitle()">
-      <span>{{des.title}}</span><br>
+      <span>{{des.title}}</span>
       <span class="text-nowrap">
-        <span [ngClass]="des.textClass">
-          {{des.consumption}}
-          <i class="fa" [ngClass]="des.iconClass"></i>
-        </span>
-        {{des.targetConsumption.toString()}}{{des.units}}
+        <span [ngClass]="des.textClass">{{des.consumption}}{{des.units}}&nbsp;<i class="fa" [ngClass]="des.iconClass"></i></span>&nbsp;{{des.targetConsumption.toString()}}{{des.units}}
       </span>
     </p>
   </div>
