@@ -17,6 +17,7 @@ export class AnimatedListComponent implements OnInit {
   readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInLeft;
 
   @Input() items: Food[];
+  @Input() total: number;
   @Input() classList: string[];
   @Input() nutrientTypeId: number;
   @Input() animationDelay: number;
