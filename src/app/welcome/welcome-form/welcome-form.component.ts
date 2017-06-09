@@ -5,6 +5,7 @@ import {none, some, Option} from "ts-option";
 import {DemographicSexEnum} from "../../classes/demographic-group.class";
 import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
 import {WeightTarget} from "../../services/weight-targets.service";
+import {AppConfig} from "../../conf";
 
 @Component({
   selector: 'i24-welcome-form',
@@ -27,6 +28,8 @@ export class WelcomeFormComponent implements OnInit {
   height: string;
   physicalActivityLevelId: number;
   weightTarget: string;
+  privacyUrl: string = AppConfig.privacyUrl;
+  termsUrl: string = AppConfig.termsUrl;
 
   yearsOptions: number[];
   private minYearOption: number = 1899;
