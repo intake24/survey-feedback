@@ -18,6 +18,7 @@ import {FeedbackHelpfulComponent} from "./feedback-helpful/feedback-helpful.comp
 import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 import { DayCounterComponent } from './day-counter/day-counter.component';
+import { ConsentAlertComponent } from './consent-alert/consent-alert.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { DayCounterComponent } from './day-counter/day-counter.component';
     AppearInViewportComponent,
     TellMeMoreComponent,
     FeedbackHelpfulComponent,
-    DayCounterComponent
+    DayCounterComponent,
+    ConsentAlertComponent
   ],
   imports: [BrowserModule,
     FormsModule,

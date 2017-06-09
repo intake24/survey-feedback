@@ -2,6 +2,8 @@
 
 <div *ngIf="results">
 
+  <i24-consent-alert></i24-consent-alert>
+
   <div class="pt-5">
     <user-demographic-info *ngIf="userDemographic"
                            [userDemographic]="userDemographic"
