@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {CookieService} from "angular2-cookie/core";
 import {User} from "../classes/user.class";
 import {RequestOptions, Http, Response, Headers} from "@angular/http";
 import {ApiEndpoints} from "../api-endpoints";
