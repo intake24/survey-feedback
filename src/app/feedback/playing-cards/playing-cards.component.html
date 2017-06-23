@@ -13,7 +13,7 @@
   <div class="container-fluid pt-2">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
           <h1 class="display-1 text-center mb-2">Story of your Diet</h1>
         </i24-appear-in-viewport>
       </div>
@@ -23,7 +23,7 @@
   <div class="container-fluid pt-2" *ngIf="daysRecorded > 0">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
           <i24-day-counter [dayNumber]="currentDay" (dayNumberChange)="buildView($event)"
                            [totalDays]="daysRecorded"></i24-day-counter>
         </i24-appear-in-viewport>
@@ -92,7 +92,7 @@
           <div class="col-12 row">
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="caloriesChartData" [animateDelay]="200"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
                 <h1>Highest in calories</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalCalorieIntake"
@@ -103,7 +103,7 @@
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="sugarChartData" [animateDelay]="400"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
                 <h1>Highest in sugar</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalSugarIntake"
@@ -115,7 +115,7 @@
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="satFatChartData" [animateDelay]="500"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
                 <h1>Highest in saturated fat</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalSatFatIntake"
@@ -136,19 +136,19 @@
       <div class="col-md-6 offset-md-3">
 
         <div class="mb-5">
-          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
             <h2 class="text-center">
               Record another day to make your feedback more accurate
             </h2>
           </i24-appear-in-viewport>
-          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
             <a [href]="surveyPath" class="btn btn-outline-primary btn-block btn-lg">
               Record another day
             </a>
           </i24-appear-in-viewport>
         </div>
 
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="250">
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
           <i24-feedback-helpful></i24-feedback-helpful>
         </i24-appear-in-viewport>
 
