@@ -14,22 +14,22 @@
       </h5>
     </i24-appear-in-viewport>
     <i24-appear-in-viewport [animation]="animation" [animationDelay]="400">
-      <ul class="list-inline user-demographic-info-details">
-        <li class="list-inline-item vertical-align-top">
+      <div class="row profile-info">
+        <div class="col-6 text-right">
           Weight: {{userDemographic?.weight}}kg
           <br>
           Height: {{userDemographic?.height}}cm
           <br>
           <a [href]="'#/user-info'">Change my info</a>
-        </li>
-        <li class="list-inline-item">
+        </div>
+        <div class="col-6 text-left">
           Weight target:
           <br>
           {{userDemographic?.weighTarget.description}}
           <br>
           <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
-        </li>
-      </ul>
+        </div>
+      </div>
     </i24-appear-in-viewport>
   </div>
 </div>

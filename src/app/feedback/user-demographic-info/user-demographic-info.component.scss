@@ -36,23 +36,13 @@ $fold-width: 960px;
   }
 
   &-info {
-    float: none;
+
     text-align: center;
 
-    ul {
-
-      li {
-        text-align: left;
-        max-width: 160px;
-        &:first-child {
-          padding-right: 10px;
-          border-right: 1px solid #999;
-        }
-        &:last-child {
-          padding-left: 10px;
-        }
+    div {
+      &:first-child {
+        border-right: 1px solid #999;
       }
-
     }
 
   }

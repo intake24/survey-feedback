@@ -1,0 +1,61 @@
+@import "../../../styles/keyframes.mixin";
+
+.scroll-icon {
+  $font-weight: 300;
+  $size: 80px;
+  $font-color: #666;
+
+  display: inline-block;
+  width: $size;
+  height: $size;
+  text-align: center;
+  font-weight: $font-weight;
+  color: $font-color;
+
+  &-arrows {
+    $icon-width: 18px;
+    $font-size: 28px;
+    position: relative;
+    font-size: $font-size;
+
+    i {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      margin-left: -$icon-width / 2;
+
+      &:first-child {
+        top: -8px;
+      }
+      &:last-child {
+        top: 8px;
+      }
+
+    }
+
+  }
+
+  &-arrows {
+    $delay: .2s;
+
+    i {
+      animation: blinker 2s linear infinite;
+
+      @for $i from 1 through 3 {
+        &:nth-child(#{$i}) {
+          animation-delay: $i * $delay;
+        }
+      }
+
+    }
+  }
+
+}
+
+@include keyframes(blinker) {
+
+  50% {
+    opacity: .2;
+  }
+
+}

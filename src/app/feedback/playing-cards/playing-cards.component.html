@@ -4,23 +4,13 @@
 
   <i24-consent-alert></i24-consent-alert>
 
-  <div class="pt-5">
+  <div class="pt-2 mb-4">
     <user-demographic-info *ngIf="userDemographic"
                            [userDemographic]="userDemographic"
                            [daysRecorded]="daysRecorded"></user-demographic-info>
   </div>
 
-  <div class="container-fluid pt-2">
-    <div class="row">
-      <div class="col-lg-10 offset-lg-1">
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
-          <h1 class="display-1 text-center mb-2">Story of your Diet</h1>
-        </i24-appear-in-viewport>
-      </div>
-    </div>
-  </div>
-
-  <div class="container-fluid pt-2" *ngIf="daysRecorded > 0">
+  <div class="container-fluid pt-2 mb-4" *ngIf="daysRecorded > 0">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
@@ -42,8 +32,8 @@
             <div class="col-4" *ngFor="let itemsInCol of resultsInThreeCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="250"
-                                      [animationDelay]="(i+j)*50">
+                                      [scrollOffset]="i == 0 ? 0 : 250"
+                                      [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -56,8 +46,8 @@
             <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="250"
-                                      [animationDelay]="(i+j)*100">
+                                      [scrollOffset]="i == 0 ? 0 : 250"
+                                      [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
@@ -70,8 +60,8 @@
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="250"
-                                      [animationDelay]="(i+j)*100">
+                                      [scrollOffset]="i == 0 ? 0 : 250"
+                                      [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>

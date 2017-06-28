@@ -19,6 +19,7 @@ import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-materi
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
 import { DayCounterComponent } from './day-counter/day-counter.component';
 import { ConsentAlertComponent } from './consent-alert/consent-alert.component';
+import { ScrollIconComponent } from './scroll-icon/scroll-icon.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ConsentAlertComponent } from './consent-alert/consent-alert.component';
     TellMeMoreComponent,
     FeedbackHelpfulComponent,
     DayCounterComponent,
-    ConsentAlertComponent
+    ConsentAlertComponent,
+    ScrollIconComponent
   ],
   imports: [BrowserModule,
     FormsModule,
