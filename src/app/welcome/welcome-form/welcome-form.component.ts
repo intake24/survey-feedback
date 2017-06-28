@@ -7,6 +7,9 @@ import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class
 import {WeightTarget} from "../../services/weight-targets.service";
 import {AppConfig} from "../../conf";
 
+const OLDEST_PERSON_AGE: number = 120;
+const YOUNGEST_PERSON_AGE: number = 12;
+
 @Component({
   selector: 'i24-welcome-form',
   templateUrl: 'welcome-form.component.html',
@@ -32,7 +35,6 @@ export class WelcomeFormComponent implements OnInit {
   termsUrl: string = AppConfig.termsUrl;
 
   yearsOptions: number[];
-  private minYearOption: number = 1899;
 
   characterType: CharacterTypeEnum = CharacterTypeEnum.STRAWBERRY;
   characterSentiment: CharacterSentimentEnum = CharacterSentimentEnum.EXCITING;
@@ -69,10 +71,11 @@ export class WelcomeFormComponent implements OnInit {
   private setYearsOptions(): void {
     let years = [];
     let year = (new Date()).getFullYear();
-    for (let i = this.minYearOption; i <= year; i++) {
-      years.push(i);
+    let minYearOption = year - OLDEST_PERSON_AGE;
+    let maxYearOption = year - YOUNGEST_PERSON_AGE;
+    for (let i = minYearOption; i <= maxYearOption; i++) {
+      years.unshift(i);
     }
-    years.sort((a, b) => b - a);
     this.yearsOptions = years;
   }
 
