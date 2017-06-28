@@ -32,7 +32,7 @@
             <div class="col-4" *ngFor="let itemsInCol of resultsInThreeCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="i == 0 ? -10 : 250"
+                                      [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
@@ -46,7 +46,7 @@
             <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="i == 0 ? -10 : 250"
+                                      [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
@@ -60,7 +60,7 @@
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
-                                      [scrollOffset]="i == 0 ? -10 : 250"
+                                      [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
@@ -82,7 +82,7 @@
           <div class="col-12 row">
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="caloriesChartData" [animateDelay]="50"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in calories</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalCalorieIntake"
@@ -93,7 +93,7 @@
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="sugarChartData" [animateDelay]="150"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in sugar</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalSugarIntake"
@@ -105,7 +105,7 @@
             </div>
             <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
               <i24-pie-chart [data]="satFatChartData" [animateDelay]="200"></i24-pie-chart>
-              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+              <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in saturated fat</h1>
               </i24-appear-in-viewport>
               <i24-animated-list [total]="totalSatFatIntake"
@@ -126,19 +126,19 @@
       <div class="col-md-6 offset-md-3">
 
         <div class="mb-5">
-          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
             <h2 class="text-center">
               Record another day to make your feedback more accurate
             </h2>
           </i24-appear-in-viewport>
-          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+          <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
             <a [href]="surveyPath" class="btn btn-outline-primary btn-block btn-lg">
               Record another day
             </a>
           </i24-appear-in-viewport>
         </div>
 
-        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="160">
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
           <i24-feedback-helpful></i24-feedback-helpful>
         </i24-appear-in-viewport>
 
