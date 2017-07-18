@@ -42,11 +42,11 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      "You need to charge yourself"),
+      "Your battery needs a boost"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "You need more energy"),
+      "Your battery needs a boost"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
@@ -54,149 +54,149 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Energy overload"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut)
+      "Energy overload")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.BREAD, [NutrientTypeIdEnum.Carbohydrate], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut),
+      "You could be more starchy"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "You could be more starchy"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Feels brilliant!"),
+      "You're Super Starchy!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Careful on the starch"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut)
+      "Careful on the starch")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.APPLE, [NutrientTypeIdEnum.Fibre], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut),
+      "Keep your finger on pulses!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Keep your finger on pulses!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "It feels amazing!"),
+      "Fibre-licious!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Keep your finger on pulses!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut)
+      "Keep your finger on pulses!")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.CANDY, [NutrientTypeIdEnum.Sugar], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut),
+      "Take care, Sugar"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Take care, Sugar"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Life is sweet"),
+      "You're doing well, Sugar"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      "It's a little too sweet"),
+      "Take care, Sugar"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      "Too sweet!")
+      "Take care, Sugar")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.SALMON, [NutrientTypeIdEnum.VitaminA], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut),
+      "Not quite scoring A* for Vitamin A"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Not quite scoring A* for Vitamin A"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Super!"),
+      "Scoring A* for Vitamin A"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Too fishy"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut)
+      "Too fishy")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.MILK, [NutrientTypeIdEnum.Calcium], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut),
+      "Your milk could be spoiled"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Your milk could be spoiled"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      Phrases.DoingGreat),
+      "Say cheese!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      Phrases.Careful),
+      "Your milk could be spoiled"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      Phrases.WatchOut)
+      "Your milk could be spoiled")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.BURGER, [NutrientTypeIdEnum.SatdFat], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      "Bow down to the Colonel Burger!"),
+      "Please don't eat me!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "Colonel Burger is at the gate!"),
+      "Please don't eat me!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Colonel Burger retreats"),
+      "Such a rate!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      "Colonel Burger is at the gate!"),
+      "Please don't eat me!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      "Bow down to the Colonel Burger!")
+      "Please don't eat me!")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.FRIES, [NutrientTypeIdEnum.TotalFat], [
@@ -207,7 +207,7 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "Chip is feeling tired"),
+      "Chip is feeling fried"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
@@ -215,7 +215,7 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      "Chip is feeling tired"),
+      "Chip is feeling fried"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
@@ -226,46 +226,46 @@ const CharacterBuilders = [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      "Eggy is devastated"),
+      "Pump up that protein!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "Eggy is worried about you"),
+      "Pump up that protein!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Eggy is feeling Egg-static!"),
+      "Feels Egg-static!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      "Eggy is worried about you"),
+      "Whey too much protein!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      "Eggy is devastated")
+      "Whey too much protein!")
   ]),
 
   new CharacterBuilder(CharacterTypeEnum.STRAWBERRY, [NutrientTypeIdEnum.VitaminC], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER,
-      "Berry is feeling unwell"),
+      "Stranded in the Vitamin Sea"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_LOW],
       CharacterSentimentEnum.WARNING,
-      "Berry isn't feeling well"),
+      "Stranded in the Vitamin Sea"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
       CharacterSentimentEnum.EXCITING,
-      "Berry is feeling cheery!"),
+      "Sí Señor(ita)!"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.BIT_HIGH],
       CharacterSentimentEnum.WARNING,
-      "Berry isn't feeling well"),
+      "Too deep in the Vitamin Sea"),
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
-      "Berry is feeling unwell")
+      "Too deep in the Vitamin Sea")
   ])
 
 ];

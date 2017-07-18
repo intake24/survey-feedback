@@ -7,6 +7,7 @@
                 [scene]="characterDescription.characterSentiment.sentimentType"></food-smile>
   </div>
   <div class="feedback-playing-card-body">
+    <h5>{{characterDescription.characterSentiment.title}}</h5>
     <p class="separated" *ngFor="let des of getResultedDemographicTitle()">
       <span>{{des.title}}</span>
       <span class="text-nowrap">
