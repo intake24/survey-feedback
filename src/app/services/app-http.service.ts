@@ -20,9 +20,7 @@ export class AppHttp {
                     requestMethod?: RequestMethod,
                     body?: any): Observable<Response> {
     return this.getRequestOptions(options, requestMethod, body).flatMap(reqOptions => {
-      return this.http.request(url, reqOptions).catch(err => {
-        return this.handleError(err, url, reqOptions);
-      });
+      return this.http.request(url, reqOptions).catch(err => this.handleError(err, url, reqOptions));
     });
   }
 
@@ -58,11 +56,11 @@ export class AppHttp {
     return this.doRequest(url, options, RequestMethod.Options);
   }
 
-  private handleError(err: Response, url: string | Request, reqOptions: RequestOptionsArgs): any {
+  private handleError(err: Response, url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
     if (err.status != 401) {
       return Observable.throw(err);
     } else {
-      let subject = new Subject();
+      let subject = new Subject<Response>();
       this.toBeReplayed.push(new ReplayableRequest(url, reqOptions, subject));
       if (this.toBeReplayed.length <= 1) {
         this.userService.refreshAccessToken().subscribe(_ => this.replayRequests());

@@ -12,6 +12,7 @@ import {SurveyResult} from "../classes/survey-result.class";
 import {PhysicalActivityLevelsService} from "../services/physical-activity-levels.service";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
 import {WeightTargetsService, WeightTarget} from "../services/weight-targets.service";
+import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 
 const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";
@@ -80,9 +81,9 @@ export class WelcomeComponent implements OnInit {
       });
   }
 
-  private checkSurveyResults(): Observable<SurveyResult> {
+  private checkSurveyResults(): Observable<ErrorObservable | SurveyResult> {
     return this.surveyService.getMySurveyResults(AppConfig.surveyId)
-      .map(result => {
+      .map((result: SurveyResult) => {
         if (result.surveySubmissions.length == 0) {
           location.pathname = AppConfig.surveyPath;
           return Observable.throw(result);
