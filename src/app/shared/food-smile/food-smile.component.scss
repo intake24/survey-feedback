@@ -13,10 +13,8 @@ $food-smile-scene-types: danger sad happy exciting;
   i {
     display: inline-block;
     background-image: url("food_smileys.svg");
-    background-repeat: no-repeat;
     height: $food-smile-size;
     width: $food-smile-size;
-    background-position-x: 0px;
     // We set height to make it work in IE. Make sure svg file has preserveAspectRatio="xMinYMid" attribute.
     background-size: auto length($food-smile-character-types)*100%;
   }
