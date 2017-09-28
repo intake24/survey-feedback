@@ -1,11 +1,12 @@
 <i24-loader [isVisible]="loading"></i24-loader>
 <animate [action]="thanksAnimation" [display]="false">
-  <i24-thanks (onAccepted)="onAccepted()"></i24-thanks>
+  <i24-thanks [feedbackStyle]="surveyFeedbackStyle" (onAccepted)="onAccepted()"></i24-thanks>
 </animate>
 <animate [action]="welcomeFormAnimation" [display]="false">
   <i24-welcome-form *ngIf="userInfo"
                     [userInfo]="userInfo"
                     [weightTargets]="weightTargets"
                     [physicalActivityLevels]="physicalActivityLevels"
+                    [feedbackStyle]="surveyFeedbackStyle"
                     (onSaved)="onUserInfo($event)"></i24-welcome-form>
 </animate>

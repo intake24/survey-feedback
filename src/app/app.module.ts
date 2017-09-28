@@ -22,6 +22,8 @@ import {TokenLoginModule} from "./token-login/token-login.module";
 import {HelpService} from "./services/help.service";
 import {PhysicalActivityLevelsService} from "./services/physical-activity-levels.service";
 import {WeightTargetsService} from "./services/weight-targets.service";
+import {SharedModule} from "./shared/shared.module";
+import {FeedbackStyleService} from "./services/feedback-style.service";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import {WeightTargetsService} from "./services/weight-targets.service";
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule,
     FeedbackModule,
     WelcomeModule,
     TokenLoginModule,
@@ -39,11 +42,12 @@ import {WeightTargetsService} from "./services/weight-targets.service";
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    SurveysService,
     DemographicGroupsService,
     UserDemographicService,
     NutrientTypesService,
     DictionariesService,
+    SurveysService,
+    FeedbackStyleService,
     UserStateService,
     AppHttp,
     WindowRefService,

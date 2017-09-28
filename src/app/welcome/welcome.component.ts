@@ -13,6 +13,8 @@ import {PhysicalActivityLevelsService} from "../services/physical-activity-level
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
 import {WeightTargetsService, WeightTarget} from "../services/weight-targets.service";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
+import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
+import {FeedbackStyleService} from "../services/feedback-style.service";
 
 const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";
@@ -31,11 +33,13 @@ export class WelcomeComponent implements OnInit {
   physicalActivityLevels: PhysicalActivityLevel[];
   weightTargets: WeightTarget[];
   loading: boolean = true;
+  surveyFeedbackStyle: SurveyFeedbackStyleEnum;
 
   constructor(private location: Location,
               private router: Router,
               private userInfoService: UserInfoService,
               private surveyService: SurveysService,
+              private styleService: FeedbackStyleService,
               private physicalActivityLevelsService: PhysicalActivityLevelsService,
               private weightTargetsService: WeightTargetsService) {
     this.thanksAnimation = AnimateActionEnum.Hidden;
@@ -47,7 +51,8 @@ export class WelcomeComponent implements OnInit {
       this.checkSurveyResults(),
       this.physicalActivityLevelsService.list(),
       this.weightTargetsService.list(),
-      this.userInfoService.getMyInfo()
+      this.userInfoService.getMyInfo(),
+      this.getFeedbackStyle()
     ).finally(() => {
       this.setView();
       this.loading = false;
@@ -91,6 +96,11 @@ export class WelcomeComponent implements OnInit {
           return result;
         }
       });
+  }
+
+  private getFeedbackStyle() {
+    return this.styleService.getFeedbackStyle(AppConfig.surveyId)
+      .map((result: SurveyFeedbackStyleEnum) => this.surveyFeedbackStyle = result);
   }
 
   private setView(): void {

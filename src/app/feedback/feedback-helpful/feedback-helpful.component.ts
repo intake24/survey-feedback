@@ -1,9 +1,10 @@
-import {Component, OnInit, OnChanges} from "@angular/core";
+import {Component, OnInit, OnChanges, Input} from "@angular/core";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
 import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
 import {HelpService} from "../../services/help.service";
 import {FeedbackMessage} from "../../classes/feedback-message.class";
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -82,6 +83,8 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
 
   modalIsActive: boolean;
 
+  @Input() feedbackStyle: SurveyFeedbackStyleEnum;
+
   ngOnChanges() {
     if (this.modalIsActive) {
       document.body.classList.add("modal-open");
@@ -92,6 +95,10 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
 
   constructor(private helpService: HelpService) {
     this.reset();
+  }
+
+  get iconIsVisible(): boolean {
+    return this.feedbackStyle == SurveyFeedbackStyleEnum.Playful;
   }
 
   ngOnInit() {

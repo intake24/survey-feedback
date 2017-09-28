@@ -12,6 +12,8 @@ import {Option, none, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {SurveysService} from "../../services/surveys.service";
 
 const USER_INFO_PATH = "/user-info";
 
@@ -67,6 +69,8 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   daysRecorded: number;
   currentDay: number;
 
+  feedbackStyle: SurveyFeedbackStyleEnum;
+
   private cachedDictionariesRes: [Dictionaries, Option<UserDemographic>];
 
   constructor(private router: Router,
@@ -108,6 +112,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
   buildView($event?: number): void {
     this.currentDay = $event;
+    this.feedbackStyle = this.cachedDictionariesRes[0].surveyFeedbackStyle;
 
     let dictionariesRes = this.cachedDictionariesRes;
     let surveyResult = dictionariesRes[0].surveyResult;

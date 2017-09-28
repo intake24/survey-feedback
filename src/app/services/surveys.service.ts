@@ -5,6 +5,7 @@ import {UserStateService} from "./user-state.service";
 import {SurveyResult} from "../classes/survey-result.class";
 import {ApiEndpoints} from "../api-endpoints";
 import {SurveyPublicParameters} from "../classes/survey-public-parameters.class";
+import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 
 
 @Injectable()

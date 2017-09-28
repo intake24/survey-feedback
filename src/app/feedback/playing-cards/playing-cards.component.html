@@ -6,6 +6,7 @@
 
   <div class="pt-2 mb-4">
     <user-demographic-info *ngIf="userDemographic"
+                           [feedbackStyle]="feedbackStyle"
                            [userDemographic]="userDemographic"
                            [daysRecorded]="daysRecorded"></user-demographic-info>
   </div>
@@ -35,6 +36,7 @@
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
+                                       [feedbackStyle]="feedbackStyle"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
@@ -49,6 +51,7 @@
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
+                                       [feedbackStyle]="feedbackStyle"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
@@ -63,6 +66,7 @@
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
                 <feedback-playing-card [characterDescription]="item"
+                                       [feedbackStyle]="feedbackStyle"
                                        (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
               </i24-appear-in-viewport>
             </div>
@@ -139,7 +143,7 @@
         </div>
 
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
-          <i24-feedback-helpful></i24-feedback-helpful>
+          <i24-feedback-helpful [feedbackStyle]="feedbackStyle"></i24-feedback-helpful>
         </i24-appear-in-viewport>
 
       </div>

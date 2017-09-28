@@ -15,6 +15,8 @@ import {NutrientTypesService} from "./nutrient-types.service";
 import {SurveyResult} from "../classes/survey-result.class";
 import {NutrientType} from "../classes/nutrient-types.class";
 import {AppConfig} from "../conf";
+import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
+import {FeedbackStyleService} from "./feedback-style.service";
 
 
 export enum NutrientTypeIdEnum {
@@ -276,6 +278,7 @@ export class DictionariesService {
   private cachedDictionaries: Option<Dictionaries> = none;
 
   constructor(private mySurveyResultsService: SurveysService,
+              private styleService: FeedbackStyleService,
               private demographicGroupsService: DemographicGroupsService,
               private nutrientTypesService: NutrientTypesService) {
   }
@@ -286,7 +289,8 @@ export class DictionariesService {
       none: () => Observable.forkJoin(
         this.mySurveyResultsService.getMySurveyResults(AppConfig.surveyId),
         this.demographicGroupsService.list(),
-        this.nutrientTypesService.list()
+        this.nutrientTypesService.list(),
+        this.styleService.getFeedbackStyle(AppConfig.surveyId)
       ).map(res => {
         let surveyResult = res[0];
         let nutrientTypes = res[2];
@@ -301,7 +305,7 @@ export class DictionariesService {
         });
 
         let dictionaries = new Dictionaries(surveyResult, demographicGroups,
-          nutrientTypes, characterRules);
+          nutrientTypes, characterRules, res[3]);
 
         this.cachedDictionaries = some(dictionaries);
 
@@ -317,15 +321,18 @@ export class Dictionaries {
   readonly demographicGroups: DemographicGroup[];
   readonly nutrientTypes: NutrientType[];
   readonly characterRules: CharacterRules[];
+  readonly surveyFeedbackStyle: SurveyFeedbackStyleEnum;
 
   constructor(surveyResult: SurveyResult,
               demographicGroups: DemographicGroup[],
               nutrientTypes: NutrientType[],
-              characterRules: CharacterRules[]) {
+              characterRules: CharacterRules[],
+              surveyFeedbackStyle: SurveyFeedbackStyleEnum) {
     this.surveyResult = surveyResult;
     this.demographicGroups = demographicGroups;
     this.nutrientTypes = nutrientTypes;
     this.characterRules = characterRules;
+    this.surveyFeedbackStyle = surveyFeedbackStyle;
   }
 
 }
