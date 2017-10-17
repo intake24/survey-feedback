@@ -25,9 +25,8 @@
     "@angular/router": "^4.3.3",
     "@ngrx/core": "^1.2.0",
     "@ngrx/store": "^4.0.2",
-    "@types/chartjs": "0.0.30",
     "angular2-cookie": "^1.2.6",
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta",
     "chart.js": "^2.6.0",
     "core-js": "^2.5.0",
     "font-awesome": "^4.7.0",
@@ -38,7 +37,7 @@
     "zone.js": "^0.8.16"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.7",
+    "@angular/cli": "^1.4.7",
     "@angular/compiler-cli": "^4.3.3",
     "@types/chartjs": "0.0.30",
     "@types/jasmine": "2.5.38",

@@ -13,7 +13,7 @@
 
   <div class="container-fluid pt-2 mb-4" *ngIf="daysRecorded > 0">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
+      <div class="col-lg-10 ml-auto mr-auto">
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="0">
           <i24-day-counter [dayNumber]="currentDay" (dayNumberChange)="buildView($event)"
                            [totalDays]="daysRecorded"></i24-day-counter>
@@ -24,11 +24,11 @@
 
   <div class="container-fluid pt-2 mb-4">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
+      <div class="col-lg-10 ml-auto mr-auto">
 
         <div class="row no-gutters">
 
-          <div class="col-12 row hidden-md-down">
+          <div class="col-12 row d-none d-lg-flex">
 
             <div class="col-4" *ngFor="let itemsInCol of resultsInThreeCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
@@ -43,7 +43,7 @@
 
           </div>
 
-          <div class="col-12 row hidden-sm-down hidden-lg-up">
+          <div class="col-12 row d-none d-md-flex d-lg-none">
 
             <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
@@ -58,7 +58,7 @@
 
           </div>
 
-          <div class="col-12 row hidden-md-up no-gutters">
+          <div class="col-12 row d-md-none no-gutters">
 
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
               <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
@@ -81,10 +81,10 @@
 
   <div class="container-fluid pt-4 pb-4 mb-4 background-white">
     <div class="row">
-      <div class="col-lg-10 offset-lg-1">
+      <div class="col-lg-10 ml-auto mr-auto">
         <div class="row">
           <div class="col-12 row">
-            <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
+            <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
               <i24-pie-chart [data]="caloriesChartData" [animateDelay]="50"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in calories</h1>
@@ -95,7 +95,7 @@
                                  [nutrientTypeId]="nutrientTypeIdEnergy"
                                  [showPerDay]="currentDay == null"></i24-animated-list>
             </div>
-            <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
+            <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
               <i24-pie-chart [data]="sugarChartData" [animateDelay]="150"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in free sugar</h1>
@@ -107,7 +107,7 @@
                                  [nutrientTypeId]="nutrientTypeIdSugar"
                                  [showPerDay]="currentDay == null"></i24-animated-list>
             </div>
-            <div class="col-lg-4 offset-lg-0 col-md-6 offset-md-3 col-sm-8 offset-sm-2 mb-2">
+            <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
               <i24-pie-chart [data]="satFatChartData" [animateDelay]="200"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in saturated fat</h1>
@@ -127,7 +127,7 @@
 
   <div class="container-fluid pt-4 pb-4 mb-4">
     <div class="row">
-      <div class="col-md-6 offset-md-3">
+      <div class="col-md-6 ml-auto mr-auto">
 
         <div class="mb-5">
           <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
