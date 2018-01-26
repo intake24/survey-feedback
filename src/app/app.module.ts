@@ -14,7 +14,7 @@ import {UserDemographicService} from "./services/user-demographic.service";
 import {NutrientTypesService} from "./services/nutrient-types.service";
 import {DictionariesService} from "./services/dictionaries.service";
 import {UserStateService} from "./services/user-state.service";
-import {AppHttp} from "./services/app-http.service";
+import {AppAuthHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
@@ -49,7 +49,7 @@ import {FeedbackStyleService} from "./services/feedback-style.service";
     SurveysService,
     FeedbackStyleService,
     UserStateService,
-    AppHttp,
+    AppAuthHttp,
     WindowRefService,
     UserInfoService,
     HelpService,

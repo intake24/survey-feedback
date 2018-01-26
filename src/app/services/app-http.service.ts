@@ -7,7 +7,7 @@ import {Observable, Subject} from "rxjs";
 import {UserStateService} from "./user-state.service";
 
 @Injectable()
-export class AppHttp {
+export class AppAuthHttp {
 
   private toBeReplayed: ReplayableRequest[];
 
@@ -60,13 +60,17 @@ export class AppHttp {
     if (err.status != 401) {
       return Observable.throw(err);
     } else {
-      let subject = new Subject<Response>();
-      this.toBeReplayed.push(new ReplayableRequest(url, reqOptions, subject));
       if (this.toBeReplayed.length <= 1) {
         this.userService.refreshAccessToken().subscribe(_ => this.replayRequests());
       }
-      return subject;
+      return this.putRequestOnHold(url, reqOptions);
     }
+  }
+
+  private putRequestOnHold(url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
+    let subject = new Subject<Response>();
+    this.toBeReplayed.push(new ReplayableRequest(url, reqOptions, subject));
+    return subject.asObservable();
   }
 
   private replayRequests(): void {

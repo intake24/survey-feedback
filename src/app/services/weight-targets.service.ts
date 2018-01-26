@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {ApiEndpoints} from "../api-endpoints";
 
 @Injectable()
 export class WeightTargetsService {
 
-  constructor(private httpService: AppHttp) { }
+  constructor(private httpService: AppAuthHttp) { }
 
   list(): Observable<WeightTarget[]> {
     return this.httpService.get(ApiEndpoints.weightTargets())

@@ -92,7 +92,6 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.currentDay);
   }
 
   onTellMeMore(playingCardDetails: PlayingCardDetails[]): void {

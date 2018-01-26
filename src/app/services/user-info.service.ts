@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {UserInfo} from "../classes/user-info.class";
 import {ApiEndpoints} from "../api-endpoints";
@@ -8,7 +8,7 @@ import {OptionToRequest} from "../utils/option-to-request";
 @Injectable()
 export class UserInfoService {
 
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: AppAuthHttp) {
   }
 
   getMyInfo(): Observable<UserInfo> {

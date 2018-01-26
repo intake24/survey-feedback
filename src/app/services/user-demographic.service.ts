@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {ApiEndpoints} from "../api-endpoints";
 import {HenryCoefficientsCalculator} from "../classes/henry-coefficient.class";
@@ -14,7 +14,7 @@ import {WeightTarget, WeightTargetsService} from "./weight-targets.service";
 @Injectable()
 export class UserDemographicService {
 
-  constructor(private httpService: AppHttp,
+  constructor(private httpService: AppAuthHttp,
               private userInfoService: UserInfoService,
               private palService: PhysicalActivityLevelsService,
               private weightTargetsService: WeightTargetsService) {

@@ -21,9 +21,13 @@ export class UserStateService {
   constructor(private http: Http) {
   }
 
+  get userIsAuthenticated() {
+    return localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME) != null;
+  }
+
   setRefreshToken(token: string): void {
-    this.notifyAuthSubscribers();
     localStorage.setItem(this.REFRESH_TOKEN_COOKIE_NAME, token);
+    this.notifyAuthSubscribers();
   }
 
   getAccessToken(): Observable<string> {
@@ -116,7 +120,6 @@ export class UserStateService {
       parsedToken = JSON.parse(atob(tokenPart)),
       credentials = JSON.parse(atob(parsedToken.sub)),
       providerParts = credentials.providerKey.split("#");
-    console.log(parsedToken, credentials, providerParts);
     if (providerParts.length < 2) {
       throw "Access token format changed. Could not retrieve surveyId and userName";
     }

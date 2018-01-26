@@ -39,10 +39,8 @@ $fold-width: 960px;
 
     text-align: center;
 
-    div {
-      &:first-child {
-        border-right: 1px solid #999;
-      }
+    &-bordered {
+      border-right: 1px solid #999;
     }
 
   }

@@ -1,9 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {AppHttp} from "./app-http.service";
-import {UserStateService} from "./user-state.service";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {ApiEndpoints} from "../api-endpoints";
+import {Http} from "@angular/http";
 
 
 const LOCAL_STORAGE_PARAM = "feedbackStyle";
@@ -15,7 +14,7 @@ export class FeedbackStyleService {
   private originalStyle: SurveyFeedbackStyleEnum;
   private forcedStyle: SurveyFeedbackStyleEnum;
 
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: Http) {
     this.forcedStyle = SurveyFeedbackStyleEnum[localStorage.getItem(LOCAL_STORAGE_PARAM)];
   }
 
