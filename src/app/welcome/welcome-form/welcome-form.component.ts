@@ -6,6 +6,8 @@ import {DemographicSexEnum} from "../../classes/demographic-group.class";
 import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
 import {WeightTarget} from "../../services/weight-targets.service";
 import {AppConfig} from "../../conf";
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {WelcomeFormMessages} from "./welcome-form-messages.const";
 
 const OLDEST_PERSON_AGE: number = 120;
 const YOUNGEST_PERSON_AGE: number = 12;
@@ -20,6 +22,7 @@ export class WelcomeFormComponent implements OnInit {
   @Input() userInfo: Option<UserInfo>;
   @Input() weightTargets: WeightTarget[];
   @Input() physicalActivityLevels: PhysicalActivityLevel[];
+  @Input() feedbackStyle: SurveyFeedbackStyleEnum;
   @Output() onSaved: EventEmitter<UserInfo> = new EventEmitter();
 
   name: string;
@@ -39,8 +42,14 @@ export class WelcomeFormComponent implements OnInit {
   characterType: CharacterTypeEnum = CharacterTypeEnum.STRAWBERRY;
   characterSentiment: CharacterSentimentEnum = CharacterSentimentEnum.EXCITING;
 
+  content = WelcomeFormMessages;
+
   constructor() {
     this.setYearsOptions();
+  }
+
+  get smileyIsVisible(): boolean {
+    return this.feedbackStyle == SurveyFeedbackStyleEnum.Playful;
   }
 
   ngOnInit() {

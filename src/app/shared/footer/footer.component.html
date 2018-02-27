@@ -1,19 +1,25 @@
 <div class="container-fluid pb-2">
   <div class="row">
-    <div class="col-lg-10 offset-lg-1">
+    <div class="col-lg-10 ml-auto mr-auto">
       <div class="row">
-        <div class="col-sm-8 text-center">
+        <div class="col-sm-8 text-center text-sm-left">
           <p>
             <span class="text-nowrap">&copy; 2012–{{year}} Newcastle University</span>
-            |
+            <br>
             <a class="text-nowrap" [attr.href]="privacyUrl">Privacy policy</a>
             |
             <a class="text-nowrap" [attr.href]="termsUrl">Terms and conditions</a>
+            <span *ngIf="partyModeIsVisible">
+              | <a class="text-nowrap" href="" (click)="setStyle($event, 'playful')">Party mode</a>
+            </span>
+            <span *ngIf="backToDefaultModeIsVisible">
+              | <a class="text-nowrap" href=""  (click)="setStyle($event, 'default')">Default mode</a>
+            </span>
           </p>
           <p>
           </p>
         </div>
-        <div class="col-sm-4 text-center">
+        <div class="col-sm-4 text-center text-sm-right">
           <div class="logo">
             <a [attr.href]="uniUrl">
               <img [attr.src]="imageSrc" title="Newcastle University"

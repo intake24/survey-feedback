@@ -14,7 +14,7 @@ import {UserDemographicService} from "./services/user-demographic.service";
 import {NutrientTypesService} from "./services/nutrient-types.service";
 import {DictionariesService} from "./services/dictionaries.service";
 import {UserStateService} from "./services/user-state.service";
-import {AppHttp} from "./services/app-http.service";
+import {AppAuthHttp} from "./services/app-http.service";
 import {WindowRefService} from "./services/window-ref.service";
 import {WelcomeModule} from "./welcome/welcome.module";
 import {UserInfoService} from "./services/user-info.service";
@@ -22,6 +22,8 @@ import {TokenLoginModule} from "./token-login/token-login.module";
 import {HelpService} from "./services/help.service";
 import {PhysicalActivityLevelsService} from "./services/physical-activity-levels.service";
 import {WeightTargetsService} from "./services/weight-targets.service";
+import {SharedModule} from "./shared/shared.module";
+import {FeedbackStyleService} from "./services/feedback-style.service";
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import {WeightTargetsService} from "./services/weight-targets.service";
     BrowserModule,
     FormsModule,
     HttpModule,
+    SharedModule,
     FeedbackModule,
     WelcomeModule,
     TokenLoginModule,
@@ -39,13 +42,14 @@ import {WeightTargetsService} from "./services/weight-targets.service";
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
-    SurveysService,
     DemographicGroupsService,
     UserDemographicService,
     NutrientTypesService,
     DictionariesService,
+    SurveysService,
+    FeedbackStyleService,
     UserStateService,
-    AppHttp,
+    AppAuthHttp,
     WindowRefService,
     UserInfoService,
     HelpService,

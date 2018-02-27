@@ -1,3 +1,4 @@
-<div class="i24-app">
+<i24-loader [isVisible]="isLoading"></i24-loader>
+<div class="i24-app" [ngClass]="'feedback-style-'+feedbackStyle">
   <router-outlet></router-outlet>
 </div>

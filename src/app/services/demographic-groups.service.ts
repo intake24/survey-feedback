@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {DemographicGroup} from "../classes/demographic-group.class";
 import {ApiEndpoints} from "../api-endpoints";
@@ -7,7 +7,7 @@ import {ApiEndpoints} from "../api-endpoints";
 @Injectable()
 export class DemographicGroupsService {
 
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: AppAuthHttp) {
   }
 
   list(): Observable<DemographicGroup[]> {

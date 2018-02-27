@@ -1,18 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import "bootstrap-fix/main";
 @import "background";
+@import "config";
 
 body {
   font-family: 'Muli', serif;
 }
 
 h1 {
-  font-family: 'Bahiana', cursive;
   color: $brand-color;
 }
 
-h2, h3, h4, h5 {
-  font-family: 'Slabo 27px', cursive;
+.feedback-style {
+  &-#{$feedback-style-playful-name} {
+    h1 {
+      font-family: 'Bahiana', cursive;
+    }
+    h2, h3, h4, h5 {
+      font-family: 'Slabo 27px', cursive;
+    }
+  }
 }
 
 .background-white {

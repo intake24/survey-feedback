@@ -7,6 +7,7 @@ $playing-card-aspect-ratio: 16 / 9;
 $playing-card-border-color: #ccc;
 $playing-card-body-padding: 6px;
 $playing-card-scene-types: danger "./danger_scene.png", sad "./sad_scene.png", happy "./happy_scene.png", exciting "./happy_scene.png";
+$playing-card-default-scene-types: battery "./energy.jpg", bread "./carbs.jpg", egg "./protein.jpg", apple "./fibre.jpg", salmon "./vitamin_a.jpg", milk "./calcium.jpg", candy "./sugar.jpg", strawberry "./vitamin_c.jpg", burger "./sat_fat.jpg", fries "./fat.jpg";
 
 .#{$playing-card-selector} {
 
@@ -49,6 +50,19 @@ $playing-card-scene-types: danger "./danger_scene.png", sad "./sad_scene.png", h
         }
 
       }
+
+      @each $type in $playing-card-default-scene-types {
+        $key: nth($type, 1);
+        $url: nth($type, 2);
+
+        &-default-#{$key} {
+          .#{$playing-card-selector}-background {
+            background-image: url($url);
+          }
+        }
+
+      }
+
     }
 
     food-smile {

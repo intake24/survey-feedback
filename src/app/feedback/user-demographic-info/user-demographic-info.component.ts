@@ -2,6 +2,7 @@ import {Component, Input} from "@angular/core";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 
 @Component({
   selector: "user-demographic-info",
@@ -14,10 +15,15 @@ export class UserDemographicInfoComponent {
   readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInDown;
   readonly surveyPath: string = AppConfig.surveyPath;
 
+  @Input() feedbackStyle: SurveyFeedbackStyleEnum;
   @Input() userDemographic: UserDemographic;
   @Input() daysRecorded: number;
 
   constructor() {
+  }
+
+  get userIconIsVisible(): boolean {
+    return this.feedbackStyle == SurveyFeedbackStyleEnum.Playful;
   }
 
 }

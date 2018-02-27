@@ -40,6 +40,10 @@ export class ApiEndpoints {
     return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
   }
 
+  static surveyFeedbackStyle(surveyId: string): string {
+    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/feedback-style`;
+  }
+
   static surveyPublicParameters(surveyId: string): string {
     return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/public-parameters`;
   }

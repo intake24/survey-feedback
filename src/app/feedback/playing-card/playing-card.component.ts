@@ -12,15 +12,18 @@ import {
   DemographicNutrientRuleTypeEnum
 } from "../../classes/demographic-group.class";
 import {DemographicNutrientRuleTypeDescriptions} from "../../classes/demographic-nutrient-rule-type-description.class";
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 
 const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
 
-const BACKGROUND_SCENE_MAP = {
+const PLAYFUL_BACKGROUND_SCENE_MAP = {
   danger: CARD_SCENE_CLASS_BASE + "danger",
   sad: CARD_SCENE_CLASS_BASE + "sad",
   happy: CARD_SCENE_CLASS_BASE + "happy",
   exciting: CARD_SCENE_CLASS_BASE + "exciting",
 };
+
+const DEFAULT_BACKGROUND_PREFIX = "default-";
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-card",
@@ -33,8 +36,6 @@ export class PlayingCardComponent implements OnInit {
 
   height: number;
 
-  sceneClass: string;
-
   isVisible: boolean;
 
   sentimentEnums: Object;
@@ -42,6 +43,7 @@ export class PlayingCardComponent implements OnInit {
   @Output() onTellMeMore: EventEmitter<PlayingCardDetails[]>;
 
   @Input() characterDescription: CharacterSentimentWithDescription;
+  @Input() feedbackStyle: SurveyFeedbackStyleEnum;
 
   constructor(private nutrientService: NutrientTypesService) {
     this.isVisible = false;
@@ -49,8 +51,20 @@ export class PlayingCardComponent implements OnInit {
     this.onTellMeMore = new EventEmitter();
   }
 
+  get sceneClass(): string {
+    if (this.feedbackStyle == SurveyFeedbackStyleEnum.Playful) {
+      return PLAYFUL_BACKGROUND_SCENE_MAP[this.characterDescription.characterSentiment.sentimentType];
+    } else {
+      return `${CARD_SCENE_CLASS_BASE}${DEFAULT_BACKGROUND_PREFIX}${this.characterDescription.characterType}`
+    }
+  }
+
+  get smileyIsVisible(): boolean {
+    return this.feedbackStyle == SurveyFeedbackStyleEnum.Playful;
+  }
+
   ngOnInit(): void {
-    this.setScene();
+
   }
 
   tellMeMore(): void {
@@ -88,10 +102,6 @@ export class PlayingCardComponent implements OnInit {
       default:
         return defaultUnit;
     }
-  }
-
-  private setScene(): void {
-    this.sceneClass = BACKGROUND_SCENE_MAP[this.characterDescription.characterSentiment.sentimentType];
   }
 
 }

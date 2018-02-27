@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {NutrientType} from "../classes/nutrient-types.class";
 import {ApiEndpoints} from "../api-endpoints";
 import {Option, some, none} from "ts-option";
@@ -10,7 +10,7 @@ export class NutrientTypesService {
 
   private cachedNutrientTypes: NutrientType[];
 
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: AppAuthHttp) {
     this.cachedNutrientTypes = [];
   }
 

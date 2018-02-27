@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {AppHttp} from "./app-http.service";
+import {AppAuthHttp} from "./app-http.service";
 import {ApiEndpoints} from "../api-endpoints";
 import {FeedbackMessage} from "../classes/feedback-message.class";
 import {Response} from "@angular/http";
@@ -9,7 +9,7 @@ import {Response} from "@angular/http";
 @Injectable()
 export class HelpService {
 
-  constructor(private httpService: AppHttp) {
+  constructor(private httpService: AppAuthHttp) {
   }
 
   sendFeedback(feedbackMessage: FeedbackMessage): Observable<Response> {

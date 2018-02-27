@@ -1,5 +1,5 @@
 <div class="clearfix">
-  <span class="profile-letter mb-4" *ngIf="userDemographic && userDemographic.name">
+  <span class="profile-letter mb-4" *ngIf="userDemographic && userDemographic.name && userIconIsVisible">
     <span class="profile-letter-content">
       {{userDemographic.name[0]}}
     </span>
@@ -14,20 +14,22 @@
       </h5>
     </i24-appear-in-viewport>
     <i24-appear-in-viewport [animation]="animation" [animationDelay]="400">
-      <div class="row profile-info">
-        <div class="col-6 text-right">
-          Weight: {{userDemographic?.weight}}kg
-          <br>
-          Height: {{userDemographic?.height}}cm
-          <br>
-          <a [href]="'#/user-info'">Change my info</a>
-        </div>
-        <div class="col-6 text-left">
-          Weight target:
-          <br>
-          {{userDemographic?.weighTarget.description}}
-          <br>
-          <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 text-right profile-info-bordered">
+            Weight: {{userDemographic?.weight}}kg
+            <br>
+            Height: {{userDemographic?.height}}cm
+            <br>
+            <a [href]="'#/user-info'">Change my info</a>
+          </div>
+          <div class="col-6 text-left">
+            Weight target:
+            <br>
+            {{userDemographic?.weighTarget.description}}
+            <br>
+            <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
+          </div>
         </div>
       </div>
     </i24-appear-in-viewport>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 
 @Component({
   selector: 'i24-welcome-modal',

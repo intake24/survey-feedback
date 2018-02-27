@@ -1,12 +1,12 @@
 <i24-welcome-modal>
   <div class="text-center">
-    <i24-icon-frame>
+    <i24-icon-frame *ngIf="smileyIsVisible">
       <food-smile [character]="characterType" [scene]="characterSentiment"></food-smile>
     </i24-icon-frame>
-    <h1 class="display-4 text-white">Many thanks!</h1>
-    <h2 class="text-white">Such a tasty diet you have!<br>Would you like to learn more about it?</h2>
+    <h1 class="display-4 text-white">{{content[feedbackStyle].title}}</h1>
+    <h2 class="text-white">{{content[feedbackStyle].subTitle}}</h2>
   </div>
   <button type="button" class="btn btn-primary btn-lg btn-block" (click)="accept()">
-    Yes, of course!
+    {{content[feedbackStyle].buttonText}}
   </button>
 </i24-welcome-modal>

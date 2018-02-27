@@ -44,15 +44,26 @@ export class TokenLoginComponent implements OnInit {
   }
 
   private goToDefaultPage(): void {
-    location.href = AppConfig.surveyPath;
+    console.log('Go to default page');
+    this.doWithTimeout(() => {
+      location.href = AppConfig.surveyPath;
+    });
   }
 
   private goToFeedback(): void {
-    this.router.navigate([""]);
+    console.log('Go to feedback');
+    this.doWithTimeout(() => {
+      this.router.navigate([""]);
+    });
   }
 
   private goToUrl(url: string): void {
-    location.href = url;
+    console.log('Go to:', url);
+    this.doWithTimeout(() => {
+      location.href = url;
+    });
   }
+
+  private doWithTimeout = (fn) => setTimeout(fn, 2000);
 
 }
