@@ -1,8 +1,8 @@
-import {NgModule, ValueProvider} from "@angular/core"
+import {NgModule} from "@angular/core"
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
-import {LocationStrategy, HashLocationStrategy} from "@angular/common";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {ResultListDietItemComponent} from "./result-list-diet-item/result-list-diet-item.component";
 import {PlayingCardsComponent} from "./playing-cards/playing-cards.component";
 import {PlayingCardComponent} from "./playing-card/playing-card.component";
@@ -17,9 +17,9 @@ import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
 import {FeedbackHelpfulComponent} from "./feedback-helpful/feedback-helpful.component";
 import {BootstrapMaterialModule} from "../../bootstrap-material/bootstrap-material.module";
 import {UserDemographicInfoComponent} from "./user-demographic-info/user-demographic-info.component";
-import { DayCounterComponent } from './day-counter/day-counter.component';
-import { ConsentAlertComponent } from './consent-alert/consent-alert.component';
-import { ScrollIconComponent } from './scroll-icon/scroll-icon.component';
+import {DayCounterComponent} from './day-counter/day-counter.component';
+import {ConsentAlertComponent} from './consent-alert/consent-alert.component';
+import {ScrollIconComponent} from './scroll-icon/scroll-icon.component';
 
 
 @NgModule({

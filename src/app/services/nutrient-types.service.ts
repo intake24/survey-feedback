@@ -3,7 +3,8 @@ import {Observable} from "rxjs";
 import {AppAuthHttp} from "./app-http.service";
 import {NutrientType} from "../classes/nutrient-types.class";
 import {ApiEndpoints} from "../api-endpoints";
-import {Option, some, none} from "ts-option";
+import {none, Option, some} from "ts-option";
+import {map} from "rxjs/internal/operators";
 
 @Injectable()
 export class NutrientTypesService {
@@ -17,10 +18,12 @@ export class NutrientTypesService {
   list(): Observable<NutrientType[]> {
     return this.httpService
       .get(ApiEndpoints.nutrientTypes())
-      .map(res => {
-        this.cachedNutrientTypes = res.json().map(NutrientType.fromJson);
-        return this.cachedNutrientTypes;
-      });
+      .pipe(
+        map(res => {
+          this.cachedNutrientTypes = res.json().map(NutrientType.fromJson);
+          return this.cachedNutrientTypes;
+        })
+      );
   }
 
   getUnitByNutrientTypeId(nutrientTypeId: number): Option<string> {

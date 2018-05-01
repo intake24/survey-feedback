@@ -1,15 +1,16 @@
 import {Injectable} from "@angular/core";
 import {AppAuthHttp} from "./app-http.service";
-import {Observable} from "rxjs";
+import {forkJoin, Observable, of} from "rxjs";
 import {ApiEndpoints} from "../api-endpoints";
 import {HenryCoefficientsCalculator} from "../classes/henry-coefficient.class";
-import {Option, none, some} from "ts-option";
+import {none, Option, some} from "ts-option";
 import {UserInfoService} from "./user-info.service";
 import {UserDemographic} from "../classes/user-demographic.class";
 import {PhysicalActivityLevelsService} from "./physical-activity-levels.service";
 import {UserInfo} from "../classes/user-info.class";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
 import {WeightTarget, WeightTargetsService} from "./weight-targets.service";
+import {catchError, map, mergeMap} from "rxjs/internal/operators";
 
 @Injectable()
 export class UserDemographicService {
@@ -21,20 +22,23 @@ export class UserDemographicService {
   }
 
   private getBmrCalculator(): Observable<HenryCoefficientsCalculator> {
-    return this.httpService.get(ApiEndpoints.henryCoefficients()).map(res => {
-      return HenryCoefficientsCalculator.fromJson(res.json());
-    });
+    return this.httpService.get(ApiEndpoints.henryCoefficients()).pipe(
+      map(res => {
+        return HenryCoefficientsCalculator.fromJson(res.json());
+      })
+    );
   }
 
   getUserDemographic(): Observable<Option<UserDemographic>> {
-    return this.userInfoService.getMyInfo()
-      .flatMap(ui =>
-        Observable.forkJoin(
+    return this.userInfoService.getMyInfo().pipe(
+      mergeMap(ui =>
+        forkJoin(
           this.palService.list(),
           this.weightTargetsService.list(),
           this.getBmrCalculator()
-        ).map(res => this.userInfoToUserDemographic(ui, res[0], res[1], res[2])))
-      .catch(_ => Observable.of(none));
+        ).pipe(map(res => this.userInfoToUserDemographic(ui, res[0], res[1], res[2])))),
+      catchError(() => of(none))
+    );
   }
 
   private userInfoToUserDemographic(userInfo: UserInfo,

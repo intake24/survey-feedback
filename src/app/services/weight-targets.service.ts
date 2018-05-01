@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {AppAuthHttp} from "./app-http.service";
 import {ApiEndpoints} from "../api-endpoints";
+import {map} from "rxjs/internal/operators";
 
 @Injectable()
 export class WeightTargetsService {
@@ -9,8 +10,9 @@ export class WeightTargetsService {
   constructor(private httpService: AppAuthHttp) { }
 
   list(): Observable<WeightTarget[]> {
-    return this.httpService.get(ApiEndpoints.weightTargets())
-      .map(res => res.json().map(this.jsonToWeightTarget));
+    return this.httpService.get(ApiEndpoints.weightTargets()).pipe(
+      map(res => res.json().map(this.jsonToWeightTarget))
+    );
   }
 
   private jsonToWeightTarget(json: any): WeightTarget {

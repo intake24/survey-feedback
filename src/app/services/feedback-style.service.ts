@@ -1,8 +1,9 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {ApiEndpoints} from "../api-endpoints";
 import {Http} from "@angular/http";
+import {map} from "rxjs/internal/operators";
 
 
 const LOCAL_STORAGE_PARAM = "feedbackStyle";
@@ -20,20 +21,22 @@ export class FeedbackStyleService {
 
   getOriginalFeedbackStyle(surveyId: string): Observable<SurveyFeedbackStyleEnum> {
     if (this.originalStyle) {
-      return Observable.of(this.originalStyle);
+      return of(this.originalStyle);
     } else {
       return this.httpService.get(ApiEndpoints.surveyFeedbackStyle(surveyId))
-        .map(res => {
-          let st = <SurveyFeedbackStyleEnum>res.json().feedbackStyle;
-          this.originalStyle = st;
-          return st;
-        });
+        .pipe(
+          map(res => {
+            let st = <SurveyFeedbackStyleEnum>res.json().feedbackStyle;
+            this.originalStyle = st;
+            return st;
+          })
+        );
     }
   }
 
   getFeedbackStyle(surveyId: string): Observable<SurveyFeedbackStyleEnum> {
     if (this.forcedStyle) {
-      return Observable.of(this.forcedStyle);
+      return of(this.forcedStyle);
     } else {
       return this.getOriginalFeedbackStyle(surveyId);
     }

@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AppConfig} from "../../conf";
 import {FeedbackStyleService} from "../../services/feedback-style.service";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
-import {templateJitUrl} from "@angular/compiler";
-import {Observable} from "rxjs/Observable";
+import {forkJoin} from "rxjs/index";
+import {map} from "rxjs/internal/operators";
 
 @Component({
   selector: 'i24-footer',
@@ -25,9 +25,9 @@ export class FooterComponent implements OnInit {
   }
 
   ngOnInit() {
-    Observable.forkJoin(
-      this.styleService.getOriginalFeedbackStyle(AppConfig.surveyId).map(st => this.originalFeedbackStyle = st),
-      this.styleService.getFeedbackStyle(AppConfig.surveyId).map(st => this.feedbackStyle = st)
+    forkJoin(
+      this.styleService.getOriginalFeedbackStyle(AppConfig.surveyId).pipe(map(st => this.originalFeedbackStyle = st)),
+      this.styleService.getFeedbackStyle(AppConfig.surveyId).pipe(map(st => this.feedbackStyle = st))
     ).subscribe();
   }
 

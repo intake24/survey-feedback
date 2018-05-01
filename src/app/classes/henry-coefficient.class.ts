@@ -1,4 +1,4 @@
-import {DemographicSexEnum, DemographicRange} from "./demographic-group.class";
+import {DemographicRange, DemographicSexEnum} from "./demographic-group.class";
 import {UserDemographic} from "./user-demographic.class";
 
 

@@ -1,4 +1,4 @@
-import {Option, none, some} from "ts-option";
+import {none, Option, some} from "ts-option";
 import {NutrientType} from "./nutrient-types.class";
 import {Food} from "./survey-result.class";
 import {UserDemographic} from "./user-demographic.class";

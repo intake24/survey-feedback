@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AnimateComponent } from './animate.component';
+import {AnimateComponent} from './animate.component';
 
 describe('angular AnimateComponent', () => {
   let component: AnimateComponent;

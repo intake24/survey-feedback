@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, HostListener} from "@angular/core";
+import {Component, ElementRef, HostListener, Input} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 
 @Component({

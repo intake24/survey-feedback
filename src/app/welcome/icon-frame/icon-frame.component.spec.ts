@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { IconFrameComponent } from './icon-frame.component';
+import {IconFrameComponent} from './icon-frame.component';
 
 describe('IconFrameComponent', () => {
   let component: IconFrameComponent;

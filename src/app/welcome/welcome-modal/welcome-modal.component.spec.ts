@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { WelcomeModalComponent } from './welcome-modal.component';
+import {WelcomeModalComponent} from './welcome-modal.component';
 
 describe('WelcomeModalComponent', () => {
   let component: WelcomeModalComponent;

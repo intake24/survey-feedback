@@ -1,10 +1,11 @@
-import {Component, OnInit, OnChanges, Input} from "@angular/core";
+import {Component, Input, OnChanges, OnInit} from "@angular/core";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
-import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
-import {trigger, state, style, transition, animate, keyframes} from "@angular/animations";
+import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
+import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {HelpService} from "../../services/help.service";
 import {FeedbackMessage} from "../../classes/feedback-message.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {finalize} from "rxjs/internal/operators";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -124,7 +125,7 @@ export class FeedbackHelpfulComponent implements OnInit, OnChanges {
   submitFeedback(): void {
     this.submitting = true;
     this.helpService.sendFeedback(new FeedbackMessage(this.liked && !this.disliked, window.location.href, this.feedbackText))
-      .finally(() => this.submitting = false)
+      .pipe(finalize(() => this.submitting = false))
       .subscribe(() => {
         this.characterSentiment = CharacterSentimentEnum.HAPPY;
         this.feedbackRequestAnimation = AnimateActionEnum.BounceOutRight;

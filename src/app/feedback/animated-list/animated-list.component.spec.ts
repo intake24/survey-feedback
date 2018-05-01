@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AnimatedListComponent } from './animated-list.component';
+import {AnimatedListComponent} from './animated-list.component';
 
 describe('AnimatedListComponent', () => {
   let component: AnimatedListComponent;

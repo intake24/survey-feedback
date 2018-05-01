@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DayCounterComponent } from './day-counter.component';
+import {DayCounterComponent} from './day-counter.component';
 
 describe('DayCounterComponent', () => {
   let component: DayCounterComponent;

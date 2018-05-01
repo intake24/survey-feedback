@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BmInputComponent } from './input.component';
+import {BmInputComponent} from './input.component';
 
 describe('BmInputComponent', () => {
   let component: BmInputComponent;

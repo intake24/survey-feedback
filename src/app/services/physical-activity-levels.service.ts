@@ -3,6 +3,7 @@ import {AppAuthHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {ApiEndpoints} from "../api-endpoints";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
+import {map} from "rxjs/internal/operators";
 
 @Injectable()
 export class PhysicalActivityLevelsService {
@@ -12,8 +13,9 @@ export class PhysicalActivityLevelsService {
 
   list(): Observable<PhysicalActivityLevel[]> {
     return this.httpService
-      .get(ApiEndpoints.physicalActivityLevels())
-      .map(res => res.json().map(this.jsonToPhysicalActivityLevel));
+      .get(ApiEndpoints.physicalActivityLevels()).pipe(
+        map(res => res.json().map(this.jsonToPhysicalActivityLevel))
+      );
   }
 
   private jsonToPhysicalActivityLevel(json: any): PhysicalActivityLevel {

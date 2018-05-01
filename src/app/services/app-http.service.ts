@@ -1,10 +1,8 @@
 import {Injectable} from "@angular/core";
-import {
-  Http, RequestOptions, Request, RequestOptionsArgs,
-  Response, Headers, RequestMethod
-} from "@angular/http";
+import {Headers, Http, Request, RequestMethod, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
 import {Observable, Subject} from "rxjs";
 import {UserStateService} from "./user-state.service";
+import {catchError, finalize, map, mergeMap} from "rxjs/internal/operators";
 
 @Injectable()
 export class AppAuthHttp {
@@ -19,9 +17,9 @@ export class AppAuthHttp {
                     options?: RequestOptionsArgs,
                     requestMethod?: RequestMethod,
                     body?: any): Observable<Response> {
-    return this.getRequestOptions(options, requestMethod, body).flatMap(reqOptions => {
-      return this.http.request(url, reqOptions).catch(err => this.handleError(err, url, reqOptions));
-    });
+    return this.getRequestOptions(options, requestMethod, body).pipe(mergeMap(reqOptions => {
+      return this.http.request(url, reqOptions).pipe(catchError(err => this.handleError(err, url, reqOptions)));
+    }));
   }
 
   request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
@@ -76,12 +74,13 @@ export class AppAuthHttp {
   private replayRequests(): void {
     this.toBeReplayed.map(r =>
       this.getRequestOptions(r.reqOptions)
-        .flatMap(reqOptions => this.http.request(r.url, reqOptions))
-        .finally(() => r.subject.complete())
-        .subscribe(
-          response => r.subject.next(response),
-          err => r.subject.error(err)
-        )
+        .pipe(
+          mergeMap(reqOptions => this.http.request(r.url, reqOptions)),
+          finalize(() => r.subject.complete())
+        ).subscribe(
+        response => r.subject.next(response),
+        err => r.subject.error(err)
+      )
     );
     this.toBeReplayed.length = 0;
   }
@@ -89,16 +88,17 @@ export class AppAuthHttp {
   private getRequestOptions(options?: RequestOptionsArgs,
                             requestMethod?: RequestMethod,
                             body?: any): Observable<RequestOptions> {
-    return this.userService.getAccessToken().map(token => {
-      let reqOptions = new RequestOptions(options);
-      reqOptions.headers = new Headers({
-        "Content-Type": "application/json",
-        "X-Auth-Token": token
-      });
-      reqOptions.method = requestMethod;
-      reqOptions.body = body;
-      return reqOptions;
-    });
+    return this.userService.getAccessToken().pipe(
+      map(token => {
+        let reqOptions = new RequestOptions(options);
+        reqOptions.headers = new Headers({
+          "Content-Type": "application/json",
+          "X-Auth-Token": token
+        });
+        reqOptions.method = requestMethod;
+        reqOptions.body = body;
+        return reqOptions;
+      }));
   }
 
 }

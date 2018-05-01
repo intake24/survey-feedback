@@ -1,7 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {
-  trigger, state, style, transition, animate,
-} from "@angular/animations";
+import {Component, Input, OnInit} from '@angular/core';
+import {animate, state, style, transition, trigger,} from "@angular/animations";
 
 @Component({
   selector: 'i24-loader',

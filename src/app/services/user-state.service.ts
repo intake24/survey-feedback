@@ -1,9 +1,11 @@
 import {Injectable} from "@angular/core";
 import {User} from "../classes/user.class";
-import {RequestOptions, Http, Response, Headers} from "@angular/http";
+import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {ApiEndpoints} from "../api-endpoints";
-import {Observable, ReplaySubject, BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable, of, ReplaySubject} from "rxjs";
 import {AppConfig} from "../conf";
+import {catchError, map, mergeMap} from "rxjs/internal/operators";
+import {empty} from 'rxjs/observable/empty';
 
 @Injectable()
 export class UserStateService {
@@ -34,7 +36,7 @@ export class UserStateService {
     this.notifyAuthSubscribers();
     let accToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
     if (accToken != null) {
-      return Observable.of(accToken);
+      return of(accToken);
     } else {
       if (this.accessTokenSubject.observers.length == 0) {
         this.refreshAccessToken().subscribe();
@@ -49,35 +51,38 @@ export class UserStateService {
   }
 
   getSurveyId(): Observable<string> {
-    return this.getCredentialsFromToken().map(uc => uc.surveyId);
+    return this.getCredentialsFromToken().pipe(map(uc => uc.surveyId));
   }
 
   refreshAccessToken(): Observable<Response> {
     this.dropAccessToken();
-    return this.getRefreshToken().flatMap(token => {
+    return this.getRefreshToken().pipe(mergeMap(token => {
       let reqOptions = new RequestOptions();
       reqOptions.headers = new Headers({
         "X-Auth-Token": token
       });
       return this.http.post(ApiEndpoints.refreshUserToken(), {}, reqOptions)
-        .map(res => {
-          this.setAccessToken(res.json().accessToken);
-          return res;
-        }).catch(err => {
-          location.href = AppConfig.surveyPath;
-          this.notifyAuthSubscribers();
-          return Observable.throw(err);
-        });
-    });
+        .pipe(
+          map(res => {
+            this.setAccessToken(res.json().accessToken);
+            return res;
+          }),
+          catchError(err => {
+            location.href = AppConfig.surveyPath;
+            this.notifyAuthSubscribers();
+            return Observable.throw(err);
+          })
+        )
+    }));
   }
 
   loginWithToken(token: string): Observable<Response> {
     this.logout();
     return this.http.post(ApiEndpoints.loginWithToken(token), {})
-      .map(res => {
+      .pipe(map(res => {
         this.setRefreshToken(res.json().refreshToken);
         return res;
-      })
+      }));
   }
 
   private dropAccessToken(): void {
@@ -95,15 +100,15 @@ export class UserStateService {
     let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
       location.href = AppConfig.surveyPath;
-      return Observable.empty();
+      return empty();
     } else {
       this.notifyAuthSubscribers();
-      return Observable.of(token);
+      return of(token);
     }
   }
 
   private getCredentialsFromToken(): Observable<User> {
-    return this.getAccessToken().map(accToken => this.accTokenToUser(accToken));
+    return this.getAccessToken().pipe(map(accToken => this.accTokenToUser(accToken)));
   }
 
   private notifyAuthSubscribers(): void {

@@ -1,4 +1,4 @@
-import {AnimationTransitionMetadata, transition, animate, keyframes, style} from "@angular/animations";
+import {animate, AnimationTransitionMetadata, keyframes, style, transition} from "@angular/animations";
 import {AnimateActionEnum} from "./animate-action.enum";
 import {ANIMATION_DURATION} from "./animate.config";
 

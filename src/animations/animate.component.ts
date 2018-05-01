@@ -1,6 +1,6 @@
-import {Component, ChangeDetectionStrategy, Input, Output, EventEmitter, OnChanges} from "@angular/core";
-import {trigger, state, style, animate, AnimationEvent} from "@angular/animations";
-import {AnimateActionEnum, AnimateActionAlias} from "./animate-action.enum";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
+import {AnimationEvent, state, style, trigger} from "@angular/animations";
+import {AnimateActionAlias, AnimateActionEnum} from "./animate-action.enum";
 import {AnimateFrame} from "./animate-frame.class";
 import {AnimateBounces} from "./animate-bounces.class";
 import {AnimateFades} from "./animate-fades.class";

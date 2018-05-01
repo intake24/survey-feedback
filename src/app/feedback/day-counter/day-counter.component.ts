@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {AnimateFrame} from "../../../animations/animate-frame.class";
 

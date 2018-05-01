@@ -1,7 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
 import {UserInfo} from "../../classes/user-info.class";
-import {none, some, Option} from "ts-option";
+import {Option, some} from "ts-option";
 import {DemographicSexEnum} from "../../classes/demographic-group.class";
 import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
 import {WeightTarget} from "../../services/weight-targets.service";

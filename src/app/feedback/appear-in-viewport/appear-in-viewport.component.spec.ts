@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AppearInViewportComponent } from './appear-in-viewport.component';
+import {AppearInViewportComponent} from './appear-in-viewport.component';
 
 describe('AppearInViewportComponent', () => {
   let component: AppearInViewportComponent;

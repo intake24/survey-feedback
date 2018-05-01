@@ -3,6 +3,7 @@ import {AppAuthHttp} from "./app-http.service";
 import {Observable} from "rxjs";
 import {DemographicGroup} from "../classes/demographic-group.class";
 import {ApiEndpoints} from "../api-endpoints";
+import {map} from "rxjs/internal/operators";
 
 @Injectable()
 export class DemographicGroupsService {
@@ -13,9 +14,11 @@ export class DemographicGroupsService {
   list(): Observable<DemographicGroup[]> {
     return this.httpService
       .get(ApiEndpoints.demographicGroups())
-      .map(res => {
-        return res.json().map(DemographicGroup.fromJson);
-      });
+      .pipe(
+        map(res => {
+          return res.json().map(DemographicGroup.fromJson);
+        })
+      );
   }
 
 }

@@ -1,6 +1,4 @@
-import {
-  Component, OnInit, Input, ChangeDetectionStrategy
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Food} from "../../classes/survey-result.class";
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {NutrientTypesService} from "../../services/nutrient-types.service";
@@ -23,7 +21,7 @@ export class AnimatedListComponent implements OnInit {
   @Input() animationDelay: number;
   @Input() showPerDay: boolean;
 
-  constructor(private nutrientService: NutrientTypesService) {
+  constructor(public nutrientService: NutrientTypesService) {
   }
 
   ngOnInit() {

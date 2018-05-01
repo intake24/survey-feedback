@@ -3,18 +3,19 @@ import {AnimateActionEnum} from "../../animations/animate-action.enum";
 import {Location} from "@angular/common";
 import {UserInfoService} from "../services/user-info.service";
 import {UserInfo} from "../classes/user-info.class";
-import {Option, some, none} from "ts-option";
+import {none, Option, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../conf";
 import {SurveysService} from "../services/surveys.service";
-import {Observable} from "rxjs";
+import {forkJoin, Observable, throwError} from "rxjs";
 import {SurveyResult} from "../classes/survey-result.class";
 import {PhysicalActivityLevelsService} from "../services/physical-activity-levels.service";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
-import {WeightTargetsService, WeightTarget} from "../services/weight-targets.service";
+import {WeightTarget, WeightTargetsService} from "../services/weight-targets.service";
 import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {FeedbackStyleService} from "../services/feedback-style.service";
+import {finalize, map} from "rxjs/internal/operators";
 
 const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";
@@ -47,16 +48,18 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    Observable.forkJoin(
+    forkJoin(
       this.checkSurveyResults(),
       this.physicalActivityLevelsService.list(),
       this.weightTargetsService.list(),
       this.userInfoService.getMyInfo(),
       this.getFeedbackStyle()
-    ).finally(() => {
-      this.setView();
-      this.loading = false;
-    }).subscribe(res => {
+    ).pipe(
+      finalize(() => {
+        this.setView();
+        this.loading = false;
+      })
+    ).subscribe(res => {
       this.physicalActivityLevels = res[1];
       this.weightTargets = res[2];
       this.userInfo = some(res[3]);
@@ -86,21 +89,23 @@ export class WelcomeComponent implements OnInit {
       });
   }
 
-  private checkSurveyResults(): Observable<ErrorObservable | SurveyResult> {
-    return this.surveyService.getMySurveyResults(AppConfig.surveyId)
-      .map((result: SurveyResult) => {
+  private checkSurveyResults(): Observable<ErrorObservable<any> | SurveyResult> {
+    return this.surveyService.getMySurveyResults(AppConfig.surveyId).pipe(
+      map((result: SurveyResult) => {
         if (result.surveySubmissions.length == 0) {
           location.pathname = AppConfig.surveyPath;
-          return Observable.throw(result);
+          return throwError(result);
         } else {
           return result;
         }
-      });
+      })
+    );
   }
 
   private getFeedbackStyle() {
-    return this.styleService.getFeedbackStyle(AppConfig.surveyId)
-      .map((result: SurveyFeedbackStyleEnum) => this.surveyFeedbackStyle = result);
+    return this.styleService.getFeedbackStyle(AppConfig.surveyId).pipe(
+      map((result: SurveyFeedbackStyleEnum) => this.surveyFeedbackStyle = result)
+    );
   }
 
   private setView(): void {

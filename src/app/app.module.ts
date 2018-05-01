@@ -6,7 +6,7 @@ import {HttpModule} from '@angular/http';
 import {AppComponent} from './app.component';
 import {FeedbackModule} from "./feedback/feedback.module";
 import {AppRoutingModule} from "./app-routing.module";
-import {LocationStrategy, HashLocationStrategy} from "@angular/common";
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {CookieService} from "angular2-cookie/services/cookies.service";
 import {SurveysService} from "./services/surveys.service";
 import {DemographicGroupsService} from "./services/demographic-groups.service";

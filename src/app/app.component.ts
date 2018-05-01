@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SurveyFeedbackStyleEnum} from "./classes/survey-feedback-style.enum";
 import {AppConfig} from "./conf";
 import {FeedbackStyleService} from "./services/feedback-style.service";
+import {finalize, map} from "rxjs/internal/operators";
 
 @Component({
   selector: 'i24-app',
@@ -16,11 +17,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.styleService.getFeedbackStyle(AppConfig.surveyId).finally(() => {
-      this.isLoading = false;
-    }).map(st => {
-      this.feedbackStyle = st
-    }).subscribe();
+    this.styleService.getFeedbackStyle(AppConfig.surveyId).pipe(
+    finalize(() => this.isLoading = false),
+    map(st => this.feedbackStyle = st)).subscribe();
   }
 
 }

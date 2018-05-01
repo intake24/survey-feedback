@@ -1,14 +1,14 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {Option, none, some} from "ts-option";
+import {forkJoin, Observable, of} from "rxjs";
+import {none, Option, some} from "ts-option";
 import {
-  CharacterTypeEnum,
   CharacterBuilder,
-  CharacterSentimentEnum,
+  CharacterRules,
   CharacterSentiment,
-  CharacterRules
+  CharacterSentimentEnum,
+  CharacterTypeEnum
 } from "../classes/character.class";
-import {DemographicScaleSectorSentimentEnum, DemographicGroup} from "../classes/demographic-group.class";
+import {DemographicGroup, DemographicScaleSectorSentimentEnum} from "../classes/demographic-group.class";
 import {SurveysService} from "./surveys.service";
 import {DemographicGroupsService} from "./demographic-groups.service";
 import {NutrientTypesService} from "./nutrient-types.service";
@@ -17,6 +17,7 @@ import {NutrientType} from "../classes/nutrient-types.class";
 import {AppConfig} from "../conf";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {FeedbackStyleService} from "./feedback-style.service";
+import {map} from "rxjs/internal/operators";
 
 
 export enum NutrientTypeIdEnum {
@@ -285,32 +286,33 @@ export class DictionariesService {
 
   get(): Observable<Dictionaries> {
     return this.cachedDictionaries.match({
-      some: dictionaries => Observable.of(dictionaries),
-      none: () => Observable.forkJoin(
+      some: dictionaries => of(dictionaries),
+      none: () => forkJoin(
         this.mySurveyResultsService.getMySurveyResults(AppConfig.surveyId),
         this.demographicGroupsService.list(),
         this.nutrientTypesService.list(),
         this.styleService.getFeedbackStyle(AppConfig.surveyId)
-      ).map(res => {
-        let surveyResult = res[0];
-        let nutrientTypes = res[2];
-        let demographicGroups = res[1].map(dg =>
-          dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
+      ).pipe(
+        map(res => {
+          let surveyResult = res[0];
+          let nutrientTypes = res[2];
+          let demographicGroups = res[1].map(dg =>
+            dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
 
-        let characterRules = CharacterBuilders.map(characterBuilder => {
-          let nutrientTypeIds = characterBuilder.nutrientTypeIds;
-          let dgs = demographicGroups.filter(dg => nutrientTypeIds.indexOf(dg.nutrientTypeId) > -1);
-          return new CharacterRules(nutrientTypeIds, dgs, characterBuilder.type,
-            characterBuilder.sentiments);
-        });
+          let characterRules = CharacterBuilders.map(characterBuilder => {
+            let nutrientTypeIds = characterBuilder.nutrientTypeIds;
+            let dgs = demographicGroups.filter(dg => nutrientTypeIds.indexOf(dg.nutrientTypeId) > -1);
+            return new CharacterRules(nutrientTypeIds, dgs, characterBuilder.type,
+              characterBuilder.sentiments);
+          });
 
-        let dictionaries = new Dictionaries(surveyResult, demographicGroups,
-          nutrientTypes, characterRules, res[3]);
+          let dictionaries = new Dictionaries(surveyResult, demographicGroups,
+            nutrientTypes, characterRules, res[3]);
 
-        this.cachedDictionaries = some(dictionaries);
+          this.cachedDictionaries = some(dictionaries);
 
-        return dictionaries;
-      })
+          return dictionaries;
+        }))
     });
   }
 

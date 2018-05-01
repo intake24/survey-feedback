@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { FeedbackHelpfulComponent } from './feedback-helpful.component';
+import {FeedbackHelpfulComponent} from './feedback-helpful.component';
 
 describe('FeedbackHelpfulComponent', () => {
   let component: FeedbackHelpfulComponent;

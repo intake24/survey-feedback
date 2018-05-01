@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from "@angular/core";
-import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
+import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
 
 const CHARACTER_ICON_CLASS_BASE: string = "food-smile-";
 

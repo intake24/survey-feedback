@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from "@angular/router";
+import {RouterModule, Routes} from "@angular/router";
 import {TokenLoginComponent} from "./token-login.component";
 
 export const rootRouterConfig: Routes = [

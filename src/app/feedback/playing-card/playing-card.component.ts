@@ -1,15 +1,11 @@
-import {
-  Component, Input,
-  OnInit, ChangeDetectionStrategy, Output, EventEmitter
-} from "@angular/core";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
-import {
-  CharacterSentimentWithDescription
-} from "../../classes/character.class";
+import {CharacterSentimentWithDescription} from "../../classes/character.class";
 import {NutrientTypesService} from "../../services/nutrient-types.service";
 import {
-  DemographicRange, DemographicScaleSectorSentimentEnum,
-  DemographicNutrientRuleTypeEnum
+  DemographicNutrientRuleTypeEnum,
+  DemographicRange,
+  DemographicScaleSectorSentimentEnum
 } from "../../classes/demographic-group.class";
 import {DemographicNutrientRuleTypeDescriptions} from "../../classes/demographic-nutrient-rule-type-description.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";

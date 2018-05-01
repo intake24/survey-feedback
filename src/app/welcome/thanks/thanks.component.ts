@@ -1,5 +1,5 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
-import {CharacterTypeEnum, CharacterSentimentEnum} from "../../classes/character.class";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {ThankYouMessages} from "./thanks-messages.const"
 

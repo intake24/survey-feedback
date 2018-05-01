@@ -1,6 +1,14 @@
 import {
-  Component, OnInit, HostListener, Input, ChangeDetectorRef, ElementRef,
-  ChangeDetectionStrategy, OnChanges, Output, EventEmitter, AfterViewChecked
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output
 } from '@angular/core';
 import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
