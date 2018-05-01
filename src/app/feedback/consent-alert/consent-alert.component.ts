@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const LOCAL_STORAGE_CONSENT_ITEM_NAME = "consentAccepted";
 

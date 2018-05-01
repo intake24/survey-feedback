@@ -10,8 +10,8 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 @Component({
   selector: 'i24-appear-in-viewport',
@@ -21,7 +21,7 @@ import {WindowRefService} from "../../services/window-ref.service";
 })
 export class AppearInViewportComponent implements OnInit, OnChanges {
 
-  action: AnimateActionEnum;
+  action: AnimateActionEnum = AnimateActionEnum.Hidden;
 
   private _previousVisible: boolean;
   isVisible: boolean;
@@ -38,7 +38,6 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
               private windowRef: WindowRefService) {
-    this.action = AnimateActionEnum.Hidden;
   }
 
   @HostListener("window:scroll", ["$event"])

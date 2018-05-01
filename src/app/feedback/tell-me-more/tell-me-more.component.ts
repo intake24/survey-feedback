@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
-import {AnimateActionAlias, AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
+import {AnimateActionAlias, AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -12,8 +12,8 @@ const BACKDROP_ANIMATION_DURATION = 300;
   styleUrls: ['tell-me-more.component.scss'],
   animations: [
     trigger("modalAnimateState", [
-      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
-      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+      state(AnimateActionEnum.Visible, style({opacity: 1})),
+      state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
       transition(":enter", [
         animate(MODAL_ANIMATION_DURATION, keyframes([
@@ -42,8 +42,8 @@ const BACKDROP_ANIMATION_DURATION = 300;
     ]),
 
     trigger("backdropAnimateState", [
-      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
-      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+      state(AnimateActionEnum.Visible, style({opacity: 1})),
+      state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
       transition(":enter", [
         animate(BACKDROP_ANIMATION_DURATION, keyframes([

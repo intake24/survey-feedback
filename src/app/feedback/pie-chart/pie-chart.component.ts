@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnChanges, OnInit} from '@angular/core';
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {WindowRefService} from "../../services/window-ref.service";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const MAX_LABEL_LENGTH = 20;
 
@@ -21,7 +21,7 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   height: number;
 
-  animation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
+  animation = AnimateActionEnum.ZoomIn;
 
   private _window: any;
 
@@ -55,28 +55,30 @@ export class PieChartComponent implements OnInit, OnChanges {
 
     let canvas = this.elementRef.nativeElement.querySelector('canvas');
 
-    let data = this.data.filter(d => d.value > 0);
+    if (canvas) {
+      let data = this.data.filter(d => d.value > 0);
 
-    this.chart = new this._window.Chart(canvas, {
-      type: "doughnut",
-      data: {
-        labels: data.map(d => d.label.length >= MAX_LABEL_LENGTH ?
-          d.label.slice(0, MAX_LABEL_LENGTH - 3) + "..." : d.label),
-        datasets: [
-          {
-            data: data.map(d => d.value),
-            backgroundColor: data.map(d => d.color),
-            hoverBackgroundColor: data.map(d => d.color),
-          }]
-      },
-      options: {
-        legend: {
-          display: false
+      this.chart = new this._window.Chart(canvas, {
+        type: "doughnut",
+        data: {
+          labels: data.map(d => d.label.length >= MAX_LABEL_LENGTH ?
+            d.label.slice(0, MAX_LABEL_LENGTH - 3) + "..." : d.label),
+          datasets: [
+            {
+              data: data.map(d => d.value),
+              backgroundColor: data.map(d => d.color),
+              hoverBackgroundColor: data.map(d => d.color),
+            }]
+        },
+        options: {
+          legend: {
+            display: false
+          }
         }
-      }
-    });
+      });
 
-    this.appeared = true;
+      this.appeared = true;
+    }
 
   }
 

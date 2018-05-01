@@ -1,11 +1,11 @@
 import {Component, Input, OnChanges, OnInit} from "@angular/core";
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {HelpService} from "../../services/help.service";
 import {FeedbackMessage} from "../../classes/feedback-message.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {finalize} from "rxjs/internal/operators";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -16,8 +16,8 @@ const BACKDROP_ANIMATION_DURATION = 300;
   styleUrls: ['feedback-helpful.component.scss'],
   animations: [
     trigger("modalAnimateState", [
-      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
-      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+      state(AnimateActionEnum.Visible, style({opacity: 1})),
+      state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
       transition(":enter", [
         animate(MODAL_ANIMATION_DURATION, keyframes([
@@ -46,8 +46,8 @@ const BACKDROP_ANIMATION_DURATION = 300;
     ]),
 
     trigger("backdropAnimateState", [
-      state(AnimateActionEnum.Visible.toString(), style({opacity: 1})),
-      state(AnimateActionEnum.Hidden.toString(), style({opacity: 0})),
+      state(AnimateActionEnum.Visible, style({opacity: 1})),
+      state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
       transition(":enter", [
         animate(BACKDROP_ANIMATION_DURATION, keyframes([

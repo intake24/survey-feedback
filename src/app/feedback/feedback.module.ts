@@ -10,7 +10,6 @@ import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import {PieChartComponent} from './pie-chart/pie-chart.component';
 import {AnimatedListComponent} from "./animated-list/animated-list.component";
-import {AnimateModule} from "../../animations/animate.module";
 import {AppearInViewportComponent} from './appear-in-viewport/appear-in-viewport.component';
 import {SharedModule} from "../shared/shared.module";
 import {TellMeMoreComponent} from "./tell-me-more/tell-me-more.component";
@@ -20,6 +19,8 @@ import {UserDemographicInfoComponent} from "./user-demographic-info/user-demogra
 import {DayCounterComponent} from './day-counter/day-counter.component';
 import {ConsentAlertComponent} from './consent-alert/consent-alert.component';
 import {ScrollIconComponent} from './scroll-icon/scroll-icon.component';
+import {AnimateModule} from "../../animate-ts/animate.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -37,14 +38,17 @@ import {ScrollIconComponent} from './scroll-icon/scroll-icon.component';
     ConsentAlertComponent,
     ScrollIconComponent
   ],
-  imports: [BrowserModule,
+  imports: [
+    BrowserModule,
     FormsModule,
     HttpModule,
     FeedbackRoutingModule,
     ChartsModule,
+    BrowserAnimationsModule,
     AnimateModule,
     SharedModule,
-    BootstrapMaterialModule],
+    BootstrapMaterialModule
+  ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

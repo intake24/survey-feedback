@@ -6,13 +6,13 @@ import {Food} from "../../classes/survey-result.class";
 import {Dictionaries, DictionariesService, NutrientTypeIdEnum} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {PlayingCardDetails} from "../playing-card/playing-card.component";
 import {none, Option, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const USER_INFO_PATH = "/user-info";
 
@@ -34,9 +34,9 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   ];
 
   readonly colorClasses: string[];
-  readonly textAnimation: AnimateActionEnum = AnimateActionEnum.BounceInDown;
-  readonly cardsAnimation: AnimateActionEnum = AnimateActionEnum.BounceInLeft;
-  readonly buttonsAnimation: AnimateActionEnum = AnimateActionEnum.ZoomIn;
+  readonly textAnimation = AnimateActionEnum.BounceInDown;
+  readonly cardsAnimation = AnimateActionEnum.BounceInLeft;
+  readonly buttonsAnimation = AnimateActionEnum.ZoomIn;
   readonly surveyPath: string = AppConfig.surveyPath;
   readonly showTopNumber: number = 5;
 

@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Food} from "../../classes/survey-result.class";
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {NutrientTypesService} from "../../services/nutrient-types.service";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 @Component({
   selector: 'i24-animated-list',
@@ -12,7 +12,7 @@ import {NutrientTypesService} from "../../services/nutrient-types.service";
 
 export class AnimatedListComponent implements OnInit {
 
-  readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInLeft;
+  readonly animation = AnimateActionEnum.BounceInLeft;
 
   @Input() items: Food[];
   @Input() total: number;

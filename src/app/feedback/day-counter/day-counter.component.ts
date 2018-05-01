@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
-import {AnimateFrame} from "../../../animations/animate-frame.class";
+import {AnimateFrame} from "../../../animate-ts/animate-frame";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 @Component({
   selector: 'i24-day-counter',
@@ -19,12 +19,10 @@ export class DayCounterComponent implements OnInit {
   currentDayTitle: string;
   previousDayTitle: string;
 
-  currentDayAnimation: AnimateFrame[];
-  previousDayAnimation: AnimateFrame[];
+  currentDayAnimation = AnimateActionEnum.Visible;
+  previousDayAnimation = AnimateActionEnum.Hidden;
 
   constructor() {
-    this.currentDayAnimation = [new AnimateFrame(AnimateActionEnum.Visible)];
-    this.previousDayAnimation = [new AnimateFrame(AnimateActionEnum.Hidden)];
   }
 
   ngOnInit() {
@@ -59,6 +57,11 @@ export class DayCounterComponent implements OnInit {
     this.dayNumberChange.emit(this.dayNumber);
   }
 
+  resetAnimations() {
+    this.currentDayAnimation = AnimateActionEnum.Visible;
+    this.previousDayAnimation = AnimateActionEnum.Hidden;
+  }
+
   private getDayTitle(): string {
     return this.dayNumber != null ? 'Day ' + (this.dayNumber + 1) : 'All days';
   }
@@ -68,14 +71,12 @@ export class DayCounterComponent implements OnInit {
     this.previousDayTitle = this.currentDayTitle;
     fn();
     this.currentDayTitle = this.getDayTitle();
-    this.previousDayAnimation = [new AnimateFrame(AnimateActionEnum.Visible)];
-    this.currentDayAnimation = [new AnimateFrame(AnimateActionEnum.Hidden)];
     if (this.previousDayNumber != null && (this.dayNumber == null || this.dayNumber > this.previousDayNumber)) {
-      this.previousDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeOutRight));
-      this.currentDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeInLeft));
+      this.previousDayAnimation = AnimateActionEnum.FadeOutRight;
+      this.currentDayAnimation = AnimateActionEnum.FadeInLeft;
     } else {
-      this.previousDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeOutLeft));
-      this.currentDayAnimation.push(new AnimateFrame(AnimateActionEnum.FadeInRight));
+      this.previousDayAnimation = AnimateActionEnum.FadeOutLeft;
+      this.currentDayAnimation = AnimateActionEnum.FadeInRight;
     }
   }
 

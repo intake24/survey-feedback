@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {AnimateActionEnum} from "../../animations/animate-action.enum";
 import {Location} from "@angular/common";
 import {UserInfoService} from "../services/user-info.service";
 import {UserInfo} from "../classes/user-info.class";
@@ -16,6 +15,7 @@ import {ErrorObservable} from "rxjs/observable/ErrorObservable";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {FeedbackStyleService} from "../services/feedback-style.service";
 import {finalize, map} from "rxjs/internal/operators";
+import {AnimateActionEnum} from "../../animate-ts/animate-action.enum";
 
 const WELCOME_PATH = "/user-info";
 const THANKS_PATH = "/thanks";

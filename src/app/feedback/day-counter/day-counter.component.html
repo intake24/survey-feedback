@@ -1,14 +1,14 @@
 <h2 class="i24-day-counter">
-  <animate [actionQueue]="currentDayAnimation">
+  <anm-c [action]="currentDayAnimation" [display]="true" (onShown)="resetAnimations()">
     <div class="day-title">
       {{currentDayTitle}}
     </div>
-  </animate>
-  <animate [actionQueue]="previousDayAnimation">
+  </anm-c>
+  <anm-c [action]="previousDayAnimation" [display]="true">
     <div class="day-title">
       {{previousDayTitle}}
     </div>
-  </animate>
+  </anm-c>
   <button class="btn btn-outline-primary left-btn" (click)="nextDay()"><</button>
   <button class="btn btn-outline-primary right-btn" (click)="previousDay()">></button>
 </h2>

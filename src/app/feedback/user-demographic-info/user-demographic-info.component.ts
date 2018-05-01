@@ -1,8 +1,8 @@
 import {Component, Input} from "@angular/core";
-import {AnimateActionEnum} from "../../../animations/animate-action.enum";
 import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 @Component({
   selector: "user-demographic-info",
@@ -12,7 +12,7 @@ import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum"
 
 export class UserDemographicInfoComponent {
 
-  readonly animation: AnimateActionEnum = AnimateActionEnum.BounceInDown;
+  readonly animation = AnimateActionEnum.BounceInDown;
   readonly surveyPath: string = AppConfig.surveyPath;
 
   @Input() feedbackStyle: SurveyFeedbackStyleEnum;
