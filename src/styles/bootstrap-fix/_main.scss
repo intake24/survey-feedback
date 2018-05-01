@@ -127,6 +127,8 @@
     select.form-control {
       margin-left: -0.25rem;
       padding-left: 0.25rem;
+      opacity: 0;
+      @include transition(opacity $transition-params);
 
       option {
         color: $text-color;
@@ -139,6 +141,10 @@
       label {
         width: 100%/$label-scale;
         @include transform(translateY(-($input-line-height + $label-scale)) scale($label-scale));
+      }
+      select.form-control {
+        opacity: 1;
+        @include transition(opacity $transition-params);
       }
     }
 
