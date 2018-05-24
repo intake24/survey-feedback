@@ -1,13 +1,8 @@
 <div class="clearfix">
-  <span class="profile-letter mb-4" *ngIf="userDemographic && userDemographic.name && userIconIsVisible">
-    <span class="profile-letter-content">
-      {{userDemographic.name[0]}}
-    </span>
-  </span>
   <div class="profile-info">
     <i24-appear-in-viewport [animation]="animation">
       <h5 class="display-4 profile-title">
-        {{userDemographic?.name}}, {{userDemographic?.yearOfBirth}}
+        Summary of your diet
       </h5>
       <h5 class="profile-title">
         {{userDemographic?.physicalActivity.name}}

@@ -45,8 +45,7 @@ export class UserDemographicService {
                                     physicalActivityLevels: PhysicalActivityLevel[],
                                     weightTargets: WeightTarget[],
                                     hc: HenryCoefficientsCalculator): Option<UserDemographic> {
-    if (userInfo.name.isEmpty ||
-      userInfo.sex.isEmpty ||
+    if (userInfo.sex.isEmpty ||
       userInfo.birthdate.isEmpty ||
       userInfo.weight.isEmpty ||
       userInfo.weightTarget.isEmpty ||
@@ -62,7 +61,7 @@ export class UserDemographicService {
       if (!wts.length) {
         throw "Unknown weight target."
       }
-      return some(new UserDemographic(userInfo.name.get, userInfo.sex.get,
+      return some(new UserDemographic(userInfo.sex.get,
         userInfo.birthdate.get.getFullYear(),
         (new Date()).getFullYear() - userInfo.birthdate.get.getFullYear(),
         userInfo.height.get, userInfo.weight.get, wts[0], pals[0], hc));

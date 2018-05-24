@@ -7,7 +7,6 @@
     <h2 class="text-white">{{content[feedbackStyle].subTitle}}</h2>
   </div>
   <form>
-    <bm-input class="bm-material-white" [(ngModel)]="name" [label]="'First name'" name="userName"></bm-input>
     <bm-select class="bm-material-white" [(ngModel)]="sex" [label]="'Sex'" name="sex">
       <option *ngFor="let sex of sexOptions" [value]="sex.value">
         {{sex.text}}

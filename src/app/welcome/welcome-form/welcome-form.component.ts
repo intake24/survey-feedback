@@ -25,9 +25,9 @@ export class WelcomeFormComponent implements OnInit {
   @Input() feedbackStyle: SurveyFeedbackStyleEnum;
   @Output() onSaved: EventEmitter<UserInfo> = new EventEmitter();
 
-  name: string;
   sex: DemographicSexEnum;
-  sexOptions = [new SexOption(DemographicSexEnum.FEMALE, "Female"),
+  sexOptions = [new SexOption('', "Select"),
+    new SexOption(DemographicSexEnum.FEMALE, "Female"),
     new SexOption(DemographicSexEnum.MALE, "Male")];
   yearOfBirth: string;
   weight: string;
@@ -58,7 +58,6 @@ export class WelcomeFormComponent implements OnInit {
 
   save(): void {
     this.userInfo.map(ui => {
-      ui.name = some(this.name);
       ui.sex = some(this.sex);
       ui.birthdate = some(new Date(`${this.yearOfBirth}-01-01`));
       ui.weight = some(this.stringToNumeric(this.weight));
@@ -70,8 +69,7 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   getFormIsValid(): boolean {
-    return this.name.trim() != "" &&
-      this.sex &&
+    return this.sex &&
       this.yearOfBirthIsValid() &&
       this.isNumeric(this.weight) &&
       this.isNumeric(this.height);
@@ -91,7 +89,6 @@ export class WelcomeFormComponent implements OnInit {
   private setFieldsFromInput(): void {
     this.userInfo.match({
       some: ui => {
-        this.name = ui.name.getOrElse(() => "");
         this.sex = ui.sex.getOrElse(() => null);
         this.yearOfBirth = ui.birthdate.match({
           some: d => String(d.getFullYear()),
@@ -103,7 +100,6 @@ export class WelcomeFormComponent implements OnInit {
         this.weightTarget = ui.weightTarget.getOrElse(() => this.weightTargets[0].id);
       },
       none: () => {
-        this.name = "";
         this.yearOfBirth = "";
       }
     })
@@ -136,10 +132,10 @@ export class WelcomeFormComponent implements OnInit {
 }
 
 class SexOption {
-  value: DemographicSexEnum;
+  value: DemographicSexEnum | '';
   text: string;
 
-  constructor(value: DemographicSexEnum, text: string) {
+  constructor(value: DemographicSexEnum | '', text: string) {
     this.value = value;
     this.text = text;
   }

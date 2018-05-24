@@ -27,7 +27,7 @@ export class UserInfoService {
 
   private userInfoToUserProfileRequest(userInfo: UserInfo): any {
     return {
-      name: OptionToRequest.toRequest(userInfo.name),
+      name: [],
       email: OptionToRequest.toRequest(userInfo.email),
       emailNotifications: userInfo.emailNotifications,
       phone: OptionToRequest.toRequest(userInfo.phone),

@@ -4,26 +4,15 @@ import {PhysicalActivityLevel} from "./physical-activity-level.class";
 import {WeightTarget} from "../services/weight-targets.service";
 
 export class UserDemographic {
-  readonly name: string;
-  readonly sex: DemographicSexEnum;
-  readonly yearOfBirth: number;
-  readonly age: number;
-  readonly height: number;
-  readonly weight: number;
-  readonly weighTarget: WeightTarget;
-  readonly physicalActivity: PhysicalActivityLevel;
-  private readonly bmrCalculator: HenryCoefficientsCalculator;
 
-  constructor(name: string,
-              sex: DemographicSexEnum,
-              yearOfBirth: number,
-              age: number,
-              height: number,
-              weight: number,
-              weighTarget: WeightTarget,
-              physicalActivity: PhysicalActivityLevel,
-              bmrCalculator: HenryCoefficientsCalculator) {
-    this.name = name;
+  constructor(readonly sex: DemographicSexEnum,
+              readonly yearOfBirth: number,
+              readonly age: number,
+              readonly height: number,
+              readonly weight: number,
+              readonly weighTarget: WeightTarget,
+              readonly physicalActivity: PhysicalActivityLevel,
+              private readonly bmrCalculator: HenryCoefficientsCalculator) {
     this.sex = sex;
     this.yearOfBirth = yearOfBirth;
     this.age = age;
@@ -35,7 +24,7 @@ export class UserDemographic {
   }
 
   clone(): UserDemographic {
-    return new UserDemographic(this.name, this.sex, this.yearOfBirth,
+    return new UserDemographic(this.sex, this.yearOfBirth,
       this.age, this.height, this.weight, this.weighTarget, this.physicalActivity, this.bmrCalculator);
   }
 
