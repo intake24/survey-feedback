@@ -4,7 +4,7 @@ import {
   DemographicScaleSector,
   DemographicScaleSectorSentimentEnum
 } from "../classes/demographic-group.class";
-import {Food} from "../classes/survey-result.class";
+import {AggregateFoodStats, Food} from "../classes/survey-result.class";
 import {none, Option, some} from "ts-option";
 import {UserDemographic} from "./user-demographic.class";
 
@@ -25,7 +25,7 @@ export class CharacterRules {
     this.sentiments = sentiments.map(sent => sent.clone());
   }
 
-  getSentiment(userDemographic: UserDemographic, foods: Food[]): Option<CharacterSentimentWithDescription> {
+  getSentiment(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<CharacterSentimentWithDescription> {
     let demographicGroups = this.getDemographicsGroups(userDemographic, foods)
       .map(dg => dg.get);
     let scaleSectors = demographicGroups
@@ -35,7 +35,7 @@ export class CharacterRules {
       .map(cs => new CharacterSentimentWithDescription(this.type, cs, demographicGroups));
   }
 
-  private getDemographicsGroups(userDemographic: UserDemographic, foods: Food[]): Option<DemographicResult>[] {
+  private getDemographicsGroups(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<DemographicResult>[] {
     let demographicGroups = this.demographicGroups
       .filter(dg => dg.matchesUserDemographic(userDemographic));
     return demographicGroups.map(dg => dg.getResult(userDemographic, foods))

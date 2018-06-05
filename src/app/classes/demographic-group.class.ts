@@ -1,6 +1,6 @@
 import {none, Option, some} from "ts-option";
 import {NutrientType} from "./nutrient-types.class";
-import {Food} from "./survey-result.class";
+import {AggregateFoodStats, Food} from "./survey-result.class";
 import {UserDemographic} from "./user-demographic.class";
 
 export class DemographicGroup {
@@ -60,7 +60,7 @@ export class DemographicGroup {
   }
 
   getResult(userDemographic: UserDemographic,
-            foods: Food[]): Option<DemographicResult> {
+            foods: AggregateFoodStats[]): Option<DemographicResult> {
     let cons = this.getConsumption(userDemographic, foods);
     let scaleSector = this.getScaleSectorByValue(cons);
     let bestScaleSector = this.getScaleSectorByBestSentiment();
@@ -113,15 +113,15 @@ export class DemographicGroup {
     return result;
   }
 
-  private getConsumption(userDemographic: UserDemographic, foods: Food[]): number {
-    let consumption = foods.map(f => f.getConsumption(this.nutrientTypeId))
+  private getConsumption(userDemographic: UserDemographic, foods: AggregateFoodStats[]): number {
+    let consumption = foods.map(f => f.getAverageIntake(this.nutrientTypeId))
       .reduce((a, b) => a + b);
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.EnergyDividedByBmr) {
       return consumption * 100 / userDemographic.getEnergyRequirement();
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PerUnitOfWeight) {
       return consumption / userDemographic.weight;
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PercentageOfEnergy) {
-      let energy = foods.map(f => f.getEnergy()).reduce((a, b) => a + b);
+      let energy = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b);
       if (energy == 0) {
         return 0;
       } else {

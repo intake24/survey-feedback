@@ -12,7 +12,7 @@ import {DemographicGroup, DemographicScaleSectorSentimentEnum} from "../classes/
 import {SurveysService} from "./surveys.service";
 import {DemographicGroupsService} from "./demographic-groups.service";
 import {NutrientTypesService} from "./nutrient-types.service";
-import {SurveyResult} from "../classes/survey-result.class";
+import {SurveyStats} from "../classes/survey-result.class";
 import {NutrientType} from "../classes/nutrient-types.class";
 import {AppConfig} from "../conf";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
@@ -319,13 +319,13 @@ export class DictionariesService {
 }
 
 export class Dictionaries {
-  readonly surveyResult: SurveyResult;
+  readonly surveyResult: SurveyStats;
   readonly demographicGroups: DemographicGroup[];
   readonly nutrientTypes: NutrientType[];
   readonly characterRules: CharacterRules[];
   readonly surveyFeedbackStyle: SurveyFeedbackStyleEnum;
 
-  constructor(surveyResult: SurveyResult,
+  constructor(surveyResult: SurveyStats,
               demographicGroups: DemographicGroup[],
               nutrientTypes: NutrientType[],
               characterRules: CharacterRules[],

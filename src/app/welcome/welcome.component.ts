@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import {AppConfig} from "../conf";
 import {SurveysService} from "../services/surveys.service";
 import {forkJoin, Observable, throwError} from "rxjs";
-import {SurveyResult} from "../classes/survey-result.class";
+import {SurveyStats} from "../classes/survey-result.class";
 import {PhysicalActivityLevelsService} from "../services/physical-activity-levels.service";
 import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
 import {WeightTarget, WeightTargetsService} from "../services/weight-targets.service";
@@ -89,9 +89,9 @@ export class WelcomeComponent implements OnInit {
       });
   }
 
-  private checkSurveyResults(): Observable<ErrorObservable<any> | SurveyResult> {
+  private checkSurveyResults(): Observable<ErrorObservable<any> | SurveyStats> {
     return this.surveyService.getMySurveyResults(AppConfig.surveyId).pipe(
-      map((result: SurveyResult) => {
+      map((result: SurveyStats) => {
         if (result.surveySubmissions.length == 0) {
           location.pathname = AppConfig.surveyPath;
           return throwError(result);

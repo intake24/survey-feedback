@@ -1,6 +1,6 @@
 import {NutrientTypeIdEnum} from "../services/dictionaries.service";
 
-export class SurveyResult {
+export class SurveyStats {
 
   readonly surveySubmissions: SurveySubmission[];
 
@@ -8,18 +8,18 @@ export class SurveyResult {
     this.surveySubmissions = surveySubmissions.map(ss => ss.clone());
   }
 
-  clone(): SurveyResult {
-    return new SurveyResult(this.surveySubmissions);
+  clone(): SurveyStats {
+    return new SurveyStats(this.surveySubmissions);
   }
 
-  static fromJson(jsonList: any[]): SurveyResult {
-    return new SurveyResult(jsonList.map(js => SurveySubmission.fromJson(js)));
+  static fromJson(jsonList: any[]): SurveyStats {
+    return new SurveyStats(jsonList.map(js => SurveySubmission.fromJson(js)));
   }
 
-  getReducedFoods(day?: number): Food[] {
+  getReducedFoods(day?: number): AggregateFoodStats[] {
     let foods = this.surveySubmissions
-        .filter((ss, i) => day == null || day == i)
-        .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
+      .filter((ss, i) => day == null || day == i)
+      .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
 
     let uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
 
@@ -40,10 +40,32 @@ export class SurveyResult {
         totalConsumptionMap.set(k, totalConsumptionMap.get(k) / (day == null ? this.surveySubmissions.length : 1));
       });
       let firstFood = matchingFoods[0];
-      return new Food(firstFood.code, firstFood.englishName, firstFood.localName, totalConsumptionMap);
+      return new AggregateFoodStats(firstFood.localName, totalConsumptionMap);
     });
   }
 
+}
+
+export class AggregateFoodStats {
+  readonly name: string;
+  private readonly averageIntake: Map<number, number>;
+
+  constructor(name: string, averageIntake: Map<number, number>) {
+    this.name = name;
+    this.averageIntake = averageIntake;
+  }
+
+  clone():AggregateFoodStats {
+    return new AggregateFoodStats(this.name, new Map(this.averageIntake));
+  }
+
+  getAverageIntake(nutrientTypeId: number): number {
+    return Math.round((this.averageIntake.get(nutrientTypeId) || 0) * 10) / 10;
+  }
+
+  getAverageEnergyIntake(): number {
+    return this.getAverageIntake(NutrientTypeIdEnum.Energy);
+  }
 }
 
 export class SurveySubmission {
@@ -104,12 +126,17 @@ export class Food {
   readonly englishName: string;
   readonly localName: string;
   readonly nutrientIdConsumptionMap: Map<number, number>;
+  readonly foodGroupProportions: Map<number, number>;
+  readonly foodGroupWeights: Map<number, number>;
 
-  constructor(code: string, englishName: string, localName: string, nutrients: Map<number, number>) {
+  constructor(code: string, englishName: string, localName: string, nutrients: Map<number, number>,
+              foodGroupProportions: Map<number, number>, foodGroupWeights: Map<number, number>) {
     this.code = code;
     this.englishName = englishName;
     this.localName = localName;
     this.nutrientIdConsumptionMap = new Map(nutrients);
+    this.foodGroupProportions = new Map(foodGroupProportions);
+    this.foodGroupWeights = new Map(foodGroupWeights);
   }
 
   static fromJson(json: any): Food {
@@ -117,16 +144,32 @@ export class Food {
     for (let i in json.nutrients) {
       mp.set(parseInt(i), json.nutrients[i]);
     }
+
+    let foodWeight = parseFloat(json.portionSize.portionWeight);
+
+    let foodGroupProportions = new Map<number, number>();
+    let foodGroupWeights = new Map<number, number>();
+
+    for (let i in json.compoundFoodGroups) {
+      let foodGroupId = parseInt(i);
+      let proportion = json.compoundFoodGroups[i];
+      foodGroupProportions.set(foodGroupId, proportion);
+      foodGroupWeights.set(foodGroupId, proportion * foodWeight);
+    }
+
     return new Food(
       json.code,
       json.englishDescription,
       json.localDescription.length ? json.localDescription[0] : "",
-      mp
+      mp,
+      foodGroupProportions,
+      foodGroupWeights
     );
   }
 
   clone(): Food {
-    return new Food(this.code, this.englishName, this.localName, this.nutrientIdConsumptionMap);
+    return new Food(this.code, this.englishName, this.localName, this.nutrientIdConsumptionMap, this.foodGroupProportions,
+      this.foodGroupWeights);
   }
 
   getConsumption(nutrientTypeId: number): number {

@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {forkJoin} from "rxjs";
 import {CharacterRules, CharacterSentimentWithDescription} from "../../classes/character.class";
-import {Food} from "../../classes/survey-result.class";
+import {AggregateFoodStats, Food} from "../../classes/survey-result.class";
 import {Dictionaries, DictionariesService, NutrientTypeIdEnum} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
@@ -47,9 +47,9 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   resultsInTwoCols: CharacterSentimentWithDescription[][] = [];
   resultsInOneCols: CharacterSentimentWithDescription[][] = [];
   userDemographic: UserDemographic;
-  foodHighInCalories: Food[] = [];
-  foodHighInSugar: Food[] = [];
-  foodHighInSatFat: Food[] = [];
+  foodHighInCalories: AggregateFoodStats[] = [];
+  foodHighInSugar: AggregateFoodStats[] = [];
+  foodHighInSatFat: AggregateFoodStats[] = [];
 
   totalCalorieIntake: number;
   totalSugarIntake: number;
@@ -122,7 +122,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
     this.daysRecorded = surveyResult.surveySubmissions.length;
 
-    let foods: Food[] = surveyResult.getReducedFoods(this.currentDay);
+    let foods: AggregateFoodStats[] = surveyResult.getReducedFoods(this.currentDay);
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
@@ -136,7 +136,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     })
   }
 
-  private buildCharacterCards(foods: Food[], characterRules: CharacterRules[]): void {
+  private buildCharacterCards(foods: AggregateFoodStats[], characterRules: CharacterRules[]): void {
     this.results = characterRules.map(characterRule =>
       characterRule.getSentiment(this.userDemographic, foods).match({
         some: sent => some(sent),
@@ -155,7 +155,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     this.resultsInOneCols = this.getByColumns(1);
   }
 
-  private getTopFoods(foods: Food[]): void {
+  private getTopFoods(foods: AggregateFoodStats[]): void {
 
     let foodHighInCalories = this.filterAndSortFoodByNutrientTypeId(NutrientTypeIdEnum.Energy, foods);
     let foodHighInSugar = this.filterAndSortFoodByNutrientTypeId(NutrientTypeIdEnum.Sugar, foods);
@@ -170,36 +170,36 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     this.foodHighInSatFat = foodHighInSatFat.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.SatdFat, otherSatdFat));
 
     this.caloriesChartData = this.foodHighInCalories
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.Energy), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getAverageIntake(NutrientTypeIdEnum.Energy), f.name, this.ColorNamesMap[i][1]));
 
     this.sugarChartData = this.foodHighInSugar
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.Sugar), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getAverageIntake(NutrientTypeIdEnum.Sugar), f.name, this.ColorNamesMap[i][1]));
 
     this.satFatChartData = this.foodHighInSatFat
-      .map((f, i) => new PieChardData(f.getConsumption(NutrientTypeIdEnum.SatdFat), f.englishName, this.ColorNamesMap[i][1]));
+      .map((f, i) => new PieChardData(f.getAverageIntake(NutrientTypeIdEnum.SatdFat), f.name, this.ColorNamesMap[i][1]));
 
     this.getTotalFoodConsumptions(foods);
   }
 
-  private filterAndSortFoodByNutrientTypeId(nutrientTypeId: number, foods: Food[]): Food[] {
+  private filterAndSortFoodByNutrientTypeId(nutrientTypeId: number, foods: AggregateFoodStats[]): AggregateFoodStats[] {
     return foods.map(food => food.clone())
-      .filter(f => f.getConsumption(nutrientTypeId) > 0)
-      .sort((a, b) => b.getConsumption(nutrientTypeId) - a.getConsumption(nutrientTypeId));
+      .filter(f => f.getAverageIntake(nutrientTypeId) > 0)
+      .sort((a, b) => b.getAverageIntake(nutrientTypeId) - a.getAverageIntake(nutrientTypeId));
   }
 
-  private summeriseOtherFood(nutrientTypeId: number, foods: Food[]): Food[] {
+  private summeriseOtherFood(nutrientTypeId: number, foods: AggregateFoodStats[]): AggregateFoodStats[] {
     if (!foods.length) {
       return [];
     } else {
-      let total = foods.map(f => f.getConsumption(nutrientTypeId)).reduce((a, b) => a + b);
-      return [new Food("other", "Other food", "Other food", new Map([[nutrientTypeId, total]]))];
+      let total = foods.map(f => f.getAverageIntake(nutrientTypeId)).reduce((a, b) => a + b);
+      return [new AggregateFoodStats("Other food", new Map([[nutrientTypeId, total]]))];
     }
   }
 
-  private getTotalFoodConsumptions(foods: Food[]): void {
-    this.totalCalorieIntake = foods.map(f => f.getEnergy()).reduce((a, b) => a + b, 0);
-    this.totalSugarIntake = foods.map(f => f.getConsumption(NutrientTypeIdEnum.Sugar)).reduce((a, b) => a + b, 0);
-    this.totalSatFatIntake = foods.map(f => f.getConsumption(NutrientTypeIdEnum.SatdFat)).reduce((a, b) => a + b, 0);
+  private getTotalFoodConsumptions(foods: AggregateFoodStats[]): void {
+    this.totalCalorieIntake = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b, 0);
+    this.totalSugarIntake = foods.map(f => f.getAverageIntake(NutrientTypeIdEnum.Sugar)).reduce((a, b) => a + b, 0);
+    this.totalSatFatIntake = foods.map(f => f.getAverageIntake(NutrientTypeIdEnum.SatdFat)).reduce((a, b) => a + b, 0);
 
     this.totalCalorieIntake = Math.round(this.totalCalorieIntake * 10) / 10;
     this.totalSugarIntake = Math.round(this.totalSugarIntake * 10) / 10;

@@ -3,9 +3,9 @@
     <li class="h5"
         *ngFor="let food of items; let i = index;"
         [ngClass]="classList[i]">
-      {{food.localName}}:
+      {{food.name}}:
       <strong class="text-nowrap">
-        {{food.getConsumption(nutrientTypeId)}}
+        {{food.getAverageIntake(nutrientTypeId)}}
         {{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}{{showPerDay ? '/day' : ''}}
       </strong>
     </li>
