@@ -21,7 +21,7 @@ import {ConsentAlertComponent} from './consent-alert/consent-alert.component';
 import {ScrollIconComponent} from './scroll-icon/scroll-icon.component';
 import {AnimateModule} from "../../animate-ts/animate.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {FiveADayCardComponent} from "./food-groups/five-a-day.component";
+import {FiveADayCardComponent} from "./five-a-day-card/five-a-day.component";
 import {FeedbackCardDynamicComponent} from "./feedback-card/feedback-card.component";
 
 

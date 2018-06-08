@@ -11,7 +11,7 @@ import {
 } from "@angular/core";
 import {FeedbackCardParameters} from "../playing-cards/playing-cards.component";
 import {CharacterCardComponent, PlayingCardDetails} from "../character-card/character-card.component";
-import {FiveADayCardComponent} from "../food-groups/five-a-day.component";
+import {FiveADayCardComponent} from "../five-a-day-card/five-a-day.component";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {FeedbackCardComponent} from "./feedback-card";
 
@@ -24,6 +24,9 @@ export class FeedbackCardDynamicComponent implements OnInit {
 
   @Input() parameters: FeedbackCardParameters;
   @Input() feedbackStyle: SurveyFeedbackStyleEnum;
+  @Input() enteredViewport: EventEmitter<any>;
+  @Input() leftViewport: EventEmitter<any>;
+  @Input() test: string;
 
   @Output() onTellMeMore: EventEmitter<PlayingCardDetails[]>;
 
@@ -49,5 +52,7 @@ export class FeedbackCardDynamicComponent implements OnInit {
     componentRef.instance.parameters = this.parameters;
     componentRef.instance.feedbackStyle = this.feedbackStyle;
     componentRef.instance.onTellMeMore.subscribe(e => this.onTellMeMore.emit(e));
+    this.enteredViewport.subscribe(_ => componentRef.instance.onEnteredViewport());
+    this.leftViewport.subscribe(_ => componentRef.instance.onLeftViewport());
   }
 }

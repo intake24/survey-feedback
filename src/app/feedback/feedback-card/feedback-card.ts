@@ -6,7 +6,16 @@ import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum"
 export abstract class FeedbackCardComponent {
   @Input() parameters: FeedbackCardParameters;
   @Input() feedbackStyle: SurveyFeedbackStyleEnum;
+
   @Output() onTellMeMore: EventEmitter<PlayingCardDetails[]>;
+
+  onEnteredViewport(): void {
+
+  }
+
+  onLeftViewport(): void {
+
+  }
 
   constructor() {
     this.onTellMeMore = new EventEmitter();

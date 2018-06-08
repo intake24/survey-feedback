@@ -13,7 +13,7 @@ import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
-import {FiveADayCardParameters} from "../food-groups/five-a-day.component";
+import {FiveADayCardParameters} from "../five-a-day-card/five-a-day.component";
 
 const USER_INFO_PATH = "/user-info";
 

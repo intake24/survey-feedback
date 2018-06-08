@@ -8,10 +8,11 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output
+  Output, ViewChild
 } from '@angular/core';
 import {WindowRefService} from "../../services/window-ref.service";
 import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {FeedbackCardComponent} from "../feedback-card/feedback-card";
 
 @Component({
   selector: 'i24-appear-in-viewport',
@@ -26,14 +27,12 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
   private _previousVisible: boolean;
   isVisible: boolean;
 
-
-
   @Input() scrollOffset: number;
   @Input() animationDelay: number;
   @Input() animation: AnimateActionEnum;
 
-  @Output() in: EventEmitter<any> = new EventEmitter();
-  @Output() out: EventEmitter<any> = new EventEmitter();
+  @Output() enteredViewport: EventEmitter<any> = new EventEmitter();
+  @Output() leftViewport: EventEmitter<any> = new EventEmitter();
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private elementRef: ElementRef,
@@ -62,10 +61,10 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
         setTimeout(() => {
           this.action = this.animation;
           this.changeDetectorRef.markForCheck();
-          this.in.emit();
+          this.enteredViewport.emit();
         }, this.animationDelay);
       } else {
-        this.out.emit();
+        this.leftViewport.emit();
       }
     }
   }
