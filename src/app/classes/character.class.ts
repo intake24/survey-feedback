@@ -25,14 +25,14 @@ export class CharacterRules {
     this.sentiments = sentiments.map(sent => sent.clone());
   }
 
-  getSentiment(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<CharacterSentimentWithDescription> {
+  getSentiment(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<CharacterCardParameters> {
     let demographicGroups = this.getDemographicsGroups(userDemographic, foods)
       .map(dg => dg.get);
     let scaleSectors = demographicGroups
       .map(dg => dg.resultedDemographicGroup.scaleSectors)
       .reduce((a, b) => a.slice().concat(b), []);
     return this.pickAverageSentiment(scaleSectors)
-      .map(cs => new CharacterSentimentWithDescription(this.type, cs, demographicGroups));
+      .map(cs => new CharacterCardParameters(this.type, cs, demographicGroups));
   }
 
   private getDemographicsGroups(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<DemographicResult>[] {
@@ -112,7 +112,8 @@ export class CharacterSentiment {
 
 }
 
-export class CharacterSentimentWithDescription {
+export class CharacterCardParameters {
+  readonly cardType = "character";
 
   readonly characterType: CharacterTypeEnum;
   readonly characterSentiment: CharacterSentiment;

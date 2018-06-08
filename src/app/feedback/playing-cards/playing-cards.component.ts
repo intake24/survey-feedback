@@ -1,27 +1,29 @@
 import {Component, OnChanges, OnInit} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {forkJoin} from "rxjs";
-import {CharacterRules, CharacterSentimentWithDescription} from "../../classes/character.class";
+import {CharacterRules, CharacterCardParameters} from "../../classes/character.class";
 import {AggregateFoodStats, Food} from "../../classes/survey-result.class";
 import {Dictionaries, DictionariesService, NutrientTypeIdEnum} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
-import {PlayingCardDetails} from "../playing-card/playing-card.component";
+import {PlayingCardDetails} from "../character-card/character-card.component";
 import {none, Option, some} from "ts-option";
 import {Router} from "@angular/router";
 import {AppConfig} from "../../conf";
 import {UserDemographic} from "../../classes/user-demographic.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {FiveADayCardParameters} from "../food-groups/five-a-day.component";
 
 const USER_INFO_PATH = "/user-info";
+
+export type FeedbackCardParameters = CharacterCardParameters | FiveADayCardParameters;
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
   templateUrl: "./playing-cards.component.html",
   styleUrls: ["./playing-cards.component.scss"]
 })
-
 export class PlayingCardsComponent implements OnInit, OnChanges {
 
   readonly ColorNamesMap: [string, string][] = [
@@ -42,10 +44,10 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
   isLoading: boolean = true;
 
-  results: CharacterSentimentWithDescription[];
-  resultsInThreeCols: CharacterSentimentWithDescription[][] = [];
-  resultsInTwoCols: CharacterSentimentWithDescription[][] = [];
-  resultsInOneCols: CharacterSentimentWithDescription[][] = [];
+  results: FeedbackCardParameters[];
+  resultsInThreeCols: FeedbackCardParameters[][] = [];
+  resultsInTwoCols: FeedbackCardParameters[][] = [];
+  resultsInOneCols: FeedbackCardParameters[][] = [];
   userDemographic: UserDemographic;
   foodHighInCalories: AggregateFoodStats[] = [];
   foodHighInSugar: AggregateFoodStats[] = [];
@@ -98,7 +100,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     this.tellMeMoreDetails = playingCardDetails;
   }
 
-  getByColumns(colsCount: number): CharacterSentimentWithDescription[][] {
+  getByColumns(colsCount: number): CharacterCardParameters[][] {
     let result = [];
     let colIndex = 0;
     while (colIndex < colsCount) {
@@ -126,7 +128,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
-        this.buildCharacterCards(foods, dictionariesRes[0].characterRules);
+        this.buildFeedbackCards(foods, dictionariesRes[0].characterRules);
         this.getTopFoods(foods);
         this.isLoading = false;
       },
@@ -136,7 +138,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     })
   }
 
-  private buildCharacterCards(foods: AggregateFoodStats[], characterRules: CharacterRules[]): void {
+  private buildFeedbackCards(foods: AggregateFoodStats[], characterRules: CharacterRules[]): void {
     this.results = characterRules.map(characterRule =>
       characterRule.getSentiment(this.userDemographic, foods).match({
         some: sent => some(sent),
@@ -150,6 +152,9 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
         }
       })
     ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
+
+    this.results.push(new FiveADayCardParameters());
+
     this.resultsInThreeCols = this.getByColumns(3);
     this.resultsInTwoCols = this.getByColumns(2);
     this.resultsInOneCols = this.getByColumns(1);

@@ -35,9 +35,11 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
-                <feedback-playing-card [characterDescription]="item"
-                                       [feedbackStyle]="feedbackStyle"
-                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+
+                <feedback-card [parameters]="item"
+                               [feedbackStyle]="feedbackStyle"
+                               (onTellMeMore)="onTellMeMore($event)"></feedback-card>
+
               </i24-appear-in-viewport>
             </div>
 
@@ -50,9 +52,11 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
-                <feedback-playing-card [characterDescription]="item"
-                                       [feedbackStyle]="feedbackStyle"
-                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+
+                <feedback-card [parameters]="item"
+                               [feedbackStyle]="feedbackStyle"
+                               (onTellMeMore)="onTellMeMore($event)"></feedback-card>
+
               </i24-appear-in-viewport>
             </div>
 
@@ -65,9 +69,11 @@
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
-                <feedback-playing-card [characterDescription]="item"
-                                       [feedbackStyle]="feedbackStyle"
-                                       (onTellMeMore)="onTellMeMore($event)"></feedback-playing-card>
+
+                <feedback-card [parameters]="item"
+                               [feedbackStyle]="feedbackStyle"
+                               (onTellMeMore)="onTellMeMore($event)"></feedback-card>
+
               </i24-appear-in-viewport>
             </div>
 

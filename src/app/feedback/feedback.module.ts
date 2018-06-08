@@ -5,7 +5,7 @@ import {HttpModule} from "@angular/http";
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {ResultListDietItemComponent} from "./result-list-diet-item/result-list-diet-item.component";
 import {PlayingCardsComponent} from "./playing-cards/playing-cards.component";
-import {PlayingCardComponent} from "./playing-card/playing-card.component";
+import {CharacterCardComponent} from "./character-card/character-card.component";
 import {FeedbackRoutingModule} from "./feedback-routing.module";
 import {ChartsModule} from "ng2-charts";
 import {PieChartComponent} from './pie-chart/pie-chart.component';
@@ -21,16 +21,20 @@ import {ConsentAlertComponent} from './consent-alert/consent-alert.component';
 import {ScrollIconComponent} from './scroll-icon/scroll-icon.component';
 import {AnimateModule} from "../../animate-ts/animate.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {FiveADayCardComponent} from "./food-groups/five-a-day.component";
+import {FeedbackCardDynamicComponent} from "./feedback-card/feedback-card.component";
 
 
 @NgModule({
   declarations: [
     ResultListDietItemComponent,
     PlayingCardsComponent,
-    PlayingCardComponent,
+    CharacterCardComponent,
     UserDemographicInfoComponent,
     PieChartComponent,
     AnimatedListComponent,
+    FeedbackCardDynamicComponent,
+    FiveADayCardComponent,
     AppearInViewportComponent,
     TellMeMoreComponent,
     FeedbackHelpfulComponent,
@@ -52,7 +56,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
-  bootstrap: []
+  bootstrap: [],
+  entryComponents: [
+    CharacterCardComponent,
+    FiveADayCardComponent
+  ]
 })
 export class FeedbackModule {
 

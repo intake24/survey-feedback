@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
-import {PlayingCardDetails} from "../playing-card/playing-card.component";
+import {PlayingCardDetails} from "../character-card/character-card.component";
 import {AnimateActionAlias, AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 
 const MODAL_ANIMATION_DURATION = 500;

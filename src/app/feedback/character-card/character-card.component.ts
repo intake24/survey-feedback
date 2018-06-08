@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
-import {CharacterSentimentWithDescription} from "../../classes/character.class";
+import {CharacterCardParameters} from "../../classes/character.class";
 import {NutrientTypesService} from "../../services/nutrient-types.service";
 import {
   DemographicNutrientRuleTypeEnum,
@@ -9,6 +9,8 @@ import {
 } from "../../classes/demographic-group.class";
 import {DemographicNutrientRuleTypeDescriptions} from "../../classes/demographic-nutrient-rule-type-description.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
+import {FeedbackCardComponent} from "../feedback-card/feedback-card";
+
 
 const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
 
@@ -22,13 +24,13 @@ const PLAYFUL_BACKGROUND_SCENE_MAP = {
 const DEFAULT_BACKGROUND_PREFIX = "default-";
 
 @Component({
-  selector: SELECTOR_PREFIX + "playing-card",
-  templateUrl: "./playing-card.component.html",
-  styleUrls: ["./playing-card.component.scss"],
+  selector: SELECTOR_PREFIX + "character-card",
+  templateUrl: "./character-card.component.html",
+  styleUrls: ["./character-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PlayingCardComponent implements OnInit {
+export class CharacterCardComponent extends FeedbackCardComponent implements OnInit {
 
   height: number;
 
@@ -36,22 +38,19 @@ export class PlayingCardComponent implements OnInit {
 
   sentimentEnums: Object;
 
-  @Output() onTellMeMore: EventEmitter<PlayingCardDetails[]>;
-
-  @Input() characterDescription: CharacterSentimentWithDescription;
-  @Input() feedbackStyle: SurveyFeedbackStyleEnum;
+  @Input() parameters: CharacterCardParameters;
 
   constructor(private nutrientService: NutrientTypesService) {
+    super();
     this.isVisible = false;
     this.sentimentEnums = DemographicScaleSectorSentimentEnum;
-    this.onTellMeMore = new EventEmitter();
   }
 
   get sceneClass(): string {
     if (this.feedbackStyle == SurveyFeedbackStyleEnum.Playful) {
-      return PLAYFUL_BACKGROUND_SCENE_MAP[this.characterDescription.characterSentiment.sentimentType];
+      return PLAYFUL_BACKGROUND_SCENE_MAP[this.parameters.characterSentiment.sentimentType];
     } else {
-      return `${CARD_SCENE_CLASS_BASE}${DEFAULT_BACKGROUND_PREFIX}${this.characterDescription.characterType}`
+      return `${CARD_SCENE_CLASS_BASE}${DEFAULT_BACKGROUND_PREFIX}${this.parameters.characterType}`
     }
   }
 
@@ -68,7 +67,7 @@ export class PlayingCardComponent implements OnInit {
   }
 
   getResultedDemographicTitle(): PlayingCardDetails[] {
-    return this.characterDescription.demographicResults
+    return this.parameters.demographicResults
       .map(dr => {
         let title = dr.resultedDemographicGroup.scaleSectors[0].name;
         let consumption = dr.consumption;
