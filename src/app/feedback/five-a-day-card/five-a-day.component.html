@@ -5,12 +5,12 @@
     <div class="feedback-playing-card-background"
     ></div>
     <div #gauge class="gauge-container"></div>
-<!--    <food-smile *ngIf="smileyIsVisible"
-                [character]="parameters.characterType"
-                [scene]="parameters.characterSentiment.sentimentType"></food-smile>-->
   </div>
   <div class="feedback-playing-card-body">
-    Hi!!!
+    <p class="separated">
+      {{parameters.feedback.summary}}<br/>
+      {{parameters.portions}} portions
+    </p>
   </div>
   <div class="feedback-playing-card-btns">
     <button type="button"

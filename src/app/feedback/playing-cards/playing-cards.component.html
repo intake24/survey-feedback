@@ -46,18 +46,19 @@
             </div>
 
           </div>
-          <!--
 
           <div class="col-12 row d-none d-md-flex d-lg-none">
 
             <div class="col-6" *ngFor="let itemsInCol of resultsInTwoCols; let j=index;">
-              <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
+              <i24-appear-in-viewport #appear *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
 
                 <feedback-card [parameters]="item"
                                [feedbackStyle]="feedbackStyle"
+                               [enteredViewport]="appear.enteredViewport"
+                               [leftViewport]="appear.leftViewport"
                                (onTellMeMore)="onTellMeMore($event)"></feedback-card>
 
               </i24-appear-in-viewport>
@@ -68,20 +69,21 @@
           <div class="col-12 row d-md-none no-gutters">
 
             <div class="col-12" *ngFor="let itemsInCol of resultsInOneCols; let j=index;">
-              <i24-appear-in-viewport *ngFor="let item of itemsInCol; let i=index;"
+              <i24-appear-in-viewport #appear *ngFor="let item of itemsInCol; let i=index;"
                                       [animation]="cardsAnimation"
                                       [scrollOffset]="i == 0 ? -10 : 100"
                                       [animationDelay]="j*50">
 
                 <feedback-card [parameters]="item"
                                [feedbackStyle]="feedbackStyle"
+                               [enteredViewport]="appear.enteredViewport"
+                               [leftViewport]="appear.leftViewport"
                                (onTellMeMore)="onTellMeMore($event)"></feedback-card>
 
               </i24-appear-in-viewport>
             </div>
 
           </div>
-          -->
 
         </div>
 

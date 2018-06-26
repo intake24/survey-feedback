@@ -6,10 +6,18 @@ import {SELECTOR_PREFIX} from "../feedback.const";
 import {FeedbackCardComponent} from "../feedback-card/feedback-card";
 import {CharacterCardParameters} from "../../classes/character.class";
 import * as Gauge from "svg-gauge";
+import {FiveADayFeedbackRow} from "../../classes/five-a-day-feedback";
 
 
 export class FiveADayCardParameters {
   readonly cardType = "five-a-day";
+  readonly portions: number;
+  readonly feedback: FiveADayFeedbackRow;
+
+  constructor(portions: number, feedback: FiveADayFeedbackRow) {
+    this.feedback = feedback;
+    this.portions = portions;
+  }
 }
 
 @Component({
@@ -84,7 +92,7 @@ export class FiveADayCardComponent extends FeedbackCardComponent implements Afte
 
   onEnteredViewport() {
     if (this.gauge) {
-      this.gauge.setValueAnimated(5, 1);
+      this.gauge.setValueAnimated(this.parameters.portions, 1);
     }
   }
 

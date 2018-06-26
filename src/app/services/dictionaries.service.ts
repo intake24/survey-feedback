@@ -18,6 +18,8 @@ import {AppConfig} from "../conf";
 import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
 import {FeedbackStyleService} from "./feedback-style.service";
 import {map} from "rxjs/internal/operators";
+import {FiveADayFeedback} from "../classes/five-a-day-feedback";
+import {FoodGroupsFeedbackService} from "./food-groups-feedback.service";
 
 
 export enum NutrientTypeIdEnum {
@@ -281,7 +283,8 @@ export class DictionariesService {
   constructor(private mySurveyResultsService: SurveysService,
               private styleService: FeedbackStyleService,
               private demographicGroupsService: DemographicGroupsService,
-              private nutrientTypesService: NutrientTypesService) {
+              private nutrientTypesService: NutrientTypesService,
+              private foodGroupsFeedbackService: FoodGroupsFeedbackService) {
   }
 
   get(): Observable<Dictionaries> {
@@ -291,11 +294,13 @@ export class DictionariesService {
         this.mySurveyResultsService.getMySurveyResults(AppConfig.surveyId),
         this.demographicGroupsService.list(),
         this.nutrientTypesService.list(),
-        this.styleService.getFeedbackStyle(AppConfig.surveyId)
+        this.styleService.getFeedbackStyle(AppConfig.surveyId),
+        this.foodGroupsFeedbackService.getFiveADayFeedback()
       ).pipe(
         map(res => {
           let surveyResult = res[0];
           let nutrientTypes = res[2];
+          let fiveADayFeedback = res[4];
           let demographicGroups = res[1].map(dg =>
             dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
 
@@ -307,7 +312,7 @@ export class DictionariesService {
           });
 
           let dictionaries = new Dictionaries(surveyResult, demographicGroups,
-            nutrientTypes, characterRules, res[3]);
+            nutrientTypes, characterRules, fiveADayFeedback, res[3]);
 
           this.cachedDictionaries = some(dictionaries);
 
@@ -323,17 +328,21 @@ export class Dictionaries {
   readonly demographicGroups: DemographicGroup[];
   readonly nutrientTypes: NutrientType[];
   readonly characterRules: CharacterRules[];
+  readonly fiveADayFeedback: FiveADayFeedback;
   readonly surveyFeedbackStyle: SurveyFeedbackStyleEnum;
+
 
   constructor(surveyResult: SurveyStats,
               demographicGroups: DemographicGroup[],
               nutrientTypes: NutrientType[],
               characterRules: CharacterRules[],
+              fiveADayFeedback: FiveADayFeedback,
               surveyFeedbackStyle: SurveyFeedbackStyleEnum) {
     this.surveyResult = surveyResult;
     this.demographicGroups = demographicGroups;
     this.nutrientTypes = nutrientTypes;
     this.characterRules = characterRules;
+    this.fiveADayFeedback = fiveADayFeedback;
     this.surveyFeedbackStyle = surveyFeedbackStyle;
   }
 

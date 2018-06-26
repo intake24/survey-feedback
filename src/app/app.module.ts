@@ -24,6 +24,7 @@ import {PhysicalActivityLevelsService} from "./services/physical-activity-levels
 import {WeightTargetsService} from "./services/weight-targets.service";
 import {SharedModule} from "./shared/shared.module";
 import {FeedbackStyleService} from "./services/feedback-style.service";
+import {FoodGroupsFeedbackService} from "./services/food-groups-feedback.service";
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import {FeedbackStyleService} from "./services/feedback-style.service";
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     CookieService,
     DemographicGroupsService,
+    FoodGroupsFeedbackService,
     UserDemographicService,
     NutrientTypesService,
     DictionariesService,

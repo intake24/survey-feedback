@@ -1,4 +1,5 @@
 import {NutrientTypeIdEnum} from "../services/dictionaries.service";
+import {getLocaleNumberFormat} from "@angular/common";
 
 export class SurveyStats {
 
@@ -14,6 +15,74 @@ export class SurveyStats {
 
   static fromJson(jsonList: any[]): SurveyStats {
     return new SurveyStats(jsonList.map(js => SurveySubmission.fromJson(js)));
+  }
+
+  private getFoodGroupTotals(foods: Food[]): Map<number, number> {
+    let result = new Map<number, number>();
+
+    foods.forEach(food => {
+      food.foodGroupWeights.forEach((weight, groupId) => {
+        result.set(groupId, (result.get(groupId) | 0) + food.foodGroupWeights.get(groupId));
+      });
+    });
+
+    return result;
+  }
+
+  getFoodGroupAverages(day?: number): Map<number, number> {
+    let foods = this.surveySubmissions
+      .filter((ss, i) => day == null || day == i)
+      .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
+
+    let weights = this.getFoodGroupTotals(foods);
+
+    weights.forEach((weight, groupId) => {
+      weights.set(groupId, weight / (day == null ? this.surveySubmissions.length : 1));
+    });
+
+    return weights;
+  }
+
+  private readonly JUICE_FOOD_GROUP_IDS = [22];
+  private readonly FRUIT_GROUP_IDS = [16, 17, 18, 20, 21];
+  private readonly DRIED_FRUIT_GROUP_IDS = [19];
+  private readonly VEGETABLE_GROUP_IDS = [42, 43, 44, 45, 46, 47];
+  private readonly BEANS_PULSES_GROUP_IDS = [33, 34];
+
+  private getTotalForSubset(foodGroupTotals: Map<number, number>, groupIds: number[]) {
+    let total = 0;
+
+    foodGroupTotals.forEach((weight, groupId) => {
+      if (groupIds.indexOf(groupId) != -1)
+        total += weight;
+    });
+
+    return total;
+  }
+
+  getFruitAndVegPortions(day?: number): FruitAndVegPortions {
+    let foodGroupTotals = this.getFoodGroupAverages(day);
+
+    let juicesTotal = this.getTotalForSubset(foodGroupTotals, this.JUICE_FOOD_GROUP_IDS);
+    let beansAndPulsesTotal = this.getTotalForSubset(foodGroupTotals, this.BEANS_PULSES_GROUP_IDS);
+    let fruitTotal = this.getTotalForSubset(foodGroupTotals, this.FRUIT_GROUP_IDS);
+    let driedFruitTotal = this.getTotalForSubset(foodGroupTotals, this.DRIED_FRUIT_GROUP_IDS);
+    let vegetablesTotal = this.getTotalForSubset(foodGroupTotals, this.VEGETABLE_GROUP_IDS);
+
+    let juices = Math.min(150, juicesTotal) / 150;
+    let beansAndPulses = Math.min(80, beansAndPulsesTotal) / 80;
+    let fruit = fruitTotal / 80;
+    let driedFruit = driedFruitTotal / 30;
+    let vegetables = vegetablesTotal / 80;
+
+    return {
+      juices,
+      beansAndPulses,
+      fruit,
+      driedFruit,
+      vegetables,
+      total: juices + beansAndPulses + fruit + driedFruit + vegetables
+    }
   }
 
   getReducedFoods(day?: number): AggregateFoodStats[] {
@@ -43,7 +112,15 @@ export class SurveyStats {
       return new AggregateFoodStats(firstFood.localName, totalConsumptionMap);
     });
   }
+}
 
+export class FruitAndVegPortions {
+  readonly juices: number;
+  readonly beansAndPulses: number;
+  readonly fruit: number;
+  readonly driedFruit: number;
+  readonly vegetables: number;
+  readonly total: number;
 }
 
 export class AggregateFoodStats {
@@ -55,7 +132,7 @@ export class AggregateFoodStats {
     this.averageIntake = averageIntake;
   }
 
-  clone():AggregateFoodStats {
+  clone(): AggregateFoodStats {
     return new AggregateFoodStats(this.name, new Map(this.averageIntake));
   }
 
@@ -154,7 +231,7 @@ export class Food {
       let foodGroupId = parseInt(i);
       let proportion = json.compoundFoodGroups[i];
       foodGroupProportions.set(foodGroupId, proportion);
-      foodGroupWeights.set(foodGroupId, proportion * foodWeight);
+      foodGroupWeights.set(foodGroupId, proportion / 100 * foodWeight);
     }
 
     return new Food(

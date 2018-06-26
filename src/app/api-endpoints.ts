@@ -37,7 +37,7 @@ export class ApiEndpoints {
   }
 
   static mySurveyResults(surveyId: string): string {
-    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions`;
+    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions?compoundFoodGroups=1`;
   }
 
   static surveyFeedbackStyle(surveyId: string): string {
@@ -58,6 +58,10 @@ export class ApiEndpoints {
 
   static helpFeedback(): string {
     return `${ApiEndpoints.apiBaseUrl}help/feedback`;
+  }
+
+  static fiveADayFeedback(): string {
+    return `${ApiEndpoints.apiBaseUrl}user/feedback/five-a-day`;
   }
 
 }

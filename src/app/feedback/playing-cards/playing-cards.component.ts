@@ -2,7 +2,7 @@ import {Component, OnChanges, OnInit} from "@angular/core";
 import {SELECTOR_PREFIX} from "../feedback.const";
 import {forkJoin} from "rxjs";
 import {CharacterRules, CharacterCardParameters} from "../../classes/character.class";
-import {AggregateFoodStats, Food} from "../../classes/survey-result.class";
+import {AggregateFoodStats, Food, FruitAndVegPortions} from "../../classes/survey-result.class";
 import {Dictionaries, DictionariesService, NutrientTypeIdEnum} from "../../services/dictionaries.service";
 import {UserDemographicService} from "../../services/user-demographic.service";
 import {PieChardData} from "../pie-chart/pie-chart.component";
@@ -14,6 +14,7 @@ import {UserDemographic} from "../../classes/user-demographic.class";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 import {FiveADayCardParameters} from "../five-a-day-card/five-a-day.component";
+import {FiveADayFeedback} from "../../classes/five-a-day-feedback";
 
 const USER_INFO_PATH = "/user-info";
 
@@ -84,7 +85,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
     forkJoin(
       this.dictionariesService.get(),
-      this.userDemographicService.getUserDemographic()
+      this.userDemographicService.getUserDemographic(),
     ).subscribe(res => {
       this.cachedDictionariesRes = res;
       this.buildView();
@@ -124,11 +125,14 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
     this.daysRecorded = surveyResult.surveySubmissions.length;
 
-    let foods: AggregateFoodStats[] = surveyResult.getReducedFoods(this.currentDay);
+    let foods = surveyResult.getReducedFoods(this.currentDay);
+    let foodGroups = surveyResult.getFoodGroupAverages(this.currentDay);
+    let fruitAndVegPortions = surveyResult.getFruitAndVegPortions(this.currentDay);
+
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
-        this.buildFeedbackCards(foods, dictionariesRes[0].characterRules);
+        this.buildFeedbackCards(foods, foodGroups, fruitAndVegPortions, dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback);
         this.getTopFoods(foods);
         this.isLoading = false;
       },
@@ -138,7 +142,9 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     })
   }
 
-  private buildFeedbackCards(foods: AggregateFoodStats[], characterRules: CharacterRules[]): void {
+  private buildFeedbackCards(foods: AggregateFoodStats[], foodGroupAverages: Map<number, number>,
+                             fruitAndVegAverages: FruitAndVegPortions, characterRules: CharacterRules[],
+                             fiveADayFeedback: FiveADayFeedback): void {
     this.results = characterRules.map(characterRule =>
       characterRule.getSentiment(this.userDemographic, foods).match({
         some: sent => some(sent),
@@ -153,7 +159,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
       })
     ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
 
-    this.results.push(new FiveADayCardParameters());
+    this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback.get(fruitAndVegAverages.total)));
 
     this.resultsInThreeCols = this.getByColumns(3);
     this.resultsInTwoCols = this.getByColumns(2);
