@@ -20,6 +20,7 @@ import {FeedbackStyleService} from "./feedback-style.service";
 import {map} from "rxjs/internal/operators";
 import {FiveADayFeedback} from "../classes/five-a-day-feedback";
 import {FoodGroupsFeedbackService} from "./food-groups-feedback.service";
+import {SurveyFollowUpService} from "./survey-followup.service";
 
 
 export enum NutrientTypeIdEnum {
@@ -284,7 +285,8 @@ export class DictionariesService {
               private styleService: FeedbackStyleService,
               private demographicGroupsService: DemographicGroupsService,
               private nutrientTypesService: NutrientTypesService,
-              private foodGroupsFeedbackService: FoodGroupsFeedbackService) {
+              private foodGroupsFeedbackService: FoodGroupsFeedbackService,
+              private surveyFollowUpService: SurveyFollowUpService) {
   }
 
   get(): Observable<Dictionaries> {
@@ -295,7 +297,8 @@ export class DictionariesService {
         this.demographicGroupsService.list(),
         this.nutrientTypesService.list(),
         this.styleService.getFeedbackStyle(AppConfig.surveyId),
-        this.foodGroupsFeedbackService.getFiveADayFeedback()
+        this.foodGroupsFeedbackService.getFiveADayFeedback(),
+        this.surveyFollowUpService.getFollowUpUrl(AppConfig.surveyId)
       ).pipe(
         map(res => {
           let surveyResult = res[0];
@@ -312,7 +315,7 @@ export class DictionariesService {
           });
 
           let dictionaries = new Dictionaries(surveyResult, demographicGroups,
-            nutrientTypes, characterRules, fiveADayFeedback, res[3]);
+            nutrientTypes, characterRules, fiveADayFeedback, res[3], res[5]);
 
           this.cachedDictionaries = some(dictionaries);
 
@@ -330,6 +333,7 @@ export class Dictionaries {
   readonly characterRules: CharacterRules[];
   readonly fiveADayFeedback: FiveADayFeedback;
   readonly surveyFeedbackStyle: SurveyFeedbackStyleEnum;
+  readonly followUpUrl?: string;
 
 
   constructor(surveyResult: SurveyStats,
@@ -337,13 +341,15 @@ export class Dictionaries {
               nutrientTypes: NutrientType[],
               characterRules: CharacterRules[],
               fiveADayFeedback: FiveADayFeedback,
-              surveyFeedbackStyle: SurveyFeedbackStyleEnum) {
+              surveyFeedbackStyle: SurveyFeedbackStyleEnum,
+              followUpUrl: string | undefined) {
     this.surveyResult = surveyResult;
     this.demographicGroups = demographicGroups;
     this.nutrientTypes = nutrientTypes;
     this.characterRules = characterRules;
     this.fiveADayFeedback = fiveADayFeedback;
     this.surveyFeedbackStyle = surveyFeedbackStyle;
+    this.followUpUrl = followUpUrl;
   }
 
 }

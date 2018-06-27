@@ -25,6 +25,7 @@ import {WeightTargetsService} from "./services/weight-targets.service";
 import {SharedModule} from "./shared/shared.module";
 import {FeedbackStyleService} from "./services/feedback-style.service";
 import {FoodGroupsFeedbackService} from "./services/food-groups-feedback.service";
+import {SurveyFollowUpService} from "./services/survey-followup.service";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {FoodGroupsFeedbackService} from "./services/food-groups-feedback.service
     CookieService,
     DemographicGroupsService,
     FoodGroupsFeedbackService,
+    SurveyFollowUpService,
     UserDemographicService,
     NutrientTypesService,
     DictionariesService,

@@ -72,6 +72,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   currentDay: number;
 
   feedbackStyle: SurveyFeedbackStyleEnum;
+  followUpUrl?: string;
 
   private cachedDictionariesRes: [Dictionaries, Option<UserDemographic>];
 
@@ -128,6 +129,8 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     let foods = surveyResult.getReducedFoods(this.currentDay);
     let foodGroups = surveyResult.getFoodGroupAverages(this.currentDay);
     let fruitAndVegPortions = surveyResult.getFruitAndVegPortions(this.currentDay);
+
+    this.followUpUrl = dictionariesRes[0].followUpUrl;
 
     dictionariesRes[1].match({
       some: ud => {

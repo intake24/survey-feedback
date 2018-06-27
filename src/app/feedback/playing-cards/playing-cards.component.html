@@ -141,6 +141,7 @@
     <div class="row">
       <div class="col-md-6 ml-auto mr-auto">
 
+        <!--
         <div class="mb-5">
           <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
             <h2 class="text-center">
@@ -153,12 +154,24 @@
             </a>
           </i24-appear-in-viewport>
         </div>
+        -->
 
         <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
           <i24-feedback-helpful [feedbackStyle]="feedbackStyle"></i24-feedback-helpful>
         </i24-appear-in-viewport>
-
       </div>
+      <div class="col-md-8 ml-auto mr-auto">
+
+        <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100" *ngIf="followUpUrl">
+          <h2 class="text-center">
+            Please complete a short questionnaire:
+          </h2>
+          <a [href]="followUpUrl" class="btn btn-outline-primary btn-block btn-lg">
+            Go to participant questionnaire
+          </a>
+        </i24-appear-in-viewport>
+      </div>
+
     </div>
   </div>
 

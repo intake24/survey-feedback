@@ -90,6 +90,10 @@ export class FiveADayCardComponent extends FeedbackCardComponent implements Afte
 
   }
 
+  tellMeMore(): void {
+    this.onTellMeMore.emit(null);
+  }
+
   onEnteredViewport() {
     if (this.gauge) {
       this.gauge.setValueAnimated(this.parameters.portions, 1);
