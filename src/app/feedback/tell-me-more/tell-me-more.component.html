@@ -5,6 +5,7 @@
         <button type="button" class="close" (click)="close()">
           &times;
         </button>
+
         <div *ngFor="let det of details; let index = index;">
           <div class="border-bottom pt-4 mb-4" [class.border-top]="index > 0">
             <h2>{{det.title}}</h2>

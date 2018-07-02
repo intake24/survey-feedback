@@ -1,7 +1,5 @@
 export class FiveADayFeedbackRow {
   ifLessThan: number;
-  sentiment: string;
-  summary: string;
   feedback: string;
 }
 
@@ -26,8 +24,6 @@ export class FiveADayFeedback {
     for (let i = 0; i < json.length; i++) {
       result.push({
         ifLessThan: json[i].ifLessThan,
-        sentiment: json[i].sentiment,
-        summary: json[i].summary,
         feedback: json[i].feedback
       });
     }

@@ -126,9 +126,9 @@ export class DemographicGroup {
         return 0;
       } else {
         return this.nutrientTypeKCalPerUnit.match({
-            some: a => consumption * a,
-            none: () => 0
-          }) * 100 / energy;
+          some: a => consumption * a,
+          none: () => 0
+        }) * 100 / energy;
       }
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.Range) {
       return consumption;
@@ -247,7 +247,10 @@ export class DemographicRange {
   toString(): string {
     if (this.end > 999999) {
       return `>${this.start}`;
-    } else {
+    } else if (this.start == this.end) {
+      return `${this.start}`;
+    }
+    else {
       return `${this.start}-${this.end}`;
     }
   }
