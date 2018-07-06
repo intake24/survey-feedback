@@ -68,4 +68,7 @@ export class ApiEndpoints {
     return `${ApiEndpoints.apiBaseUrl}user/feedback/five-a-day`;
   }
 
+  static foodGroupsFeedback(): string {
+    return `${ApiEndpoints.apiBaseUrl}user/feedback/food-groups`;
+  }
 }

@@ -23,6 +23,7 @@ import {AnimateModule} from "../../animate-ts/animate.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FiveADayCardComponent} from "./five-a-day-card/five-a-day.component";
 import {FeedbackCardDynamicComponent} from "./feedback-card/feedback-card.component";
+import {FoodGroupCardComponent} from "./food-group-card/food-group-card.component";
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {FeedbackCardDynamicComponent} from "./feedback-card/feedback-card.compon
     AnimatedListComponent,
     FeedbackCardDynamicComponent,
     FiveADayCardComponent,
+    FoodGroupCardComponent,
     AppearInViewportComponent,
     TellMeMoreComponent,
     FeedbackHelpfulComponent,
@@ -59,7 +61,8 @@ import {FeedbackCardDynamicComponent} from "./feedback-card/feedback-card.compon
   bootstrap: [],
   entryComponents: [
     CharacterCardComponent,
-    FiveADayCardComponent
+    FiveADayCardComponent,
+    FoodGroupCardComponent
   ]
 })
 export class FeedbackModule {

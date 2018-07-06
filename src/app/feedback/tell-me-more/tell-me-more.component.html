@@ -17,6 +17,7 @@
                   <button type="button"
                           class="btn btn-outline-primary btn-sm btn-rounded"
                           title="Explain the estimate"
+                          *ngIf="det.unitDescription"
                           (click)="toggleAlert()">
                     ?
                   </button>
@@ -29,7 +30,7 @@
                 </span>
               </div>
             </div>
-            <anm-c [display]="false" [action]="alertAnimation">
+            <anm-c [display]="false" [action]="alertAnimation" *ngIf="det.unitDescription">
               <div class="alert alert-info">
                 {{det.unitDescription}}
               </div>

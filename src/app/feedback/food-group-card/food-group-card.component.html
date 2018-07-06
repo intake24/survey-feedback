@@ -1,0 +1,18 @@
+<div class="feedback-playing-card">
+
+  <div class="feedback-playing-card-pic">
+    <div [ngClass]='["feedback-playing-card-background", parameters.backgroundClass]'></div>
+  </div>
+  <div class="feedback-playing-card-body">
+    <p class="separated">
+      Your {{parameters.foodGroupName}} intake is <strong>{{parameters.intake}}</strong> g
+    </p>
+  </div>
+  <div class="feedback-playing-card-btns">
+    <button type="button"
+            class="btn btn-outline-primary btn-block feedback-playing-card-btns-single"
+            (click)="tellMeMore()">
+      Tell me more
+    </button>
+  </div>
+</div>

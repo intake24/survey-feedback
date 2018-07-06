@@ -15,10 +15,13 @@ import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum"
 import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
 import {FiveADayCardParameters} from "../five-a-day-card/five-a-day.component";
 import {FiveADayFeedback} from "../../classes/five-a-day-feedback";
+import {FoodGroupCardParameters} from "../food-group-card/food-group-card.component";
+import {FoodGroupFeedback} from "../../classes/food-group-feedback";
+import {DemographicRange, DemographicScaleSectorSentimentEnum} from "../../classes/demographic-group.class";
 
 const USER_INFO_PATH = "/user-info";
 
-export type FeedbackCardParameters = CharacterCardParameters | FiveADayCardParameters;
+export type FeedbackCardParameters = CharacterCardParameters | FiveADayCardParameters | FoodGroupCardParameters;
 
 @Component({
   selector: SELECTOR_PREFIX + "playing-cards",
@@ -135,7 +138,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
-        this.buildFeedbackCards(foods, foodGroups, fruitAndVegPortions, dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback);
+        this.buildFeedbackCards(foods, foodGroups, fruitAndVegPortions, dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback, dictionariesRes[0].foodGroupsFeedback);
         this.getTopFoods(foods);
         this.isLoading = false;
       },
@@ -145,9 +148,31 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     })
   }
 
+  private buildFoodGroupFeedbackCards(foodGroupsFeedback: FoodGroupFeedback[], foodGroupAverages: Map<number, number>): FoodGroupCardParameters[] {
+    return foodGroupsFeedback.map( feedback => {
+
+      let groupIntake = feedback.foodGroupIds.reduce( (total, groupId) => {
+        if (foodGroupAverages.has(groupId))
+          return total + foodGroupAverages.get(groupId);
+        else
+          return total;
+      }, 0);
+
+
+      let lowerCaseName = feedback.groupName.toLowerCase();
+      let capitalisedName = feedback.groupName.charAt(0).toUpperCase() + feedback.groupName.substr(1);
+
+      let details =  new PlayingCardDetails(`${capitalisedName} intake`, groupIntake, feedback.tellMeMore, feedback.recommendedIntake,
+        "g", undefined, DemographicScaleSectorSentimentEnum.GOOD);
+
+      return new FoodGroupCardParameters(feedback.groupName, groupIntake, FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.foodGroupIds), details);
+
+    });
+  }
+
   private buildFeedbackCards(foods: AggregateFoodStats[], foodGroupAverages: Map<number, number>,
                              fruitAndVegAverages: FruitAndVegPortions, characterRules: CharacterRules[],
-                             fiveADayFeedback: FiveADayFeedback): void {
+                             fiveADayFeedback: FiveADayFeedback, foodGroupsFeedback: FoodGroupFeedback[]): void {
     this.results = characterRules.map(characterRule =>
       characterRule.getSentiment(this.userDemographic, foods).match({
         some: sent => some(sent),
@@ -163,6 +188,8 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
 
     this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback.get(fruitAndVegAverages.total)));
+
+    this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, foodGroupAverages));
 
     this.resultsInThreeCols = this.getByColumns(3);
     this.resultsInTwoCols = this.getByColumns(2);

@@ -21,6 +21,7 @@ import {map} from "rxjs/internal/operators";
 import {FiveADayFeedback} from "../classes/five-a-day-feedback";
 import {FoodGroupsFeedbackService} from "./food-groups-feedback.service";
 import {SurveyFollowUpService} from "./survey-followup.service";
+import {FoodGroupFeedback} from "../classes/food-group-feedback";
 
 
 export enum NutrientTypeIdEnum {
@@ -298,12 +299,16 @@ export class DictionariesService {
         this.nutrientTypesService.list(),
         this.styleService.getFeedbackStyle(AppConfig.surveyId),
         this.foodGroupsFeedbackService.getFiveADayFeedback(),
-        this.surveyFollowUpService.getFollowUpUrl(AppConfig.surveyId)
+        this.surveyFollowUpService.getFollowUpUrl(AppConfig.surveyId),
+        this.foodGroupsFeedbackService.getFoodGroupsFeedback()
       ).pipe(
         map(res => {
           let surveyResult = res[0];
           let nutrientTypes = res[2];
+          let style = res[3];
           let fiveADayFeedback = res[4];
+          let followUpUrl = res[5];
+          let foodGroupsFeedback = res[6];
           let demographicGroups = res[1].map(dg =>
             dg.addNutrient(nutrientTypes.filter(nt => nt.id == dg.nutrientTypeId)[0]));
 
@@ -315,7 +320,7 @@ export class DictionariesService {
           });
 
           let dictionaries = new Dictionaries(surveyResult, demographicGroups,
-            nutrientTypes, characterRules, fiveADayFeedback, res[3], res[5]);
+            nutrientTypes, characterRules, fiveADayFeedback, foodGroupsFeedback, style, followUpUrl);
 
           this.cachedDictionaries = some(dictionaries);
 
@@ -332,6 +337,7 @@ export class Dictionaries {
   readonly nutrientTypes: NutrientType[];
   readonly characterRules: CharacterRules[];
   readonly fiveADayFeedback: FiveADayFeedback;
+  readonly foodGroupsFeedback: FoodGroupFeedback[];
   readonly surveyFeedbackStyle: SurveyFeedbackStyleEnum;
   readonly followUpUrl?: string;
 
@@ -341,6 +347,7 @@ export class Dictionaries {
               nutrientTypes: NutrientType[],
               characterRules: CharacterRules[],
               fiveADayFeedback: FiveADayFeedback,
+              foodGroupsFeedback: FoodGroupFeedback[],
               surveyFeedbackStyle: SurveyFeedbackStyleEnum,
               followUpUrl: string | undefined) {
     this.surveyResult = surveyResult;
@@ -348,6 +355,7 @@ export class Dictionaries {
     this.nutrientTypes = nutrientTypes;
     this.characterRules = characterRules;
     this.fiveADayFeedback = fiveADayFeedback;
+    this.foodGroupsFeedback = foodGroupsFeedback;
     this.surveyFeedbackStyle = surveyFeedbackStyle;
     this.followUpUrl = followUpUrl;
   }

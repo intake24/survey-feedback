@@ -14,6 +14,7 @@ import {CharacterCardComponent, PlayingCardDetails} from "../character-card/char
 import {FiveADayCardComponent} from "../five-a-day-card/five-a-day.component";
 import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
 import {FeedbackCardComponent} from "./feedback-card";
+import {FoodGroupCardComponent} from "../food-group-card/food-group-card.component";
 
 
 @Component({
@@ -42,6 +43,8 @@ export class FeedbackCardDynamicComponent implements OnInit {
         return CharacterCardComponent;
       case "five-a-day":
         return FiveADayCardComponent;
+      case "food-group":
+        return FoodGroupCardComponent;
     }
   }
 
