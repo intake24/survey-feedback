@@ -112,10 +112,11 @@ export class PlayingCardDetails {
   readonly sentiment: DemographicScaleSectorSentimentEnum;
   readonly textClass: string;
   readonly iconClass: string;
+  readonly warning?: string;
 
   constructor(title: string, consumption: number, description: string, targetConsumption: DemographicRange,
               units: string, unitDescription: string,
-              sentiment: DemographicScaleSectorSentimentEnum) {
+              sentiment: DemographicScaleSectorSentimentEnum, warning? : string) {
     this.title = title;
     this.consumption = Math.round(consumption * 10) / 10;
     this.description = description;
@@ -126,6 +127,7 @@ export class PlayingCardDetails {
     this.sentiment = sentiment;
     this.textClass = this.getTextClass(sentiment);
     this.iconClass = this.getIconClass(sentiment);
+    this.warning = warning;
   }
 
   private getTextClass(sentiment: DemographicScaleSectorSentimentEnum): string {

@@ -6,7 +6,7 @@ import {SELECTOR_PREFIX} from "../feedback.const";
 import {FeedbackCardComponent} from "../feedback-card/feedback-card";
 import {CharacterCardParameters} from "../../classes/character.class";
 import * as Gauge from "svg-gauge";
-import {FiveADayFeedbackRow} from "../../classes/five-a-day-feedback";
+import {FiveADayFeedback} from "../../classes/five-a-day-feedback";
 import {PlayingCardDetails} from "../character-card/character-card.component";
 import {DemographicRange, DemographicScaleSectorSentimentEnum} from "../../classes/demographic-group.class";
 
@@ -14,9 +14,9 @@ import {DemographicRange, DemographicScaleSectorSentimentEnum} from "../../class
 export class FiveADayCardParameters {
   readonly cardType = "five-a-day";
   readonly portions: number;
-  readonly feedback: FiveADayFeedbackRow;
+  readonly feedback: FiveADayFeedback;
 
-  constructor(portions: number, feedback: FiveADayFeedbackRow) {
+  constructor(portions: number, feedback: FiveADayFeedback) {
     this.feedback = feedback;
     this.portions = portions;
   }
@@ -94,9 +94,9 @@ export class FiveADayCardComponent extends FeedbackCardComponent implements Afte
 
   tellMeMore(): void {
 
-    let details = new PlayingCardDetails("Fruit and vegetable intake", this.parameters.portions, this.parameters.feedback.feedback,
-      new DemographicRange(5,5), " portions per day", "Number of portions is calculated based on your fruit and vegetable intake as explained below.",
-      DemographicScaleSectorSentimentEnum.GOOD);
+    let details = new PlayingCardDetails("Fruit and vegetable intake", this.parameters.portions, this.parameters.feedback.tellMeMoreText,
+      new DemographicRange(5,5), " portions", "Number of portions is calculated based on your fruit and vegetable intake as explained below.",
+      DemographicScaleSectorSentimentEnum.GOOD, this.parameters.portions < 2? this.parameters.feedback.tooLowMessage : undefined);
 
     this.onTellMeMore.emit([details]);
   }

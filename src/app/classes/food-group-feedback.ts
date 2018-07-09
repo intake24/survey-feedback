@@ -20,12 +20,18 @@ export class FoodGroupFeedback {
     let result = new Array<FoodGroupFeedback>();
 
     for (let i = 0; i < json.length; i++) {
+
+      let low: FoodGroupFeedbackThreshold = json[i].low.length == 1 ? json[i].low[0] : undefined;
+      let high: FoodGroupFeedbackThreshold = json[i].high.length == 1 ? json[i].high[0] : undefined;
+
+      let recommendedIntake = new DemographicRange(low ? low.threshold : 0, high ? high.threshold : 1000);
+
       result.push({
         groupName: json[i].name,
         foodGroupIds: json[i].foodGroupIds,
-        recommendedIntake: new DemographicRange(0, 70), // FIXME: hardcoded, get this from database
-        low: json[i].low.length == 1 ? json[i].low[0] : undefined,
-        high: json[i].high.length == 1 ? json[i].high[0] : undefined,
+        recommendedIntake,
+        low,
+        high,
         tellMeMore: json[i].tellMeMore
       });
     }

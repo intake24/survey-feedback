@@ -149,9 +149,9 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   }
 
   private buildFoodGroupFeedbackCards(foodGroupsFeedback: FoodGroupFeedback[], foodGroupAverages: Map<number, number>): FoodGroupCardParameters[] {
-    return foodGroupsFeedback.map( feedback => {
+    return foodGroupsFeedback.map(feedback => {
 
-      let groupIntake = feedback.foodGroupIds.reduce( (total, groupId) => {
+      let groupIntake = feedback.foodGroupIds.reduce((total, groupId) => {
         if (foodGroupAverages.has(groupId))
           return total + foodGroupAverages.get(groupId);
         else
@@ -162,8 +162,15 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
       let lowerCaseName = feedback.groupName.toLowerCase();
       let capitalisedName = feedback.groupName.charAt(0).toUpperCase() + feedback.groupName.substr(1);
 
-      let details =  new PlayingCardDetails(`${capitalisedName} intake`, groupIntake, feedback.tellMeMore, feedback.recommendedIntake,
-        "g", undefined, DemographicScaleSectorSentimentEnum.GOOD);
+      let warning = undefined;
+
+      if (feedback.low && groupIntake < feedback.low.threshold)
+        warning = feedback.low.message;
+      else if (feedback.high && groupIntake > feedback.high.threshold)
+        warning = feedback.high.message;
+
+      let details = new PlayingCardDetails(`${capitalisedName} intake`, groupIntake, feedback.tellMeMore, feedback.recommendedIntake,
+        "g", undefined, DemographicScaleSectorSentimentEnum.GOOD, warning);
 
       return new FoodGroupCardParameters(feedback.groupName, groupIntake, FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.foodGroupIds), details);
 
@@ -187,7 +194,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
       })
     ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
 
-    this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback.get(fruitAndVegAverages.total)));
+    this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback));
 
     this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, foodGroupAverages));
 

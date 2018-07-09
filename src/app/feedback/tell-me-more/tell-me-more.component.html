@@ -35,6 +35,8 @@
                 {{det.unitDescription}}
               </div>
             </anm-c>
+            <div *ngIf="det.warning" class="alert alert-warning" [innerHTML]="det.warning">
+            </div>
           </div>
           <p [innerHTML]="det.description"></p>
         </div>
