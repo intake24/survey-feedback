@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http, Request, RequestMethod, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, throwError} from "rxjs";
 import {UserStateService} from "./user-state.service";
 import {catchError, finalize, map, mergeMap} from "rxjs/internal/operators";
 
@@ -56,7 +56,7 @@ export class AppAuthHttp {
 
   private handleError(err: Response, url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
     if (err.status != 401) {
-      return Observable.throw(err);
+      return throwError(err);
     } else {
       if (this.toBeReplayed.length <= 1) {
         this.userService.refreshAccessToken().subscribe(_ => this.replayRequests());

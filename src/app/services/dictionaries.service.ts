@@ -25,16 +25,17 @@ import {FoodGroupFeedback} from "../classes/food-group-feedback";
 
 
 export enum NutrientTypeIdEnum {
-  Energy = <number>1,
-  Carbohydrate = <number>13,
-  Protein = <number>11,
-  TotalFat = <number>49,
-  Sugar = <number>23,
-  SatdFat = <number>50,
-  Fibre = <number>15,
-  VitaminA = <number>120,
-  Calcium = <number>140,
-  VitaminC = <number>129
+  Energy = 1,
+  Carbohydrate = 13,
+  Protein = 11,
+  TotalFat = 49,
+  Sugar = 23,
+  SatdFat = 50,
+  Fibre = 15,
+  VitaminA = 120,
+  Calcium = 140,
+  VitaminC = 129,
+  CO2 = 228
 }
 
 class Phrases {
@@ -273,7 +274,28 @@ const CharacterBuilders = [
       [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
       CharacterSentimentEnum.DANGER,
       "Too deep in the Vitamin Sea")
-  ])
+  ]),
+
+  new CharacterBuilder(CharacterTypeEnum.CO2, [NutrientTypeIdEnum.CO2], [
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
+      CharacterSentimentEnum.DANGER, ""),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_LOW],
+      CharacterSentimentEnum.WARNING, ""),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
+      CharacterSentimentEnum.EXCITING,
+      ""),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH],
+      CharacterSentimentEnum.WARNING,
+      ""),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
+      CharacterSentimentEnum.DANGER,
+      "")
+  ], SurveyFeedbackStyleEnum.Default)
 
 ];
 
@@ -316,7 +338,7 @@ export class DictionariesService {
             let nutrientTypeIds = characterBuilder.nutrientTypeIds;
             let dgs = demographicGroups.filter(dg => nutrientTypeIds.indexOf(dg.nutrientTypeId) > -1);
             return new CharacterRules(nutrientTypeIds, dgs, characterBuilder.type,
-              characterBuilder.sentiments);
+              characterBuilder.sentiments, characterBuilder.displayInFeedbackStyle);
           });
 
           let dictionaries = new Dictionaries(surveyResult, demographicGroups,

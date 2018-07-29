@@ -7,22 +7,15 @@ import {
 import {AggregateFoodStats, Food} from "../classes/survey-result.class";
 import {none, Option, some} from "ts-option";
 import {UserDemographic} from "./user-demographic.class";
+import {SurveyFeedbackStyleEnum} from './survey-feedback-style.enum';
 
 
 export class CharacterRules {
-  readonly nutrientTypeIds: number[];
-  readonly demographicGroups: DemographicGroup[];
-  readonly type: CharacterTypeEnum;
-  readonly sentiments: CharacterSentiment[];
-
-  constructor(nutrientTypeIds: number[],
-              demographicGroups: DemographicGroup[],
-              type: CharacterTypeEnum,
-              sentiments: CharacterSentiment[]) {
-    this.nutrientTypeIds = nutrientTypeIds.slice();
-    this.demographicGroups = demographicGroups.map(dg => dg.clone());
-    this.type = type;
-    this.sentiments = sentiments.map(sent => sent.clone());
+  constructor(readonly nutrientTypeIds: number[],
+              readonly demographicGroups: ReadonlyArray<DemographicGroup>,
+              readonly type: CharacterTypeEnum,
+              readonly sentiments: CharacterSentiment[],
+              readonly displayInFeedbackStyle?: SurveyFeedbackStyleEnum) {
   }
 
   getSentiment(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<CharacterCardParameters> {
@@ -78,31 +71,19 @@ export class CharacterRules {
 }
 
 export class CharacterBuilder {
-  readonly type: CharacterTypeEnum;
-  readonly nutrientTypeIds: number[];
-  readonly sentiments: CharacterSentiment[];
-
-  constructor(type: CharacterTypeEnum,
-              nutrientTypeIds: number[],
-              sentiments: CharacterSentiment[]) {
-    this.nutrientTypeIds = nutrientTypeIds.slice();
-    this.type = type;
-    this.sentiments = sentiments.map(sent => sent.clone());
+  constructor(readonly type: CharacterTypeEnum,
+              readonly nutrientTypeIds: number[],
+              readonly sentiments: CharacterSentiment[],
+              readonly displayInFeedbackStyle?: SurveyFeedbackStyleEnum) {
   }
 
 }
 
 export class CharacterSentiment {
-  readonly demographicScaleSectorSentiment: DemographicScaleSectorSentimentEnum[];
-  readonly sentimentType: CharacterSentimentEnum;
-  readonly title: string;
+  constructor(readonly demographicScaleSectorSentiment: DemographicScaleSectorSentimentEnum[],
+              readonly sentimentType: CharacterSentimentEnum,
+              readonly title: string) {
 
-  constructor(demographicScaleSectorSentiment: DemographicScaleSectorSentimentEnum[],
-              sentiment: CharacterSentimentEnum,
-              title: string) {
-    this.demographicScaleSectorSentiment = demographicScaleSectorSentiment.slice();
-    this.sentimentType = sentiment;
-    this.title = title;
   }
 
   clone(): CharacterSentiment {
@@ -115,34 +96,30 @@ export class CharacterSentiment {
 export class CharacterCardParameters {
   readonly cardType = "character";
 
-  readonly characterType: CharacterTypeEnum;
-  readonly characterSentiment: CharacterSentiment;
-  readonly demographicResults: DemographicResult[];
-
-  constructor(characterType: CharacterTypeEnum, characterSentiment: CharacterSentiment, demographicResults: DemographicResult[]) {
-    this.characterType = characterType;
-    this.characterSentiment = characterSentiment.clone();
-    this.demographicResults = demographicResults.map(dg => dg.clone());
+  constructor(readonly characterType: CharacterTypeEnum,
+              readonly characterSentiment: CharacterSentiment,
+              readonly demographicResults: DemographicResult[]) {
   }
 }
 
 export enum CharacterTypeEnum {
-  BATTERY = <any>"battery",
-  BREAD = <any>"bread",
-  CANDY = <any>"candy",
-  SALMON = <any>"salmon",
-  SAUSAGE = <any>"sausage",
-  EGG = <any>"egg",
-  APPLE = <any>"apple",
-  STRAWBERRY = <any>"strawberry",
-  BURGER = <any>"burger",
-  FRIES = <any>"fries",
-  MILK = <any>"milk"
+  BATTERY = "battery",
+  BREAD = "bread",
+  CANDY = "candy",
+  SALMON = "salmon",
+  SAUSAGE = "sausage",
+  EGG = "egg",
+  APPLE = "apple",
+  STRAWBERRY = "strawberry",
+  BURGER = "burger",
+  FRIES = "fries",
+  MILK = "milk",
+  CO2 = "co2"
 }
 
 export enum CharacterSentimentEnum {
-  DANGER = <any>"danger",
-  WARNING = <any>"sad",
-  HAPPY = <any>"happy",
-  EXCITING = <any>"exciting"
+  DANGER = "danger",
+  WARNING = "sad",
+  HAPPY = "happy",
+  EXCITING = "exciting"
 }

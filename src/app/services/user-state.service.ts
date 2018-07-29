@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {User} from "../classes/user.class";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {ApiEndpoints} from "../api-endpoints";
-import {BehaviorSubject, Observable, of, ReplaySubject} from "rxjs";
+import {BehaviorSubject, Observable, of, ReplaySubject, throwError} from "rxjs";
 import {AppConfig} from "../conf";
 import {catchError, map, mergeMap} from "rxjs/internal/operators";
 import {empty} from 'rxjs/observable/empty';
@@ -70,7 +70,7 @@ export class UserStateService {
           catchError(err => {
             location.href = AppConfig.surveyPath;
             this.notifyAuthSubscribers();
-            return Observable.throw(err);
+            return throwError(err);
           })
         )
     }));

@@ -180,23 +180,26 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   private buildFeedbackCards(foods: AggregateFoodStats[], foodGroupAverages: Map<number, number>,
                              fruitAndVegAverages: FruitAndVegPortions, characterRules: CharacterRules[],
                              fiveADayFeedback: FiveADayFeedback, foodGroupsFeedback: FoodGroupFeedback[]): void {
-    this.results = characterRules.map(characterRule =>
-      characterRule.getSentiment(this.userDemographic, foods).match({
-        some: sent => some(sent),
-        none: () => {
-          console.warn("Sentiment for character",
-            characterRule.type, "nutrientTypeIds",
-            characterRule.nutrientTypeIds,
-            "resulted empty. Demographic groups",
-            characterRule.demographicGroups);
-          return none;
-        }
-      })
-    ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
+    this.results = characterRules
+      .filter(cr => !cr.displayInFeedbackStyle || cr.displayInFeedbackStyle === this.feedbackStyle )
+      .map(characterRule =>
+        characterRule.getSentiment(this.userDemographic, foods).match({
+          some: sent => some(sent),
+          none: () => {
+            console.warn("Sentiment for character",
+              characterRule.type, "nutrientTypeIds",
+              characterRule.nutrientTypeIds,
+              "resulted empty. Demographic groups",
+              characterRule.demographicGroups);
+            return none;
+          }
+        })
+      ).filter(sentiment => sentiment.isDefined).map(sentiment => sentiment.get);
 
-    this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback));
-
-    this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, foodGroupAverages));
+    if (this.feedbackStyle === SurveyFeedbackStyleEnum.Default) {
+      this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback));
+      this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, foodGroupAverages));
+    }
 
     this.resultsInThreeCols = this.getByColumns(3);
     this.resultsInTwoCols = this.getByColumns(2);

@@ -7,7 +7,7 @@ $playing-card-aspect-ratio: 16 / 9;
 $playing-card-border-color: #ccc;
 $playing-card-body-padding: 6px;
 $playing-card-scene-types: danger "./danger_scene.png", sad "./sad_scene.png", happy "./happy_scene.png", exciting "./happy_scene.png";
-$playing-card-default-scene-types: battery "./energy.jpg", bread "./carbs.jpg", egg "./protein.jpg", apple "./fibre.jpg", salmon "./vitamin_a.jpg", milk "./calcium.jpg", candy "./sugar.jpg", strawberry "./vitamin_c.jpg", burger "./sat_fat.jpg", fries "./fat.jpg";
+$playing-card-default-scene-types: battery "./energy.jpg", bread "./carbs.jpg", egg "./protein.jpg", apple "./fibre.jpg", salmon "./vitamin_a.jpg", milk "./calcium.jpg", candy "./sugar.jpg", strawberry "./vitamin_c.jpg", burger "./sat_fat.jpg", fries "./fat.jpg", co2 "./co2.jpg";
 
 .#{$playing-card-selector} {
 
