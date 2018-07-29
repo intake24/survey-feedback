@@ -3,14 +3,14 @@
     <li class="h5"
         *ngFor="let food of items; let i = index;"
         [ngClass]="classList[i]">
-      {{food.name}}<!--:
+      {{food.name}}:
       <strong class="text-nowrap">
         {{food.getAverageIntake(nutrientTypeId)}}
         {{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}{{showPerDay ? '/day' : ''}}
-      </strong>-->
+      </strong>
     </li>
   </ol>
-  <!--<h4 class="nutrient-summary">
+  <h4 class="nutrient-summary">
     Total intake: {{total}}&nbsp;{{nutrientService.getUnitByNutrientTypeId(nutrientTypeId).get}}{{showPerDay ? '/day' : ''}}
-  </h4>-->
+  </h4>
 </i24-appear-in-viewport>
