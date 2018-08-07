@@ -16,6 +16,7 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   @Input() animateDelay: number;
   @Input() data: PieChardData[];
+  @Input() showLabels: boolean;
 
   private appeared: boolean = false;
 
@@ -73,6 +74,9 @@ export class PieChartComponent implements OnInit, OnChanges {
         options: {
           legend: {
             display: false
+          },
+          tooltips: {
+            enabled: this.showLabels
           }
         }
       });

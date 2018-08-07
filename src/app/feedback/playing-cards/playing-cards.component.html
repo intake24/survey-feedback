@@ -97,7 +97,7 @@
         <div class="row">
           <div class="col-12 row">
             <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
-              <i24-pie-chart [data]="caloriesChartData" [animateDelay]="50"></i24-pie-chart>
+              <i24-pie-chart [data]="caloriesChartData" [animateDelay]="50" [showLabels]="currentDay != null"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in calories</h1>
               </i24-appear-in-viewport>
@@ -105,10 +105,10 @@
                                  [items]="foodHighInCalories"
                                  [classList]="colorClasses"
                                  [nutrientTypeId]="nutrientTypeIdEnergy"
-                                 [showPerDay]="currentDay == null"></i24-animated-list>
+                                 [showEnergyValues]="currentDay != null"></i24-animated-list>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
-              <i24-pie-chart [data]="sugarChartData" [animateDelay]="150"></i24-pie-chart>
+              <i24-pie-chart [data]="sugarChartData" [animateDelay]="150" [showLabels]="currentDay != null"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in free sugar</h1>
               </i24-appear-in-viewport>
@@ -117,10 +117,10 @@
                                  [classList]="colorClasses"
                                  [animationDelay]="50"
                                  [nutrientTypeId]="nutrientTypeIdSugar"
-                                 [showPerDay]="currentDay == null"></i24-animated-list>
+                                 [showEnergyValues]="currentDay != null"></i24-animated-list>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-8 mb-2 ml-auto mr-auto">
-              <i24-pie-chart [data]="satFatChartData" [animateDelay]="200"></i24-pie-chart>
+              <i24-pie-chart [data]="satFatChartData" [animateDelay]="200" [showLabels]="currentDay != null"></i24-pie-chart>
               <i24-appear-in-viewport [animation]="textAnimation" [scrollOffset]="100">
                 <h1>Highest in saturated fat</h1>
               </i24-appear-in-viewport>
@@ -129,7 +129,7 @@
                                  [classList]="colorClasses"
                                  [animationDelay]="100"
                                  [nutrientTypeId]="nutrientTypeIdSatFat"
-                                 [showPerDay]="currentDay == null"></i24-animated-list>
+                                 [showEnergyValues]="currentDay != null"></i24-animated-list>
             </div>
           </div>
         </div>
