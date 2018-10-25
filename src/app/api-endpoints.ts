@@ -37,7 +37,7 @@ export class ApiEndpoints {
   }
 
   static mySurveyResults(surveyId: string): string {
-    return `${ApiEndpoints.apiBaseUrl}surveys/${surveyId}/my-submissions?compoundFoodGroups=1`;
+    return `${ApiEndpoints.apiBaseUrl}data-export/${surveyId}/my-submissions?compoundFoodGroups=1`;
   }
 
   static surveyFeedbackStyle(surveyId: string): string {
