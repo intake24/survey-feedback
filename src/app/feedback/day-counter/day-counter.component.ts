@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AnimateFrame} from "../../../animate-ts/animate-frame";
-import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {AnimateFrame} from '../../../animate-ts/animate-frame';
+import {AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
 
 @Component({
   selector: 'i24-day-counter',

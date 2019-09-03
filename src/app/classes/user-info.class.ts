@@ -1,6 +1,6 @@
-import {Option, some} from "ts-option";
-import {DemographicSexEnum} from "./demographic-group.class";
-import {OptionToRequest} from "../utils/option-to-request";
+import {Option, some} from 'ts-option';
+import {DemographicSexEnum} from './demographic-group.class';
+import {OptionToRequest} from '../utils/option-to-request';
 
 export class UserInfo {
 

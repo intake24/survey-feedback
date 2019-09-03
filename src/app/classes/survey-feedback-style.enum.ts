@@ -1,4 +1,4 @@
 export enum SurveyFeedbackStyleEnum {
-  Default = <any>"default",
-  Playful = <any>"playful"
+  Default = <any>'default',
+  Playful = <any>'playful'
 }

@@ -1,16 +1,16 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
-import {UserInfo} from "../../classes/user-info.class";
-import {Option, some} from "ts-option";
-import {DemographicSexEnum} from "../../classes/demographic-group.class";
-import {PhysicalActivityLevel} from "../../classes/physical-activity-level.class";
-import {WeightTarget} from "../../services/weight-targets.service";
-import {AppConfig} from "../../conf";
-import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
-import {WelcomeFormMessages} from "./welcome-form-messages.const";
+import {CharacterSentimentEnum, CharacterTypeEnum} from '../../classes/character.class';
+import {UserInfo} from '../../classes/user-info.class';
+import {Option, some} from 'ts-option';
+import {DemographicSexEnum} from '../../classes/demographic-group.class';
+import {PhysicalActivityLevel} from '../../classes/physical-activity-level.class';
+import {WeightTarget} from '../../services/weight-targets.service';
+import {AppConfig} from '../../conf';
+import {SurveyFeedbackStyleEnum} from '../../classes/survey-feedback-style.enum';
+import {WelcomeFormMessages} from './welcome-form-messages.const';
 
-const OLDEST_PERSON_AGE: number = 120;
-const YOUNGEST_PERSON_AGE: number = 12;
+const OLDEST_PERSON_AGE = 120;
+const YOUNGEST_PERSON_AGE = 12;
 
 @Component({
   selector: 'i24-welcome-form',
@@ -26,9 +26,9 @@ export class WelcomeFormComponent implements OnInit {
   @Output() onSaved: EventEmitter<UserInfo> = new EventEmitter();
 
   sex: DemographicSexEnum;
-  sexOptions = [new SexOption('', "Select"),
-    new SexOption(DemographicSexEnum.FEMALE, "Female"),
-    new SexOption(DemographicSexEnum.MALE, "Male")];
+  sexOptions = [new SexOption('', 'Select'),
+    new SexOption(DemographicSexEnum.FEMALE, 'Female'),
+    new SexOption(DemographicSexEnum.MALE, 'Male')];
   yearOfBirth: string;
   weight: string;
   height: string;
@@ -76,10 +76,10 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   private setYearsOptions(): void {
-    let years = [];
-    let year = (new Date()).getFullYear();
-    let minYearOption = year - OLDEST_PERSON_AGE;
-    let maxYearOption = year - YOUNGEST_PERSON_AGE;
+    const years = [];
+    const year = (new Date()).getFullYear();
+    const minYearOption = year - OLDEST_PERSON_AGE;
+    const maxYearOption = year - YOUNGEST_PERSON_AGE;
     for (let i = minYearOption; i <= maxYearOption; i++) {
       years.unshift(i);
     }
@@ -92,7 +92,7 @@ export class WelcomeFormComponent implements OnInit {
         this.sex = ui.sex.getOrElse(() => null);
         this.yearOfBirth = ui.birthdate.match({
           some: d => String(d.getFullYear()),
-          none: () => ""
+          none: () => ''
         });
         this.weight = this.getOptionalNumericAsString(ui.weight);
         this.height = this.getOptionalNumericAsString(ui.height);
@@ -100,16 +100,16 @@ export class WelcomeFormComponent implements OnInit {
         this.weightTarget = ui.weightTarget.getOrElse(() => this.weightTargets[0].id);
       },
       none: () => {
-        this.yearOfBirth = "";
+        this.yearOfBirth = '';
       }
     })
   }
 
   private isNumeric(num): boolean {
-    if (num == null || num == "") {
+    if (num == null || num == '') {
       return false;
     }
-    let n = num.replace(",", ".");
+    const n = num.replace(',', '.');
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
 
@@ -119,13 +119,13 @@ export class WelcomeFormComponent implements OnInit {
   }
 
   private stringToNumeric(num): number {
-    return parseFloat(num.replace(",", "."));
+    return parseFloat(num.replace(',', '.'));
   }
 
   private getOptionalNumericAsString(opt: Option<number>, def?: string): string {
     return opt.match({
       some: num => num.toString(),
-      none: () => def != null ? def : ""
+      none: () => def != null ? def : ''
     });
   }
 

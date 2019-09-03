@@ -10,6 +10,6 @@ class MessageSet {
 }
 
 export const WelcomeFormMessages = {
-  default: new MessageSet("About you", "We only need a few details", "Submit"),
-  playful: new MessageSet("Great!", "I only need to ask a few things about you", "Yep, that's me")
+  default: new MessageSet('About you', 'We only need a few details', 'Submit'),
+  playful: new MessageSet('Great!', 'I only need to ask a few things about you', 'Yep, that\'s me')
 };

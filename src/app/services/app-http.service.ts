@@ -1,8 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, Request, RequestMethod, RequestOptions, RequestOptionsArgs, Response} from "@angular/http";
-import {Observable, Subject, throwError} from "rxjs";
-import {UserStateService} from "./user-state.service";
-import {catchError, finalize, map, mergeMap} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {Headers, Http, Request, RequestMethod, RequestOptions, RequestOptionsArgs, Response} from '@angular/http';
+import {UserStateService} from './user-state.service';
+import {catchError, finalize, map, mergeMap} from 'rxjs/internal/operators';
+import {Observable, Subject} from 'rxjs/Rx';
+import {throwError} from 'rxjs/internal/observable/throwError';
 
 @Injectable()
 export class AppAuthHttp {
@@ -55,7 +56,7 @@ export class AppAuthHttp {
   }
 
   private handleError(err: Response, url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
-    if (err.status != 401) {
+    if (err.status !== 401) {
       return throwError(err);
     } else {
       if (this.toBeReplayed.length <= 1) {
@@ -66,7 +67,7 @@ export class AppAuthHttp {
   }
 
   private putRequestOnHold(url: string | Request, reqOptions: RequestOptionsArgs): Observable<Response> {
-    let subject = new Subject<Response>();
+    const subject = new Subject<Response>();
     this.toBeReplayed.push(new ReplayableRequest(url, reqOptions, subject));
     return subject.asObservable();
   }
@@ -90,10 +91,10 @@ export class AppAuthHttp {
                             body?: any): Observable<RequestOptions> {
     return this.userService.getAccessToken().pipe(
       map(token => {
-        let reqOptions = new RequestOptions(options);
+        const reqOptions = new RequestOptions(options);
         reqOptions.headers = new Headers({
-          "Content-Type": "application/json",
-          "X-Auth-Token": token
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token
         });
         reqOptions.method = requestMethod;
         reqOptions.body = body;

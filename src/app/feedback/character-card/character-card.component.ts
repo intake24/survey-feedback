@@ -1,32 +1,32 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
-import {SELECTOR_PREFIX} from "../feedback.const";
-import {CharacterCardParameters} from "../../classes/character.class";
-import {NutrientTypesService} from "../../services/nutrient-types.service";
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SELECTOR_PREFIX} from '../feedback.const';
+import {CharacterCardParameters} from '../../classes/character.class';
+import {NutrientTypesService} from '../../services/nutrient-types.service';
 import {
   DemographicNutrientRuleTypeEnum,
   DemographicRange,
   DemographicScaleSectorSentimentEnum
-} from "../../classes/demographic-group.class";
-import {DemographicNutrientRuleTypeDescriptions} from "../../classes/demographic-nutrient-rule-type-description.class";
-import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
-import {FeedbackCardComponent} from "../feedback-card/feedback-card";
+} from '../../classes/demographic-group.class';
+import {DemographicNutrientRuleTypeDescriptions} from '../../classes/demographic-nutrient-rule-type-description.class';
+import {SurveyFeedbackStyleEnum} from '../../classes/survey-feedback-style.enum';
+import {FeedbackCardComponent} from '../feedback-card/feedback-card';
 
 
-const CARD_SCENE_CLASS_BASE = "feedback-playing-card-";
+const CARD_SCENE_CLASS_BASE = 'feedback-playing-card-';
 
 const PLAYFUL_BACKGROUND_SCENE_MAP = {
-  danger: CARD_SCENE_CLASS_BASE + "danger",
-  sad: CARD_SCENE_CLASS_BASE + "sad",
-  happy: CARD_SCENE_CLASS_BASE + "happy",
-  exciting: CARD_SCENE_CLASS_BASE + "exciting",
+  danger: CARD_SCENE_CLASS_BASE + 'danger',
+  sad: CARD_SCENE_CLASS_BASE + 'sad',
+  happy: CARD_SCENE_CLASS_BASE + 'happy',
+  exciting: CARD_SCENE_CLASS_BASE + 'exciting',
 };
 
-const DEFAULT_BACKGROUND_PREFIX = "default-";
+const DEFAULT_BACKGROUND_PREFIX = 'default-';
 
 @Component({
-  selector: SELECTOR_PREFIX + "character-card",
-  templateUrl: "./character-card.component.html",
-  styleUrls: ["./character-card.component.scss"],
+  selector: SELECTOR_PREFIX + 'character-card',
+  templateUrl: './character-card.component.html',
+  styleUrls: ['./character-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -69,15 +69,15 @@ export class CharacterCardComponent extends FeedbackCardComponent implements OnI
   getResultedDemographicTitle(): PlayingCardDetails[] {
     return this.parameters.demographicResults
       .map(dr => {
-        let title = dr.resultedDemographicGroup.scaleSectors[0].name;
-        let consumption = dr.consumption;
-        let sentiment = dr.resultedDemographicGroup.scaleSectors[0].sentiment;
-        let targetConsumption = dr.targetDemographicGroup.scaleSectors[0].range;
-        let description = dr.resultedDemographicGroup.scaleSectors[0].description.get;
-        let nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
-        let unit = this.getUnitFromNutrientRule(dr.resultedDemographicGroup.nutrientRuleType,
+        const title = dr.resultedDemographicGroup.scaleSectors[0].name;
+        const consumption = dr.consumption;
+        const sentiment = dr.resultedDemographicGroup.scaleSectors[0].sentiment;
+        const targetConsumption = dr.targetDemographicGroup.scaleSectors[0].range;
+        const description = dr.resultedDemographicGroup.scaleSectors[0].description.get;
+        const nutrientId = dr.resultedDemographicGroup.nutrientTypeId;
+        const unit = this.getUnitFromNutrientRule(dr.resultedDemographicGroup.nutrientRuleType,
           this.nutrientService.getUnitByNutrientTypeId(nutrientId).get);
-        let unitDescription = DemographicNutrientRuleTypeDescriptions
+        const unitDescription = DemographicNutrientRuleTypeDescriptions
           .getItem(dr.resultedDemographicGroup.nutrientRuleType);
         return new PlayingCardDetails(title, consumption, description, targetConsumption,
           unit, unitDescription, sentiment);
@@ -87,11 +87,11 @@ export class CharacterCardComponent extends FeedbackCardComponent implements OnI
   private getUnitFromNutrientRule(nutrientRule: DemographicNutrientRuleTypeEnum, defaultUnit: string): string {
     switch (nutrientRule) {
       case DemographicNutrientRuleTypeEnum.EnergyDividedByBmr:
-        return "%";
+        return '%';
       case DemographicNutrientRuleTypeEnum.PerUnitOfWeight:
         return `${defaultUnit} per kg`;
       case DemographicNutrientRuleTypeEnum.PercentageOfEnergy:
-        return "%";
+        return '%';
       case DemographicNutrientRuleTypeEnum.Range:
         return defaultUnit;
       default:
@@ -116,7 +116,7 @@ export class PlayingCardDetails {
 
   constructor(title: string, consumption: number, description: string, targetConsumption: DemographicRange,
               units: string, unitDescription: string,
-              sentiment: DemographicScaleSectorSentimentEnum, warning? : string) {
+              sentiment: DemographicScaleSectorSentimentEnum, warning?: string) {
     this.title = title;
     this.consumption = Math.round(consumption * 10) / 10;
     this.description = description;
@@ -134,26 +134,26 @@ export class PlayingCardDetails {
     if ([DemographicScaleSectorSentimentEnum.TOO_LOW,
         DemographicScaleSectorSentimentEnum.LOW,
         DemographicScaleSectorSentimentEnum.HIGH,
-        DemographicScaleSectorSentimentEnum.TOO_HIGH,].indexOf(sentiment) > -1) {
-      return "text-danger";
+        DemographicScaleSectorSentimentEnum.TOO_HIGH, ].indexOf(sentiment) > -1) {
+      return 'text-danger';
     } else if ([DemographicScaleSectorSentimentEnum.BIT_LOW,
         DemographicScaleSectorSentimentEnum.BIT_HIGH].indexOf(sentiment) > -1) {
-      return "text-warning";
+      return 'text-warning';
     } else {
-      return "text-success";
+      return 'text-success';
     }
   }
 
   private getIconClass(sentiment: DemographicScaleSectorSentimentEnum): string {
-    let mp = new Map([
-      [DemographicScaleSectorSentimentEnum.TOO_LOW, "fa-angle-double-down"],
-      [DemographicScaleSectorSentimentEnum.LOW, "fa-angle-double-down"],
-      [DemographicScaleSectorSentimentEnum.BIT_LOW, "fa-angle-down"],
-      [DemographicScaleSectorSentimentEnum.GOOD, "fa-crosshairs"],
-      [DemographicScaleSectorSentimentEnum.EXCELLENT, "fa-crosshairs"],
-      [DemographicScaleSectorSentimentEnum.BIT_HIGH, "fa-angle-up"],
-      [DemographicScaleSectorSentimentEnum.HIGH, "fa-angle-double-up"],
-      [DemographicScaleSectorSentimentEnum.TOO_HIGH, "fa-angle-double-up"],
+    const mp = new Map([
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, 'fa-angle-double-down'],
+      [DemographicScaleSectorSentimentEnum.LOW, 'fa-angle-double-down'],
+      [DemographicScaleSectorSentimentEnum.BIT_LOW, 'fa-angle-down'],
+      [DemographicScaleSectorSentimentEnum.GOOD, 'fa-crosshairs'],
+      [DemographicScaleSectorSentimentEnum.EXCELLENT, 'fa-crosshairs'],
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH, 'fa-angle-up'],
+      [DemographicScaleSectorSentimentEnum.HIGH, 'fa-angle-double-up'],
+      [DemographicScaleSectorSentimentEnum.TOO_HIGH, 'fa-angle-double-up'],
     ]);
     return mp.get(sentiment);
   }

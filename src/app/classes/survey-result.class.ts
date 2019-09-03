@@ -1,5 +1,5 @@
-import {NutrientTypeIdEnum} from "../services/dictionaries.service";
-import {getLocaleNumberFormat} from "@angular/common";
+import {NutrientTypeIdEnum} from '../services/dictionaries.service';
+import {getLocaleNumberFormat} from '@angular/common';
 
 export class SurveyStats {
 
@@ -18,7 +18,7 @@ export class SurveyStats {
   }
 
   private getFoodGroupTotals(foods: Food[]): Map<number, number> {
-    let result = new Map<number, number>();
+    const result = new Map<number, number>();
 
     foods.forEach(food => {
       food.foodGroupWeights.forEach((weight, groupId) => {
@@ -30,11 +30,11 @@ export class SurveyStats {
   }
 
   getFoodGroupAverages(day?: number): Map<number, number> {
-    let foods = this.surveySubmissions
+    const foods = this.surveySubmissions
       .filter((ss, i) => day == null || day == i)
       .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
 
-    let weights = this.getFoodGroupTotals(foods);
+    const weights = this.getFoodGroupTotals(foods);
 
     weights.forEach((weight, groupId) => {
       weights.set(groupId, weight / (day == null ? this.surveySubmissions.length : 1));
@@ -53,27 +53,28 @@ export class SurveyStats {
     let total = 0;
 
     foodGroupTotals.forEach((weight, groupId) => {
-      if (groupIds.indexOf(groupId) != -1)
+      if (groupIds.indexOf(groupId) != -1) {
         total += weight;
+      }
     });
 
     return total;
   }
 
   getFruitAndVegPortions(day?: number): FruitAndVegPortions {
-    let foodGroupTotals = this.getFoodGroupAverages(day);
+    const foodGroupTotals = this.getFoodGroupAverages(day);
 
-    let juicesTotal = this.getTotalForSubset(foodGroupTotals, this.JUICE_FOOD_GROUP_IDS);
-    let beansAndPulsesTotal = this.getTotalForSubset(foodGroupTotals, this.BEANS_PULSES_GROUP_IDS);
-    let fruitTotal = this.getTotalForSubset(foodGroupTotals, this.FRUIT_GROUP_IDS);
-    let driedFruitTotal = this.getTotalForSubset(foodGroupTotals, this.DRIED_FRUIT_GROUP_IDS);
-    let vegetablesTotal = this.getTotalForSubset(foodGroupTotals, this.VEGETABLE_GROUP_IDS);
+    const juicesTotal = this.getTotalForSubset(foodGroupTotals, this.JUICE_FOOD_GROUP_IDS);
+    const beansAndPulsesTotal = this.getTotalForSubset(foodGroupTotals, this.BEANS_PULSES_GROUP_IDS);
+    const fruitTotal = this.getTotalForSubset(foodGroupTotals, this.FRUIT_GROUP_IDS);
+    const driedFruitTotal = this.getTotalForSubset(foodGroupTotals, this.DRIED_FRUIT_GROUP_IDS);
+    const vegetablesTotal = this.getTotalForSubset(foodGroupTotals, this.VEGETABLE_GROUP_IDS);
 
-    let juices = Math.min(150, juicesTotal) / 150;
-    let beansAndPulses = Math.min(80, beansAndPulsesTotal) / 80;
-    let fruit = fruitTotal / 80;
-    let driedFruit = driedFruitTotal / 30;
-    let vegetables = vegetablesTotal / 80;
+    const juices = Math.min(150, juicesTotal) / 150;
+    const beansAndPulses = Math.min(80, beansAndPulsesTotal) / 80;
+    const fruit = fruitTotal / 80;
+    const driedFruit = driedFruitTotal / 30;
+    const vegetables = vegetablesTotal / 80;
 
     return {
       juices,
@@ -86,15 +87,15 @@ export class SurveyStats {
   }
 
   getReducedFoods(day?: number): AggregateFoodStats[] {
-    let foods = this.surveySubmissions
+    const foods = this.surveySubmissions
       .filter((ss, i) => day == null || day == i)
       .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
 
-    let uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
+    const uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
 
     return uniqueCodes.map(code => {
-      let totalConsumptionMap: Map<number, number> = new Map();
-      let matchingFoods = foods.filter(f => f.code == code);
+      const totalConsumptionMap: Map<number, number> = new Map();
+      const matchingFoods = foods.filter(f => f.code == code);
       matchingFoods.map(f => {
         Array.from(f.nutrientIdConsumptionMap.keys()).map(k => {
           if (!totalConsumptionMap.has(k)) {
@@ -108,7 +109,7 @@ export class SurveyStats {
       Array.from(totalConsumptionMap.keys()).map(k => {
         totalConsumptionMap.set(k, totalConsumptionMap.get(k) / (day == null ? this.surveySubmissions.length : 1));
       });
-      let firstFood = matchingFoods[0];
+      const firstFood = matchingFoods[0];
       return new AggregateFoodStats(firstFood.localName, totalConsumptionMap);
     });
   }
@@ -217,19 +218,19 @@ export class Food {
   }
 
   static fromJson(json: any): Food {
-    let mp = new Map<number, number>();
-    for (let i in json.nutrients) {
+    const mp = new Map<number, number>();
+    for (const i in json.nutrients) {
       mp.set(parseInt(i), json.nutrients[i]);
     }
 
-    let foodWeight = parseFloat(json.portionSize.portionWeight);
+    const foodWeight = parseFloat(json.portionSize.portionWeight);
 
-    let foodGroupProportions = new Map<number, number>();
-    let foodGroupWeights = new Map<number, number>();
+    const foodGroupProportions = new Map<number, number>();
+    const foodGroupWeights = new Map<number, number>();
 
-    for (let i in json.compoundFoodGroups) {
-      let foodGroupId = parseInt(i);
-      let proportion = json.compoundFoodGroups[i];
+    for (const i in json.compoundFoodGroups) {
+      const foodGroupId = parseInt(i);
+      const proportion = json.compoundFoodGroups[i];
       foodGroupProportions.set(foodGroupId, proportion);
       foodGroupWeights.set(foodGroupId, proportion / 100 * foodWeight);
     }
@@ -237,7 +238,7 @@ export class Food {
     return new Food(
       json.code,
       json.englishDescription,
-      json.localDescription.length ? json.localDescription[0] : "",
+      json.localDescription.length ? json.localDescription[0] : '',
       mp,
       foodGroupProportions,
       foodGroupWeights

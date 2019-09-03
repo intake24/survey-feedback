@@ -1,7 +1,7 @@
-import {DemographicSexEnum} from "./demographic-group.class";
-import {HenryCoefficientsCalculator} from "./henry-coefficient.class";
-import {PhysicalActivityLevel} from "./physical-activity-level.class";
-import {WeightTarget} from "../services/weight-targets.service";
+import {DemographicSexEnum} from './demographic-group.class';
+import {HenryCoefficientsCalculator} from './henry-coefficient.class';
+import {PhysicalActivityLevel} from './physical-activity-level.class';
+import {WeightTarget} from '../services/weight-targets.service';
 
 export class UserDemographic {
 

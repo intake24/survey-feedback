@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {UserStateService} from "../services/user-state.service";
-import {AppConfig} from "../conf";
-import {SurveysService} from "../services/surveys.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserStateService} from '../services/user-state.service';
+import {AppConfig} from '../conf';
+import {SurveysService} from '../services/surveys.service';
 
 @Component({
   selector: 'i24-token-login',
@@ -53,7 +53,7 @@ export class TokenLoginComponent implements OnInit {
   private goToFeedback(): void {
     console.log('Go to feedback');
     this.doWithTimeout(() => {
-      this.router.navigate([""]);
+      this.router.navigate(['']);
     });
   }
 

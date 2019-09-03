@@ -1,4 +1,4 @@
-import {AppConfig} from "./conf";
+import {AppConfig} from './conf';
 
 export class ApiEndpoints {
 

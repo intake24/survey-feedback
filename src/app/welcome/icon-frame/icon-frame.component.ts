@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
 
 @Component({
   selector: 'i24-icon-frame',

@@ -1,5 +1,5 @@
-import {DemographicRange, DemographicSexEnum} from "./demographic-group.class";
-import {UserDemographic} from "./user-demographic.class";
+import {DemographicRange, DemographicSexEnum} from './demographic-group.class';
+import {UserDemographic} from './user-demographic.class';
 
 
 export class HenryCoefficientsCalculator {
@@ -15,10 +15,10 @@ export class HenryCoefficientsCalculator {
   }
 
   getBMR(userDemographic: UserDemographic): number {
-    let coefs = this.coefficients.filter(c => c.matchesUserDemographic(userDemographic));
+    const coefs = this.coefficients.filter(c => c.matchesUserDemographic(userDemographic));
 
     if (!coefs.length) {
-      throw new Error("Henry coefficients matching user demographic were not found");
+      throw new Error('Henry coefficients matching user demographic were not found');
     } else {
       return this.calculateBMR(userDemographic, coefs[0]);
     }

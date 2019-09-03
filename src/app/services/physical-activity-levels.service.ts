@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {AppAuthHttp} from "./app-http.service";
-import {Observable} from "rxjs";
-import {ApiEndpoints} from "../api-endpoints";
-import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
-import {map} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {AppAuthHttp} from './app-http.service';
+import {Observable} from 'rxjs';
+import {ApiEndpoints} from '../api-endpoints';
+import {PhysicalActivityLevel} from '../classes/physical-activity-level.class';
+import {map} from 'rxjs/internal/operators';
 
 @Injectable()
 export class PhysicalActivityLevelsService {

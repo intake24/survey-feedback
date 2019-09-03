@@ -1,4 +1,4 @@
-import {none, Option, some} from "ts-option";
+import {none, Option, some} from 'ts-option';
 
 export class OptionToRequest {
   static toRequest<T>(val: Option<T>): T[] {

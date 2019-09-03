@@ -10,9 +10,9 @@ import {
   OnInit,
   Output, ViewChild
 } from '@angular/core';
-import {WindowRefService} from "../../services/window-ref.service";
-import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
-import {FeedbackCardComponent} from "../feedback-card/feedback-card";
+import {WindowRefService} from '../../services/window-ref.service';
+import {AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
+import {FeedbackCardComponent} from '../feedback-card/feedback-card';
 
 @Component({
   selector: 'i24-appear-in-viewport',
@@ -39,7 +39,7 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
               private windowRef: WindowRefService) {
   }
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   onScroll(event) {
     this.setVisible();
   }
@@ -72,7 +72,7 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
   private isElementInViewport(el: HTMLElement, window: Window): boolean {
 
     let top = el.offsetTop;
-    let height = el.offsetHeight;
+    const height = el.offsetHeight;
     let parEl = el;
 
     while (parEl.offsetParent) {

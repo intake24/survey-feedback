@@ -10,6 +10,6 @@ class MessageSet {
 }
 
 export const ThankYouMessages = {
-  default: new MessageSet("Thank you!", "Would you like to get some feedback about your diet?", "Yes"),
-  playful: new MessageSet("Many thanks!", "Such a tasty diet you have! Would you like to learn more about it?", "Yes, of course!")
+  default: new MessageSet('Thank you!', 'Would you like to get some feedback about your diet?', 'Yes'),
+  playful: new MessageSet('Many thanks!', 'Such a tasty diet you have! Would you like to learn more about it?', 'Yes, of course!')
 };

@@ -3,10 +3,10 @@ import {
   DemographicResult,
   DemographicScaleSector,
   DemographicScaleSectorSentimentEnum
-} from "../classes/demographic-group.class";
-import {AggregateFoodStats, Food} from "../classes/survey-result.class";
-import {none, Option, some} from "ts-option";
-import {UserDemographic} from "./user-demographic.class";
+} from '../classes/demographic-group.class';
+import {AggregateFoodStats, Food} from '../classes/survey-result.class';
+import {none, Option, some} from 'ts-option';
+import {UserDemographic} from './user-demographic.class';
 import {SurveyFeedbackStyleEnum} from './survey-feedback-style.enum';
 
 
@@ -19,9 +19,9 @@ export class CharacterRules {
   }
 
   getSentiment(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<CharacterCardParameters> {
-    let demographicGroups = this.getDemographicsGroups(userDemographic, foods)
+    const demographicGroups = this.getDemographicsGroups(userDemographic, foods)
       .map(dg => dg.get);
-    let scaleSectors = demographicGroups
+    const scaleSectors = demographicGroups
       .map(dg => dg.resultedDemographicGroup.scaleSectors)
       .reduce((a, b) => a.slice().concat(b), []);
     return this.pickAverageSentiment(scaleSectors)
@@ -29,7 +29,7 @@ export class CharacterRules {
   }
 
   private getDemographicsGroups(userDemographic: UserDemographic, foods: AggregateFoodStats[]): Option<DemographicResult>[] {
-    let demographicGroups = this.demographicGroups
+    const demographicGroups = this.demographicGroups
       .filter(dg => dg.matchesUserDemographic(userDemographic));
     return demographicGroups.map(dg => dg.getResult(userDemographic, foods))
       .filter(dg => dg.match({
@@ -42,8 +42,8 @@ export class CharacterRules {
     if (!scaleSectors.length) {
       return none;
     }
-    let dgSenEnums = scaleSectors.map(ss => ss.sentiment);
-    let enums = [
+    const dgSenEnums = scaleSectors.map(ss => ss.sentiment);
+    const enums = [
       DemographicScaleSectorSentimentEnum.TOO_LOW,
       DemographicScaleSectorSentimentEnum.LOW,
       DemographicScaleSectorSentimentEnum.BIT_LOW,
@@ -53,8 +53,8 @@ export class CharacterRules {
       DemographicScaleSectorSentimentEnum.HIGH,
       DemographicScaleSectorSentimentEnum.TOO_HIGH
     ];
-    let presentEnums = enums.filter(en => dgSenEnums.indexOf(en) > -1);
-    let averageEnumIndex = Math.round(presentEnums.map(e => enums.indexOf(e)).reduce((a, b) => a + b) / presentEnums.length);
+    const presentEnums = enums.filter(en => dgSenEnums.indexOf(en) > -1);
+    const averageEnumIndex = Math.round(presentEnums.map(e => enums.indexOf(e)).reduce((a, b) => a + b) / presentEnums.length);
     if (!presentEnums.length) {
       return none;
     } else {
@@ -63,7 +63,7 @@ export class CharacterRules {
   }
 
   private getCharacterSentimentByDemographicSentiment(dSentiment: DemographicScaleSectorSentimentEnum): Option<CharacterSentiment> {
-    let sentiments = this.sentiments
+    const sentiments = this.sentiments
       .filter(s => s.demographicScaleSectorSentiment.indexOf(dSentiment) > -1);
     return sentiments.length ? some(sentiments[0]) : none;
   }
@@ -94,7 +94,7 @@ export class CharacterSentiment {
 }
 
 export class CharacterCardParameters {
-  readonly cardType = "character";
+  readonly cardType = 'character';
 
   constructor(readonly characterType: CharacterTypeEnum,
               readonly characterSentiment: CharacterSentiment,
@@ -103,23 +103,23 @@ export class CharacterCardParameters {
 }
 
 export enum CharacterTypeEnum {
-  BATTERY = "battery",
-  BREAD = "bread",
-  CANDY = "candy",
-  SALMON = "salmon",
-  SAUSAGE = "sausage",
-  EGG = "egg",
-  APPLE = "apple",
-  STRAWBERRY = "strawberry",
-  BURGER = "burger",
-  FRIES = "fries",
-  MILK = "milk",
-  CO2 = "co2"
+  BATTERY = 'battery',
+  BREAD = 'bread',
+  CANDY = 'candy',
+  SALMON = 'salmon',
+  SAUSAGE = 'sausage',
+  EGG = 'egg',
+  APPLE = 'apple',
+  STRAWBERRY = 'strawberry',
+  BURGER = 'burger',
+  FRIES = 'fries',
+  MILK = 'milk',
+  CO2 = 'co2'
 }
 
 export enum CharacterSentimentEnum {
-  DANGER = "danger",
-  WARNING = "sad",
-  HAPPY = "happy",
-  EXCITING = "exciting"
+  DANGER = 'danger',
+  WARNING = 'sad',
+  HAPPY = 'happy',
+  EXCITING = 'exciting'
 }

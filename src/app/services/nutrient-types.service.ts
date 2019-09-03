@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {AppAuthHttp} from "./app-http.service";
-import {NutrientType} from "../classes/nutrient-types.class";
-import {ApiEndpoints} from "../api-endpoints";
-import {none, Option, some} from "ts-option";
-import {map} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AppAuthHttp} from './app-http.service';
+import {NutrientType} from '../classes/nutrient-types.class';
+import {ApiEndpoints} from '../api-endpoints';
+import {none, Option, some} from 'ts-option';
+import {map} from 'rxjs/internal/operators';
 
 @Injectable()
 export class NutrientTypesService {
@@ -27,7 +27,7 @@ export class NutrientTypesService {
   }
 
   getUnitByNutrientTypeId(nutrientTypeId: number): Option<string> {
-    let nutrientTypes = this.cachedNutrientTypes.filter(nt => nt.id == nutrientTypeId);
+    const nutrientTypes = this.cachedNutrientTypes.filter(nt => nt.id == nutrientTypeId);
     if (nutrientTypes.length) {
       return some(nutrientTypes[0].unit);
     } else {

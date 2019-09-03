@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Observable, of} from "rxjs";
-import {SurveyFeedbackStyleEnum} from "../classes/survey-feedback-style.enum";
-import {ApiEndpoints} from "../api-endpoints";
-import {Http} from "@angular/http";
-import {map} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {SurveyFeedbackStyleEnum} from '../classes/survey-feedback-style.enum';
+import {ApiEndpoints} from '../api-endpoints';
+import {Http} from '@angular/http';
+import {map} from 'rxjs/internal/operators';
 
 
-const LOCAL_STORAGE_PARAM = "feedbackStyle";
+const LOCAL_STORAGE_PARAM = 'feedbackStyle';
 
 
 @Injectable()
@@ -26,7 +26,7 @@ export class FeedbackStyleService {
       return this.httpService.get(ApiEndpoints.surveyFeedbackStyle(surveyId))
         .pipe(
           map(res => {
-            let st = <SurveyFeedbackStyleEnum>res.json().feedbackStyle;
+            const st = <SurveyFeedbackStyleEnum>res.json().feedbackStyle;
             this.originalStyle = st;
             return st;
           })

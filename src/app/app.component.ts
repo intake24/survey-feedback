@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {SurveyFeedbackStyleEnum} from "./classes/survey-feedback-style.enum";
-import {AppConfig} from "./conf";
-import {FeedbackStyleService} from "./services/feedback-style.service";
-import {finalize, map} from "rxjs/internal/operators";
+import {SurveyFeedbackStyleEnum} from './classes/survey-feedback-style.enum';
+import {AppConfig} from './conf';
+import {FeedbackStyleService} from './services/feedback-style.service';
+import {finalize, map} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'i24-app',
@@ -11,7 +11,7 @@ import {finalize, map} from "rxjs/internal/operators";
 })
 export class AppComponent implements OnInit {
   feedbackStyle: SurveyFeedbackStyleEnum;
-  isLoading: boolean = true;
+  isLoading = true;
 
   constructor(private styleService: FeedbackStyleService) {
   }

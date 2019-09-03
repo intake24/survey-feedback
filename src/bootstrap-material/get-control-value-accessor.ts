@@ -1,5 +1,5 @@
-import {NG_VALUE_ACCESSOR} from "@angular/forms";
-import {forwardRef} from "@angular/core";
+import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {forwardRef} from '@angular/core';
 
 export function getControlValueAccessor(component): any {
   return {

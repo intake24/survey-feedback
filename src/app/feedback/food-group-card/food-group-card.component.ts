@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
-import {SELECTOR_PREFIX} from "../feedback.const";
-import {FeedbackCardComponent} from "../feedback-card/feedback-card";
-import {PlayingCardDetails} from "../character-card/character-card.component";
-import {DemographicRange, DemographicScaleSectorSentimentEnum} from "../../classes/demographic-group.class";
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {SELECTOR_PREFIX} from '../feedback.const';
+import {FeedbackCardComponent} from '../feedback-card/feedback-card';
+import {PlayingCardDetails} from '../character-card/character-card.component';
+import {DemographicRange, DemographicScaleSectorSentimentEnum} from '../../classes/demographic-group.class';
 
 
 export class FoodGroupCardParameters {
-  readonly cardType = "food-group";
+  readonly cardType = 'food-group';
 
   readonly foodGroupName: string;
   readonly intake: number;
@@ -22,9 +22,9 @@ export class FoodGroupCardParameters {
 }
 
 @Component({
-  selector: SELECTOR_PREFIX + "food-group-card",
-  templateUrl: "./food-group-card.component.html",
-  styleUrls: ["./food-group-card.component.scss"],
+  selector: SELECTOR_PREFIX + 'food-group-card',
+  templateUrl: './food-group-card.component.html',
+  styleUrls: ['./food-group-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FoodGroupCardComponent extends FeedbackCardComponent {

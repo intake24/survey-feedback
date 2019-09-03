@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {WelcomeComponent} from "./welcome.component";
+import {RouterModule, Routes} from '@angular/router';
+import {WelcomeComponent} from './welcome.component';
 
 export const rootRouterConfig: Routes = [
-  {path: "user-info", component: WelcomeComponent},
-  {path: "thanks", component: WelcomeComponent},
+  {path: 'user-info', component: WelcomeComponent},
+  {path: 'thanks', component: WelcomeComponent},
 ];
 
 @NgModule({

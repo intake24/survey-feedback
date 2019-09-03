@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnChanges, Output} from "@angular/core";
-import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
-import {PlayingCardDetails} from "../character-card/character-card.component";
-import {AnimateActionAlias, AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {animate, keyframes, state, style, transition, trigger} from '@angular/animations';
+import {PlayingCardDetails} from '../character-card/character-card.component';
+import {AnimateActionAlias, AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
 
 const MODAL_ANIMATION_DURATION = 500;
 const BACKDROP_ANIMATION_DURATION = 300;
@@ -11,11 +11,11 @@ const BACKDROP_ANIMATION_DURATION = 300;
   templateUrl: 'tell-me-more.component.html',
   styleUrls: ['tell-me-more.component.scss'],
   animations: [
-    trigger("modalAnimateState", [
+    trigger('modalAnimateState', [
       state(AnimateActionEnum.Visible, style({opacity: 1})),
       state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
-      transition(":enter", [
+      transition(':enter', [
         animate(MODAL_ANIMATION_DURATION, keyframes([
           style({opacity: 0, transform: `translateY(2000px)`, offset: 0}),
           style({
@@ -23,11 +23,11 @@ const BACKDROP_ANIMATION_DURATION = 300;
             transform: `translateY(-15px)`,
             offset: 0.7
           }),
-          style({opacity: 1, transform: "translateY(0)", offset: 1.0})
+          style({opacity: 1, transform: 'translateY(0)', offset: 1.0})
         ]))
       ]),
 
-      transition(":leave", [
+      transition(':leave', [
         animate(MODAL_ANIMATION_DURATION, keyframes([
           style({opacity: 1, transform: `translateY(0)`, offset: 0}),
           style({
@@ -35,24 +35,24 @@ const BACKDROP_ANIMATION_DURATION = 300;
             transform: `translateY(-15px)`,
             offset: 0.3
           }),
-          style({opacity: 0, transform: "translateY(2000px)", offset: 1.0})
+          style({opacity: 0, transform: 'translateY(2000px)', offset: 1.0})
         ]))
       ])
 
     ]),
 
-    trigger("backdropAnimateState", [
+    trigger('backdropAnimateState', [
       state(AnimateActionEnum.Visible, style({opacity: 1})),
       state(AnimateActionEnum.Hidden, style({opacity: 0})),
 
-      transition(":enter", [
+      transition(':enter', [
         animate(BACKDROP_ANIMATION_DURATION, keyframes([
           style({opacity: 0, offset: 0}),
           style({opacity: 0.5, offset: 1.0})
         ]))
       ]),
 
-      transition(":leave", [
+      transition(':leave', [
         animate(BACKDROP_ANIMATION_DURATION, keyframes([
           style({opacity: 0.5, offset: 0}),
           style({opacity: 0, offset: 1.0})
@@ -77,9 +77,9 @@ export class TellMeMoreComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.active) {
-      document.body.classList.add("modal-open");
+      document.body.classList.add('modal-open');
     } else {
-      document.body.classList.remove("modal-open");
+      document.body.classList.remove('modal-open');
     }
   }
 

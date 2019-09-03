@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {AppAuthHttp} from "./app-http.service";
-import {forkJoin, Observable} from "rxjs";
-import {UserInfo} from "../classes/user-info.class";
-import {ApiEndpoints} from "../api-endpoints";
-import {OptionToRequest} from "../utils/option-to-request";
-import {map} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {AppAuthHttp} from './app-http.service';
+import {forkJoin, Observable} from 'rxjs';
+import {UserInfo} from '../classes/user-info.class';
+import {ApiEndpoints} from '../api-endpoints';
+import {OptionToRequest} from '../utils/option-to-request';
+import {map} from 'rxjs/internal/operators';
 
 @Injectable()
 export class UserInfoService {
@@ -39,7 +39,7 @@ export class UserInfoService {
     return {
       sex: OptionToRequest.toRequest(userInfo.sex),
       birthdate: userInfo.birthdate.match({
-        some: d => [d.toISOString().replace(/T.*/, "")],
+        some: d => [d.toISOString().replace(/T.*/, '')],
         none: () => []
       }),
       weight: OptionToRequest.toRequest(userInfo.weight),

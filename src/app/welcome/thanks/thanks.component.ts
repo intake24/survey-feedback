@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CharacterSentimentEnum, CharacterTypeEnum} from "../../classes/character.class";
-import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
-import {ThankYouMessages} from "./thanks-messages.const"
+import {CharacterSentimentEnum, CharacterTypeEnum} from '../../classes/character.class';
+import {SurveyFeedbackStyleEnum} from '../../classes/survey-feedback-style.enum';
+import {ThankYouMessages} from './thanks-messages.const'
 
 @Component({
   selector: 'i24-thanks',

@@ -1,16 +1,16 @@
-import {Injectable} from "@angular/core";
-import {AppAuthHttp} from "./app-http.service";
-import {forkJoin, Observable, of} from "rxjs";
-import {ApiEndpoints} from "../api-endpoints";
-import {HenryCoefficientsCalculator} from "../classes/henry-coefficient.class";
-import {none, Option, some} from "ts-option";
-import {UserInfoService} from "./user-info.service";
-import {UserDemographic} from "../classes/user-demographic.class";
-import {PhysicalActivityLevelsService} from "./physical-activity-levels.service";
-import {UserInfo} from "../classes/user-info.class";
-import {PhysicalActivityLevel} from "../classes/physical-activity-level.class";
-import {WeightTarget, WeightTargetsService} from "./weight-targets.service";
-import {catchError, map, mergeMap} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {AppAuthHttp} from './app-http.service';
+import {forkJoin, Observable, of} from 'rxjs';
+import {ApiEndpoints} from '../api-endpoints';
+import {HenryCoefficientsCalculator} from '../classes/henry-coefficient.class';
+import {none, Option, some} from 'ts-option';
+import {UserInfoService} from './user-info.service';
+import {UserDemographic} from '../classes/user-demographic.class';
+import {PhysicalActivityLevelsService} from './physical-activity-levels.service';
+import {UserInfo} from '../classes/user-info.class';
+import {PhysicalActivityLevel} from '../classes/physical-activity-level.class';
+import {WeightTarget, WeightTargetsService} from './weight-targets.service';
+import {catchError, map, mergeMap} from 'rxjs/internal/operators';
 
 @Injectable()
 export class UserDemographicService {
@@ -53,13 +53,13 @@ export class UserDemographicService {
       userInfo.physicalActivityLevelId.isEmpty) {
       return none;
     } else {
-      let pals = physicalActivityLevels.filter(pal => pal.id == userInfo.physicalActivityLevelId.get);
-      let wts = weightTargets.filter(wt => wt.id == userInfo.weightTarget.get);
+      const pals = physicalActivityLevels.filter(pal => pal.id == userInfo.physicalActivityLevelId.get);
+      const wts = weightTargets.filter(wt => wt.id == userInfo.weightTarget.get);
       if (!pals.length) {
-        throw "Unknown physical activity level Id."
+        throw new Error('Unknown physical activity level Id.')
       }
       if (!wts.length) {
-        throw "Unknown weight target."
+        throw new Error('Unknown weight target.')
       }
       return some(new UserDemographic(userInfo.sex.get,
         userInfo.birthdate.get.getFullYear(),

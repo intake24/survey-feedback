@@ -1,19 +1,19 @@
-import {Injectable} from "@angular/core";
-import {User} from "../classes/user.class";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
-import {ApiEndpoints} from "../api-endpoints";
-import {BehaviorSubject, Observable, of, ReplaySubject, throwError} from "rxjs";
-import {AppConfig} from "../conf";
-import {catchError, map, mergeMap} from "rxjs/internal/operators";
+import {Injectable} from '@angular/core';
+import {User} from '../classes/user.class';
+import {Headers, Http, RequestOptions, Response} from '@angular/http';
+import {ApiEndpoints} from '../api-endpoints';
+import {BehaviorSubject, Observable, of, ReplaySubject, throwError} from 'rxjs';
+import {AppConfig} from '../conf';
+import {catchError, map, mergeMap} from 'rxjs/internal/operators';
 import {empty} from 'rxjs/observable/empty';
 
 @Injectable()
 export class UserStateService {
 
-  private static readonly Name = "UserStateService";
+  private static readonly Name = 'UserStateService';
 
-  private readonly ACCESS_TOKEN_COOKIE_NAME: string = "accessToken";
-  private readonly REFRESH_TOKEN_COOKIE_NAME: string = "refreshToken";
+  private readonly ACCESS_TOKEN_COOKIE_NAME: string = 'accessToken';
+  private readonly REFRESH_TOKEN_COOKIE_NAME: string = 'refreshToken';
 
   private accessTokenSubject: ReplaySubject<string> = new ReplaySubject();
 
@@ -34,7 +34,7 @@ export class UserStateService {
 
   getAccessToken(): Observable<string> {
     this.notifyAuthSubscribers();
-    let accToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
+    const accToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
     if (accToken != null) {
       return of(accToken);
     } else {
@@ -57,9 +57,9 @@ export class UserStateService {
   refreshAccessToken(): Observable<Response> {
     this.dropAccessToken();
     return this.getRefreshToken().pipe(mergeMap(token => {
-      let reqOptions = new RequestOptions();
+      const reqOptions = new RequestOptions();
       reqOptions.headers = new Headers({
-        "X-Auth-Token": token
+        'X-Auth-Token': token
       });
       return this.http.post(ApiEndpoints.refreshUserToken(), {}, reqOptions)
         .pipe(
@@ -97,7 +97,7 @@ export class UserStateService {
   }
 
   private getRefreshToken(): Observable<string> {
-    let token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
+    const token = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     if (token == null) {
       location.href = AppConfig.surveyPath;
       return empty();
@@ -112,21 +112,21 @@ export class UserStateService {
   }
 
   private notifyAuthSubscribers(): void {
-    let refreshToken = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
-    let accessToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
-    let auth = refreshToken != null && accessToken != null;
+    const refreshToken = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
+    const accessToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
+    const auth = refreshToken != null && accessToken != null;
     if (auth != this.authenticated) {
       this.authenticatedSubject.next(auth);
     }
   }
 
   private accTokenToUser(accToken: string): User {
-    let tokenPart = accToken.split(".")[1],
+    const tokenPart = accToken.split('.')[1],
       parsedToken = JSON.parse(atob(tokenPart)),
       credentials = JSON.parse(atob(parsedToken.sub)),
-      providerParts = credentials.providerKey.split("#");
+      providerParts = credentials.providerKey.split('#');
     if (providerParts.length < 2) {
-      throw "Access token format changed. Could not retrieve surveyId and userName";
+      throw new Error('Access token format changed. Could not retrieve surveyId and userName');
     }
     return new User(providerParts[1], providerParts[0], parsedToken.roles);
   }

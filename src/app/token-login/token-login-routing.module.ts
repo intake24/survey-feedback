@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from "@angular/router";
-import {TokenLoginComponent} from "./token-login.component";
+import {RouterModule, Routes} from '@angular/router';
+import {TokenLoginComponent} from './token-login.component';
 
 export const rootRouterConfig: Routes = [
-  {path: "token-login/:token", component: TokenLoginComponent},
+  {path: 'token-login/:token', component: TokenLoginComponent},
 ];
 
 @NgModule({

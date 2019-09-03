@@ -8,13 +8,13 @@ import {
   Type,
   ViewChild,
   ViewContainerRef
-} from "@angular/core";
-import {FeedbackCardParameters} from "../playing-cards/playing-cards.component";
-import {CharacterCardComponent, PlayingCardDetails} from "../character-card/character-card.component";
-import {FiveADayCardComponent} from "../five-a-day-card/five-a-day.component";
-import {SurveyFeedbackStyleEnum} from "../../classes/survey-feedback-style.enum";
-import {FeedbackCardComponent} from "./feedback-card";
-import {FoodGroupCardComponent} from "../food-group-card/food-group-card.component";
+} from '@angular/core';
+import {FeedbackCardParameters} from '../playing-cards/playing-cards.component';
+import {CharacterCardComponent, PlayingCardDetails} from '../character-card/character-card.component';
+import {FiveADayCardComponent} from '../five-a-day-card/five-a-day.component';
+import {SurveyFeedbackStyleEnum} from '../../classes/survey-feedback-style.enum';
+import {FeedbackCardComponent} from './feedback-card';
+import {FoodGroupCardComponent} from '../food-group-card/food-group-card.component';
 
 
 @Component({
@@ -39,11 +39,11 @@ export class FeedbackCardDynamicComponent implements OnInit {
 
   private getCardComponentType(): Type<FeedbackCardComponent> {
     switch (this.parameters.cardType) {
-      case "character":
+      case 'character':
         return CharacterCardComponent;
-      case "five-a-day":
+      case 'five-a-day':
         return FiveADayCardComponent;
-      case "food-group":
+      case 'food-group':
         return FoodGroupCardComponent;
     }
   }

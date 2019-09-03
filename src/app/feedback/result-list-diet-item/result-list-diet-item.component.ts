@@ -1,16 +1,16 @@
-import {Component, ElementRef, HostListener, Input} from "@angular/core";
-import {SELECTOR_PREFIX} from "../feedback.const";
+import {Component, ElementRef, HostListener, Input} from '@angular/core';
+import {SELECTOR_PREFIX} from '../feedback.const';
 
 @Component({
-    selector: SELECTOR_PREFIX + "result-list-diet-item",
-    templateUrl: "./result-list-diet-item.component.html",
-    styleUrls: ["./result-list-diet-item.component.scss"]
+    selector: SELECTOR_PREFIX + 'result-list-diet-item',
+    templateUrl: './result-list-diet-item.component.html',
+    styleUrls: ['./result-list-diet-item.component.scss']
 })
 
 export class ResultListDietItemComponent {
 
-    private ELEMENTS_IN_COL: number = 3;
-    private ASPECT_RATIO: number = 16/9;
+    private ELEMENTS_IN_COL = 3;
+    private ASPECT_RATIO: number = 16 / 9;
 
     height: number;
 
@@ -23,7 +23,7 @@ export class ResultListDietItemComponent {
 
     }
 
-    @HostListener("window:resize", ["$event"])
+    @HostListener('window:resize', ['$event'])
     onResize(event) {
         this.setSize();
     }

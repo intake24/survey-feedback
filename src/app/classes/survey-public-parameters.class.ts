@@ -1,5 +1,5 @@
-import {Option} from "ts-option";
-import {OptionToRequest} from "../utils/option-to-request";
+import {Option} from 'ts-option';
+import {OptionToRequest} from '../utils/option-to-request';
 
 export class SurveyPublicParameters {
 

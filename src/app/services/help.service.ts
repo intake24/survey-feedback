@@ -1,9 +1,9 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {AppAuthHttp} from "./app-http.service";
-import {ApiEndpoints} from "../api-endpoints";
-import {FeedbackMessage} from "../classes/feedback-message.class";
-import {Response} from "@angular/http";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AppAuthHttp} from './app-http.service';
+import {ApiEndpoints} from '../api-endpoints';
+import {FeedbackMessage} from '../classes/feedback-message.class';
+import {Response} from '@angular/http';
 
 
 @Injectable()

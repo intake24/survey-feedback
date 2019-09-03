@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {AppAuthHttp} from "./app-http.service";
-import {FiveADayFeedback} from "../classes/five-a-day-feedback";
-import {ApiEndpoints} from "../api-endpoints";
-import {map} from "rxjs/internal/operators";
-import {FoodGroupFeedback} from "../classes/food-group-feedback";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {AppAuthHttp} from './app-http.service';
+import {FiveADayFeedback} from '../classes/five-a-day-feedback';
+import {ApiEndpoints} from '../api-endpoints';
+import {map} from 'rxjs/internal/operators';
+import {FoodGroupFeedback} from '../classes/food-group-feedback';
 
 
 @Injectable()

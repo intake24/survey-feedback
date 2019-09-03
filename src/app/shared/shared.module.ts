@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {FoodSmileComponent} from "./food-smile/food-smile.component";
-import {LoaderComponent} from "./loader/loader.component";
+import {FoodSmileComponent} from './food-smile/food-smile.component';
+import {LoaderComponent} from './loader/loader.component';
 import {FooterComponent} from './footer/footer.component';
 
 @NgModule({

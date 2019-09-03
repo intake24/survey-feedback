@@ -32,7 +32,7 @@ export class BmControl implements ControlValueAccessor {
   }
 
   getFilled(): boolean {
-    return this.innerValue != null && this.innerValue != "";
+    return this.innerValue != null && this.innerValue != '';
   }
 
   onFocus() {

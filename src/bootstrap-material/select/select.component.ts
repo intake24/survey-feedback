@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
-import {getControlValueAccessor} from "../get-control-value-accessor";
-import {BmControl} from "../bm-control.class";
+import {getControlValueAccessor} from '../get-control-value-accessor';
+import {BmControl} from '../bm-control.class';
 
 @Component({
   selector: 'bm-select',

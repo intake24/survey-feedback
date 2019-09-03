@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnChanges, OnInit} from '@angular/core';
-import {WindowRefService} from "../../services/window-ref.service";
-import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {WindowRefService} from '../../services/window-ref.service';
+import {AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
 
 const MAX_LABEL_LENGTH = 20;
 
@@ -18,7 +18,7 @@ export class PieChartComponent implements OnInit, OnChanges {
   @Input() data: PieChardData[];
   @Input() showLabels: boolean;
 
-  private appeared: boolean = false;
+  private appeared = false;
 
   height: number;
 
@@ -31,7 +31,7 @@ export class PieChartComponent implements OnInit, OnChanges {
     this._window = this.windowService.nativeWindow;
   }
 
-  @HostListener("window:resize", ["$event"])
+  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setSize();
   }
@@ -54,16 +54,16 @@ export class PieChartComponent implements OnInit, OnChanges {
       return;
     }
 
-    let canvas = this.elementRef.nativeElement.querySelector('canvas');
+    const canvas = this.elementRef.nativeElement.querySelector('canvas');
 
     if (canvas) {
-      let data = this.data.filter(d => d.value > 0);
+      const data = this.data.filter(d => d.value > 0);
 
       this.chart = new this._window.Chart(canvas, {
-        type: "doughnut",
+        type: 'doughnut',
         data: {
           labels: data.map(d => d.label.length >= MAX_LABEL_LENGTH ?
-            d.label.slice(0, MAX_LABEL_LENGTH - 3) + "..." : d.label),
+            d.label.slice(0, MAX_LABEL_LENGTH - 3) + '...' : d.label),
           datasets: [
             {
               data: data.map(d => d.value),

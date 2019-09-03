@@ -1,4 +1,4 @@
-import {DemographicRange} from "./demographic-group.class";
+import {DemographicRange} from './demographic-group.class';
 
 export class FoodGroupFeedbackThreshold {
   threshold: number;
@@ -17,14 +17,14 @@ export class FoodGroupFeedback {
 
   static fromJson(json: any): FoodGroupFeedback[] {
 
-    let result = new Array<FoodGroupFeedback>();
+    const result = new Array<FoodGroupFeedback>();
 
     for (let i = 0; i < json.length; i++) {
 
-      let low: FoodGroupFeedbackThreshold = json[i].low.length == 1 ? json[i].low[0] : undefined;
-      let high: FoodGroupFeedbackThreshold = json[i].high.length == 1 ? json[i].high[0] : undefined;
+      const low: FoodGroupFeedbackThreshold = json[i].low.length == 1 ? json[i].low[0] : undefined;
+      const high: FoodGroupFeedbackThreshold = json[i].high.length == 1 ? json[i].high[0] : undefined;
 
-      let recommendedIntake = new DemographicRange(low ? low.threshold : 0, high ? high.threshold : 1000);
+      const recommendedIntake = new DemographicRange(low ? low.threshold : 0, high ? high.threshold : 1000);
 
       result.push({
         groupName: json[i].name,
@@ -40,10 +40,11 @@ export class FoodGroupFeedback {
   }
 
   static getBackgroundClassForFoodGroup(foodGroupIds: number[]): string {
-    if (foodGroupIds.indexOf(FOOD_GROUP_RED_MEAT) != -1)
-      return "red-meat";
+    if (foodGroupIds.indexOf(FOOD_GROUP_RED_MEAT) != -1) {
+      return 'red-meat';
+    }
 
-    return "";
+    return '';
   }
 
 }

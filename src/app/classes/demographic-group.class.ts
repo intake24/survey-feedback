@@ -1,7 +1,7 @@
-import {none, Option, some} from "ts-option";
-import {NutrientType} from "./nutrient-types.class";
-import {AggregateFoodStats, Food} from "./survey-result.class";
-import {UserDemographic} from "./user-demographic.class";
+import {none, Option, some} from 'ts-option';
+import {NutrientType} from './nutrient-types.class';
+import {AggregateFoodStats, Food} from './survey-result.class';
+import {UserDemographic} from './user-demographic.class';
 
 export class DemographicGroup {
 
@@ -61,16 +61,16 @@ export class DemographicGroup {
 
   getResult(userDemographic: UserDemographic,
             foods: AggregateFoodStats[]): Option<DemographicResult> {
-    let cons = this.getConsumption(userDemographic, foods);
-    let scaleSector = this.getScaleSectorByValue(cons);
-    let bestScaleSector = this.getScaleSectorByBestSentiment();
+    const cons = this.getConsumption(userDemographic, foods);
+    const scaleSector = this.getScaleSectorByValue(cons);
+    const bestScaleSector = this.getScaleSectorByBestSentiment();
 
     if (scaleSector.isEmpty) {
-      console.warn("Scale sector for user demographic",
+      console.warn('Scale sector for user demographic',
         userDemographic,
-        "and consumption",
+        'and consumption',
         cons,
-        "was not found in demographic group",
+        'was not found in demographic group',
         this
       )
     }
@@ -92,7 +92,7 @@ export class DemographicGroup {
   }
 
   matchesUserDemographic(userDemographic: UserDemographic): boolean {
-    let result = [
+    const result = [
       this.sex.match({
         some: s => s == userDemographic.sex,
         none: () => true
@@ -114,14 +114,14 @@ export class DemographicGroup {
   }
 
   private getConsumption(userDemographic: UserDemographic, foods: AggregateFoodStats[]): number {
-    let consumption = foods.map(f => f.getAverageIntake(this.nutrientTypeId))
+    const consumption = foods.map(f => f.getAverageIntake(this.nutrientTypeId))
       .reduce((a, b) => a + b);
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.EnergyDividedByBmr) {
       return consumption * 100 / userDemographic.getEnergyRequirement();
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PerUnitOfWeight) {
       return consumption / userDemographic.weight;
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PercentageOfEnergy) {
-      let energy = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b);
+      const energy = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b);
       if (energy == 0) {
         return 0;
       } else {
@@ -133,21 +133,21 @@ export class DemographicGroup {
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.Range) {
       return consumption;
     } else {
-      throw new Error("Unknown nutrient rule type: " + this.nutrientRuleType);
+      throw new Error('Unknown nutrient rule type: ' + this.nutrientRuleType);
     }
   }
 
   private getScaleSectorByValue(value: number): Option<DemographicScaleSector> {
-    let scaleSectors = this.scaleSectors.filter(ss => ss.range.contains(value));
+    const scaleSectors = this.scaleSectors.filter(ss => ss.range.contains(value));
     return scaleSectors.length ? some(scaleSectors[0]) : none;
   }
 
   private getScaleSectorByBestSentiment(): Option<DemographicScaleSector> {
-    let excScaleSectors = this.scaleSectors.filter(ss => ss.sentiment == DemographicScaleSectorSentimentEnum.EXCELLENT);
+    const excScaleSectors = this.scaleSectors.filter(ss => ss.sentiment == DemographicScaleSectorSentimentEnum.EXCELLENT);
     if (excScaleSectors.length) {
       return some(excScaleSectors[0]);
     }
-    let goodScaleSectors = this.scaleSectors.filter(ss => ss.sentiment == DemographicScaleSectorSentimentEnum.GOOD);
+    const goodScaleSectors = this.scaleSectors.filter(ss => ss.sentiment == DemographicScaleSectorSentimentEnum.GOOD);
     if (goodScaleSectors.length) {
       return some(goodScaleSectors[0]);
     }
@@ -249,8 +249,7 @@ export class DemographicRange {
       return `>${this.start}`;
     } else if (this.start == this.end) {
       return `${this.start}`;
-    }
-    else {
+    } else {
       return `${this.start}-${this.end}`;
     }
   }
@@ -258,24 +257,24 @@ export class DemographicRange {
 }
 
 export enum DemographicNutrientRuleTypeEnum {
-  PercentageOfEnergy = <any>"percentage_of_energy",
-  EnergyDividedByBmr = <any>"energy_divided_by_bmr",
-  PerUnitOfWeight = <any>"per_unit_of_weight",
-  Range = <any>"range"
+  PercentageOfEnergy = <any>'percentage_of_energy',
+  EnergyDividedByBmr = <any>'energy_divided_by_bmr',
+  PerUnitOfWeight = <any>'per_unit_of_weight',
+  Range = <any>'range'
 }
 
 export enum DemographicScaleSectorSentimentEnum {
-  TOO_LOW = <any>"too_low",
-  LOW = <any>"low",
-  BIT_LOW = <any>"bit_low",
-  GOOD = <any>"good",
-  EXCELLENT = <any>"excellent",
-  BIT_HIGH = <any>"bit_high",
-  HIGH = <any>"high",
-  TOO_HIGH = <any>"too_high"
+  TOO_LOW = <any>'too_low',
+  LOW = <any>'low',
+  BIT_LOW = <any>'bit_low',
+  GOOD = <any>'good',
+  EXCELLENT = <any>'excellent',
+  BIT_HIGH = <any>'bit_high',
+  HIGH = <any>'high',
+  TOO_HIGH = <any>'too_high'
 }
 
 export enum DemographicSexEnum {
-  FEMALE = <any>"f",
-  MALE = <any>"m"
+  FEMALE = <any>'f',
+  MALE = <any>'m'
 }

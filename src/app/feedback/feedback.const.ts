@@ -1,1 +1,1 @@
-export const SELECTOR_PREFIX: string = "feedback-";
+export const SELECTOR_PREFIX = 'feedback-';

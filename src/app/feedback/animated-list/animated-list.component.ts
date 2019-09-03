@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {AggregateFoodStats, Food} from "../../classes/survey-result.class";
-import {NutrientTypesService} from "../../services/nutrient-types.service";
-import {AnimateActionEnum} from "../../../animate-ts/animate-action.enum";
+import {AggregateFoodStats, Food} from '../../classes/survey-result.class';
+import {NutrientTypesService} from '../../services/nutrient-types.service';
+import {AnimateActionEnum} from '../../../animate-ts/animate-action.enum';
 
 @Component({
   selector: 'i24-animated-list',

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {AppAuthHttp} from "./app-http.service";
-import {ApiEndpoints} from "../api-endpoints";
-import {map} from "rxjs/internal/operators";
+import {Observable} from 'rxjs';
+import {AppAuthHttp} from './app-http.service';
+import {ApiEndpoints} from '../api-endpoints';
+import {map} from 'rxjs/internal/operators';
 
 @Injectable()
 export class WeightTargetsService {
