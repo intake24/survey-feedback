@@ -6,14 +6,16 @@
           <p>
             <span class="text-nowrap">&copy; 2012–{{year}} Newcastle University</span>
             <br>
-            <a class="text-nowrap" [attr.href]="privacyUrl">Privacy policy</a>
-            |
-            <a class="text-nowrap" [attr.href]="termsUrl">Terms and conditions</a>
-            <span *ngIf="partyModeIsVisible">
-              | <a class="text-nowrap" href="" (click)="setStyle($event, 'playful')">Party mode</a>
-            </span>
-            <span *ngIf="backToDefaultModeIsVisible">
-              | <a class="text-nowrap" href=""  (click)="setStyle($event, 'default')">Default mode</a>
+            <span class="d-print-none">
+              <a class="text-nowrap" [attr.href]="privacyUrl">Privacy policy</a>
+              |
+              <a class="text-nowrap" [attr.href]="termsUrl">Terms and conditions</a>
+              <span *ngIf="partyModeIsVisible">
+                | <a class="text-nowrap" href="" (click)="setStyle($event, 'playful')">Party mode</a>
+              </span>
+              <span *ngIf="backToDefaultModeIsVisible">
+                | <a class="text-nowrap" href=""  (click)="setStyle($event, 'default')">Default mode</a>
+              </span>
             </span>
           </p>
           <p>

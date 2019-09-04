@@ -24,6 +24,8 @@ export class PieChartComponent implements OnInit, OnChanges {
 
   animation = AnimateActionEnum.ZoomIn;
 
+  isPrint = window.matchMedia('print').matches;
+
   private _window: any;
 
   constructor(private elementRef: ElementRef,
@@ -59,6 +61,19 @@ export class PieChartComponent implements OnInit, OnChanges {
     if (canvas) {
       const data = this.data.filter(d => d.value > 0);
 
+      const options = {
+        legend: {
+          display: false
+        },
+        tooltips: {
+          enabled: this.showLabels
+        }
+      };
+
+      if (this.isPrint) {
+        options['animation'] = false;
+      }
+
       this.chart = new this._window.Chart(canvas, {
         type: 'doughnut',
         data: {
@@ -71,14 +86,7 @@ export class PieChartComponent implements OnInit, OnChanges {
               hoverBackgroundColor: data.map(d => d.color),
             }]
         },
-        options: {
-          legend: {
-            display: false
-          },
-          tooltips: {
-            enabled: this.showLabels
-          }
-        }
+        options
       });
 
       this.appeared = true;

@@ -16,14 +16,14 @@
             <br>
             Height: {{userDemographic?.height}}cm
             <br>
-            <a [href]="'#/user-info'">Change my info</a>
+            <a class="d-print-none" [href]="'#/user-info'">Change my info</a>
           </div>
           <div class="col-6 text-left">
             Weight target:
             <br>
             {{userDemographic?.weighTarget.description}}
             <br>
-            <a [href]="surveyPath" class="btn btn-outline-primary btn-sm">Record another day</a>
+            <a [href]="surveyPath" class="btn btn-outline-primary btn-sm d-print-none">Record another day</a>
           </div>
         </div>
       </div>

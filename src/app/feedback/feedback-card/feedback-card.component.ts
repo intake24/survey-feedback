@@ -57,5 +57,8 @@ export class FeedbackCardDynamicComponent implements OnInit {
     componentRef.instance.onTellMeMore.subscribe(e => this.onTellMeMore.emit(e));
     this.enteredViewport.subscribe(_ => componentRef.instance.onEnteredViewport());
     this.leftViewport.subscribe(_ => componentRef.instance.onLeftViewport());
+    if (window.matchMedia('print').matches) {
+      componentRef.instance.onEnteredViewport();
+    }
   }
 }

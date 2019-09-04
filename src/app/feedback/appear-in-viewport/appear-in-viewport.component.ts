@@ -55,7 +55,7 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
 
   private setVisible(): void {
     this.isVisible = this.isElementInViewport(this.elementRef.nativeElement, this.windowRef.nativeWindow);
-    if (this.isVisible != this._previousVisible) {
+    if (this.isVisible !== this._previousVisible) {
       this._previousVisible = this.isVisible;
       if (this.isVisible) {
         setTimeout(() => {
@@ -70,6 +70,10 @@ export class AppearInViewportComponent implements OnInit, OnChanges {
   }
 
   private isElementInViewport(el: HTMLElement, window: Window): boolean {
+
+    if (window.matchMedia('print').matches) {
+      return true;
+    }
 
     let top = el.offsetTop;
     const height = el.offsetHeight;
