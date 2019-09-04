@@ -86,19 +86,26 @@ export class FiveADayCardComponent extends FeedbackCardComponent implements Afte
     this.markChildrenWithAttribute(this.gaugeElem.nativeElement, this.getEncapsulationId());
 
 
-// Set gauge value
+    // Set gauge value
     //  gauge.setValue(75);
 
-// Set value and animate (value, animation duration in seconds)
-    //gauge.setValueAnimated(90, 1);
+    // Set value and animate (value, animation duration in seconds)
+    // gauge.setValueAnimated(90, 1);
 
   }
 
   tellMeMore(): void {
 
-    const details = new PlayingCardDetails('Fruit and vegetable intake', this.parameters.portions, this.parameters.feedback.tellMeMoreText,
-      new DemographicRange(5, 5), ' portions', 'Number of portions is calculated based on your fruit and vegetable intake as explained below.',
-      DemographicScaleSectorSentimentEnum.GOOD, this.parameters.portions < 2 ? this.parameters.feedback.tooLowMessage : undefined);
+    const details = new PlayingCardDetails(
+      'Fruit and vegetable intake',
+      this.parameters.portions,
+      this.parameters.feedback.tellMeMoreText,
+      new DemographicRange(5, 5),
+      ' portions',
+      'Number of portions is calculated based on your fruit and vegetable intake as explained below.',
+      DemographicScaleSectorSentimentEnum.GOOD,
+      this.parameters.portions < 2 ? this.parameters.feedback.tooLowMessage : undefined
+    );
 
     this.onTellMeMore.emit([details]);
   }

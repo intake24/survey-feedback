@@ -1,14 +1,24 @@
+<ng-template #title>
+  Your {{parameters.foodGroupName}} intake is <strong>{{parameters.intake}}</strong> g
+</ng-template>
+
 <div class="feedback-playing-card">
 
   <div class="feedback-playing-card-pic">
     <div [ngClass]='["feedback-playing-card-background", parameters.backgroundClass]'></div>
   </div>
   <div class="feedback-playing-card-body">
-    <p class="separated">
-      Your {{parameters.foodGroupName}} intake is <strong>{{parameters.intake}}</strong> g
-    </p>
+    <div class="separated">
+      <h5 class="d-none d-print-block">
+        <ng-container *ngTemplateOutlet="title"></ng-container>
+      </h5>
+      <p class="d-print-none">
+        <ng-container *ngTemplateOutlet="title"></ng-container>
+      </p>
+      <p class="d-none d-print-block" [innerHTML]="parameters.details.description"></p>
+    </div>
   </div>
-  <div class="feedback-playing-card-btns">
+  <div class="feedback-playing-card-btns d-print-none">
     <button type="button"
             class="btn btn-outline-primary btn-block feedback-playing-card-btns-single"
             (click)="tellMeMore()">

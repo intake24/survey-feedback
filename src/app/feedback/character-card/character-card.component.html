@@ -8,15 +8,20 @@
                 [scene]="parameters.characterSentiment.sentimentType"></food-smile>
   </div>
   <div class="feedback-playing-card-body">
-    <!--<h5>{{parameters.characterSentiment.title}}</h5>-->
-    <p class="separated" *ngFor="let des of getResultedDemographicTitle()">
-      <span>{{des.title}}</span>
-      <span class="text-nowrap">
-        <span [ngClass]="des.textClass">{{des.consumption}}{{des.units}}&nbsp;<i class="fa" [ngClass]="des.iconClass"></i></span>&nbsp;{{des.targetConsumption.toString()}}{{des.units}}
-      </span>
-    </p>
+    <div class="separated" *ngFor="let des of getResultedDemographicTitle()">
+      <h5 class="d-none d-print-block">{{des.title}}</h5>
+      <p>
+        <span class="d-print-none">{{des.title}}</span>
+        <span class="text-nowrap">
+        <span [ngClass]="des.textClass">
+          {{des.consumption}}{{des.units}}&nbsp;
+          <i class="fa" [ngClass]="des.iconClass"></i></span>&nbsp;{{des.targetConsumption.toString()}}{{des.units}}
+        </span>
+      </p>
+      <p class="d-none d-print-block" [innerHTML]="des.description"></p>
+    </div>
   </div>
-  <div class="feedback-playing-card-btns">
+  <div class="feedback-playing-card-btns d-print-none">
     <button type="button"
             class="btn btn-outline-primary btn-block feedback-playing-card-btns-single"
             (click)="tellMeMore()">

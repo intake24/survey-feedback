@@ -22,4 +22,8 @@ $third-color: #f9f9f9;
 
   background-image: url("../assets/img/fancy-back.png");
 
+  @media print {
+    background-image: none;
+  }
+
 }

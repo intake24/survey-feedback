@@ -2,10 +2,12 @@ import {Injectable} from '@angular/core';
 import {User} from '../classes/user.class';
 import {Headers, Http, RequestOptions, Response} from '@angular/http';
 import {ApiEndpoints} from '../api-endpoints';
-import {BehaviorSubject, Observable, of, ReplaySubject, throwError} from 'rxjs';
 import {AppConfig} from '../conf';
 import {catchError, map, mergeMap} from 'rxjs/internal/operators';
 import {empty} from 'rxjs/observable/empty';
+import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs/Rx';
+import {of} from 'rxjs/internal/observable/of';
+import {throwError} from 'rxjs/internal/observable/throwError';
 
 @Injectable()
 export class UserStateService {
@@ -38,7 +40,7 @@ export class UserStateService {
     if (accToken != null) {
       return of(accToken);
     } else {
-      if (this.accessTokenSubject.observers.length == 0) {
+      if (this.accessTokenSubject.observers.length === 0) {
         this.refreshAccessToken().subscribe();
       }
       return this.accessTokenSubject.asObservable();
@@ -115,7 +117,7 @@ export class UserStateService {
     const refreshToken = localStorage.getItem(this.REFRESH_TOKEN_COOKIE_NAME);
     const accessToken = localStorage.getItem(this.ACCESS_TOKEN_COOKIE_NAME);
     const auth = refreshToken != null && accessToken != null;
-    if (auth != this.authenticated) {
+    if (auth !== this.authenticated) {
       this.authenticatedSubject.next(auth);
     }
   }

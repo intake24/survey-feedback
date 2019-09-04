@@ -7,6 +7,7 @@ $playing-card-aspect-ratio: 16 / 9;
 $playing-card-image-height: 320px / $playing-card-aspect-ratio;
 $playing-card-border-color: #ccc;
 $playing-card-body-padding: 6px;
+$border-radius: 4px;
 
 .gauge-container {
   width: 100%;
@@ -46,7 +47,7 @@ $playing-card-body-padding: 6px;
   display: inline-block;
   margin-right: $playing-card-margin-right;
   width: 100%;
-  border-radius: 4px;
+  border-radius: $border-radius;
   overflow: hidden;
   background: #fff;
   margin-bottom: 10px;
@@ -94,6 +95,13 @@ $playing-card-body-padding: 6px;
     padding-right: $playing-card-body-padding;
     overflow: hidden;
     height: auto;
+
+    @media print {
+      border-bottom: $playing-card-border-color 1px solid;
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+
   }
 
   &-btns {

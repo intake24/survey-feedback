@@ -1,6 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {SELECTOR_PREFIX} from '../feedback.const';
-import {forkJoin} from 'rxjs';
+import {forkJoin} from 'rxjs/index';
 import {CharacterRules, CharacterCardParameters} from '../../classes/character.class';
 import {AggregateFoodStats, Food, FruitAndVegPortions} from '../../classes/survey-result.class';
 import {Dictionaries, DictionariesService, NutrientTypeIdEnum} from '../../services/dictionaries.service';
@@ -109,7 +109,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     const result = [];
     let colIndex = 0;
     while (colIndex < colsCount) {
-      result.push(this.results.filter((r, i) => i % colsCount == colIndex));
+      result.push(this.results.filter((r, i) => i % colsCount === colIndex));
       colIndex++;
     }
     return result;
@@ -122,7 +122,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     const dictionariesRes = this.cachedDictionariesRes;
     const surveyResult = dictionariesRes[0].surveyResult;
 
-    if (surveyResult.surveySubmissions.length == 0) {
+    if (surveyResult.surveySubmissions.length === 0) {
       location.href = AppConfig.surveyPath;
       return;
     }
@@ -138,7 +138,11 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     dictionariesRes[1].match({
       some: ud => {
         this.userDemographic = ud;
-        this.buildFeedbackCards(foods, foodGroups, fruitAndVegPortions, dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback, dictionariesRes[0].foodGroupsFeedback);
+        this.buildFeedbackCards(
+          foods, foodGroups, fruitAndVegPortions,
+          dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback,
+          dictionariesRes[0].foodGroupsFeedback
+        );
         this.getTopFoods(foods);
         this.isLoading = false;
       },
@@ -148,7 +152,8 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     })
   }
 
-  private buildFoodGroupFeedbackCards(foodGroupsFeedback: FoodGroupFeedback[], foodGroupAverages: Map<number, number>): FoodGroupCardParameters[] {
+  private buildFoodGroupFeedbackCards(foodGroupsFeedback: FoodGroupFeedback[],
+                                      foodGroupAverages: Map<number, number>): FoodGroupCardParameters[] {
     return foodGroupsFeedback.map(feedback => {
 
       const groupIntake = feedback.foodGroupIds.reduce((total, groupId) => {
@@ -169,12 +174,15 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
         warning = feedback.low.message;
       } else if (feedback.high && groupIntake > feedback.high.threshold) {
         warning = feedback.high.message;
-           }
+      }
 
       const details = new PlayingCardDetails(`${capitalisedName} intake`, groupIntake, feedback.tellMeMore, feedback.recommendedIntake,
         'g', undefined, DemographicScaleSectorSentimentEnum.GOOD, warning);
 
-      return new FoodGroupCardParameters(feedback.groupName, groupIntake, FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.foodGroupIds), details);
+      return new FoodGroupCardParameters(
+        feedback.groupName, groupIntake,
+        FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.foodGroupIds), details
+      );
 
     });
   }
@@ -183,7 +191,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
                              fruitAndVegAverages: FruitAndVegPortions, characterRules: CharacterRules[],
                              fiveADayFeedback: FiveADayFeedback, foodGroupsFeedback: FoodGroupFeedback[]): void {
     this.results = characterRules
-      .filter(cr => !cr.displayInFeedbackStyle || cr.displayInFeedbackStyle === this.feedbackStyle )
+      .filter(cr => !cr.displayInFeedbackStyle || cr.displayInFeedbackStyle === this.feedbackStyle)
       .map(characterRule =>
         characterRule.getSentiment(this.userDemographic, foods).match({
           some: sent => some(sent),
@@ -218,9 +226,12 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     const otherSugar = foodHighInSugar.slice(this.showTopNumber);
     const otherSatdFat = foodHighInSatFat.slice(this.showTopNumber);
 
-    this.foodHighInCalories = foodHighInCalories.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.Energy, otherCalories));
-    this.foodHighInSugar = foodHighInSugar.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.Sugar, otherSugar));
-    this.foodHighInSatFat = foodHighInSatFat.slice(0, this.showTopNumber).concat(this.summeriseOtherFood(NutrientTypeIdEnum.SatdFat, otherSatdFat));
+    this.foodHighInCalories = foodHighInCalories.slice(0, this.showTopNumber)
+      .concat(this.summeriseOtherFood(NutrientTypeIdEnum.Energy, otherCalories));
+    this.foodHighInSugar = foodHighInSugar.slice(0, this.showTopNumber)
+      .concat(this.summeriseOtherFood(NutrientTypeIdEnum.Sugar, otherSugar));
+    this.foodHighInSatFat = foodHighInSatFat.slice(0, this.showTopNumber)
+      .concat(this.summeriseOtherFood(NutrientTypeIdEnum.SatdFat, otherSatdFat));
 
     this.caloriesChartData = this.foodHighInCalories
       .map((f, i) => new PieChardData(f.getAverageIntake(NutrientTypeIdEnum.Energy), f.name, this.ColorNamesMap[i][1]));
