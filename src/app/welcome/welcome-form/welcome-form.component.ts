@@ -10,7 +10,7 @@ import {SurveyFeedbackStyleEnum} from '../../classes/survey-feedback-style.enum'
 import {WelcomeFormMessages} from './welcome-form-messages.const';
 
 const OLDEST_PERSON_AGE = 120;
-const YOUNGEST_PERSON_AGE = 12;
+const YOUNGEST_PERSON_AGE = 1;
 
 @Component({
   selector: 'i24-welcome-form',
