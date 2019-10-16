@@ -11,7 +11,7 @@ export class AppConfig {
   static readonly apiBaseUrl: string = 'https://api.intake24.co.uk/';
   static readonly surveyId: string = 'demo';
   static readonly surveyPath: string = `/surveys/${AppConfig.surveyId}`;
-  static readonly privacyUrl: string = 'https://intake24.co.uk/info/privacy';
-  static readonly termsUrl: string = 'https://intake24.co.uk/info/terms';
+  static readonly privacyUrl: string = 'https://www.cam.ac.uk/about-this-site/privacy-policy';
+  static readonly termsUrl: string = 'https://www.cam.ac.uk/about-this-site/terms-and-conditions';
 
 }
