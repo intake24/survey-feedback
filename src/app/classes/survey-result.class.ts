@@ -17,43 +17,25 @@ export class SurveyStats {
     return new SurveyStats(jsonList.map(js => SurveySubmission.fromJson(js)));
   }
 
-  private getFoodGroupTotals(foods: Food[]): Map<number, number> {
-    const result = new Map<number, number>();
-
-    foods.forEach(food => {
-      food.foodGroupWeights.forEach((weight, groupId) => {
-        result.set(groupId, (result.get(groupId) | 0) + food.foodGroupWeights.get(groupId));
-      });
-    });
-
-    return result;
-  }
-
-  getFoodGroupAverages(day?: number): Map<number, number> {
-    const foods = this.surveySubmissions
+  // Returns a flat array of all food records for the selected day or for all days
+  // if no day is selected
+  private getFoods(day?: number): Food[] {
+    return this.surveySubmissions
       .filter((ss, i) => day == null || day == i)
-      .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
-
-    const weights = this.getFoodGroupTotals(foods);
-
-    weights.forEach((weight, groupId) => {
-      weights.set(groupId, weight / (day == null ? this.surveySubmissions.length : 1));
-    });
-
-    return weights;
+      .map(ss => ss.getFoods()).reduce((acc, foods) => acc.concat(foods), []);
   }
 
-  private readonly JUICE_FOOD_GROUP_IDS = [22];
-  private readonly FRUIT_GROUP_IDS = [16, 17, 18, 20, 21];
-  private readonly DRIED_FRUIT_GROUP_IDS = [19];
-  private readonly VEGETABLE_GROUP_IDS = [42, 43, 44, 45, 46, 47];
-  private readonly BEANS_PULSES_GROUP_IDS = [33, 34];
+  private readonly JUICE_NUTRIENT_IDS = [254, 255];
+  private readonly FRUIT_NUTRIENT_IDS = [252];
+  private readonly DRIED_FRUIT_NUTRIENT_IDS = [253];
+  private readonly VEGETABLE_NUTRIENT_IDS = [262, 256, 257, 258, 259];
+  private readonly BEANS_PULSES_NUTRIENT_IDS = [260];
 
-  private getTotalForSubset(foodGroupTotals: Map<number, number>, groupIds: number[]) {
+  private getTotalForSubset(nutrientIntake: Map<number, number>, nutrientIds: number[]) {
     let total = 0;
 
-    foodGroupTotals.forEach((weight, groupId) => {
-      if (groupIds.indexOf(groupId) != -1) {
+    nutrientIntake.forEach((weight, groupId) => {
+      if (nutrientIds.indexOf(groupId) != -1) {
         total += weight;
       }
     });
@@ -62,13 +44,13 @@ export class SurveyStats {
   }
 
   getFruitAndVegPortions(day?: number): FruitAndVegPortions {
-    const foodGroupTotals = this.getFoodGroupAverages(day);
+    const averages = this.getAverageIntake(day);
 
-    const juicesTotal = this.getTotalForSubset(foodGroupTotals, this.JUICE_FOOD_GROUP_IDS);
-    const beansAndPulsesTotal = this.getTotalForSubset(foodGroupTotals, this.BEANS_PULSES_GROUP_IDS);
-    const fruitTotal = this.getTotalForSubset(foodGroupTotals, this.FRUIT_GROUP_IDS);
-    const driedFruitTotal = this.getTotalForSubset(foodGroupTotals, this.DRIED_FRUIT_GROUP_IDS);
-    const vegetablesTotal = this.getTotalForSubset(foodGroupTotals, this.VEGETABLE_GROUP_IDS);
+    const juicesTotal = this.getTotalForSubset(averages, this.JUICE_NUTRIENT_IDS);
+    const beansAndPulsesTotal = this.getTotalForSubset(averages, this.BEANS_PULSES_NUTRIENT_IDS);
+    const fruitTotal = this.getTotalForSubset(averages, this.FRUIT_NUTRIENT_IDS);
+    const driedFruitTotal = this.getTotalForSubset(averages, this.DRIED_FRUIT_NUTRIENT_IDS);
+    const vegetablesTotal = this.getTotalForSubset(averages, this.VEGETABLE_NUTRIENT_IDS);
 
     const juices = Math.min(150, juicesTotal) / 150;
     const beansAndPulses = Math.min(80, beansAndPulsesTotal) / 80;
@@ -86,17 +68,39 @@ export class SurveyStats {
     }
   }
 
+  getAverageIntake(day?: number): Map<number, number> {
+    const foods = this.getFoods(day);
+    const averageIntake = new Map<number, number>();
+
+    foods.forEach(food =>
+      Array.from(food.nutrientIdConsumptionMap.keys()).forEach(nutrientId => {
+          if (!averageIntake.has(nutrientId)) {
+            averageIntake.set(nutrientId, food.nutrientIdConsumptionMap.get(nutrientId));
+          } else {
+            averageIntake.set(nutrientId, averageIntake.get(nutrientId) + food.nutrientIdConsumptionMap.get(nutrientId));
+          }
+        })
+    );
+
+    if (day == null) {
+      Array.from(averageIntake.keys()).forEach(nutrientId => {
+        averageIntake.set(nutrientId, averageIntake.get(nutrientId) / this.surveySubmissions.length);
+      })
+    }
+
+    return averageIntake;
+  }
+
   getReducedFoods(day?: number): AggregateFoodStats[] {
-    const foods = this.surveySubmissions
-      .filter((ss, i) => day == null || day == i)
-      .map(ss => ss.getFoods()).reduce((fla, flb) => fla.concat(flb), []);
 
-    const uniqueCodes = Array.from(new Set(foods.map(f => f.code)));
+    const foods = this.getFoods(day);
 
-    return uniqueCodes.map(code => {
+    const uniqueFoodCodes = Array.from(new Set(foods.map(f => f.code)));
+
+    return uniqueFoodCodes.map(code => {
       const totalConsumptionMap: Map<number, number> = new Map();
       const matchingFoods = foods.filter(f => f.code == code);
-      matchingFoods.map(f => {
+      matchingFoods.forEach(f => {
         Array.from(f.nutrientIdConsumptionMap.keys()).map(k => {
           if (!totalConsumptionMap.has(k)) {
             totalConsumptionMap.set(k, 0);
@@ -165,7 +169,9 @@ export class SurveySubmission {
   }
 
   getFoods(): Food[] {
-    return this.meals.map(ml => ml.foods).reduce((fla, flb) => fla.concat(flb));
+    return this.meals
+      .map(meal => meal.foods)
+      .reduce((acc, foods) => acc.concat(foods));
   }
 
   static fromJson(json: any): SurveySubmission {

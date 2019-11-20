@@ -5,11 +5,11 @@ export class FoodGroupFeedbackThreshold {
   message: string;
 }
 
-const FOOD_GROUP_RED_MEAT = 25;
+const NUTRIENT_ID_RED_MEAT = 266;
 
 export class FoodGroupFeedback {
   groupName: string;
-  foodGroupIds: number[];
+  nutrientIds: number[];
   recommendedIntake: DemographicRange;
   low?: FoodGroupFeedbackThreshold;
   high?: FoodGroupFeedbackThreshold;
@@ -28,7 +28,7 @@ export class FoodGroupFeedback {
 
       result.push({
         groupName: json[i].name,
-        foodGroupIds: json[i].foodGroupIds,
+        nutrientIds: json[i].nutrientIds,
         recommendedIntake,
         low,
         high,
@@ -40,7 +40,7 @@ export class FoodGroupFeedback {
   }
 
   static getBackgroundClassForFoodGroup(foodGroupIds: number[]): string {
-    if (foodGroupIds.indexOf(FOOD_GROUP_RED_MEAT) != -1) {
+    if (foodGroupIds.indexOf(NUTRIENT_ID_RED_MEAT) != -1) {
       return 'red-meat';
     }
 

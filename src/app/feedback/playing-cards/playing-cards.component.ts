@@ -130,7 +130,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
     this.daysRecorded = surveyResult.surveySubmissions.length;
 
     const foods = surveyResult.getReducedFoods(this.currentDay);
-    const foodGroups = surveyResult.getFoodGroupAverages(this.currentDay);
+    const averageIntake = surveyResult.getAverageIntake(this.currentDay);
     const fruitAndVegPortions = surveyResult.getFruitAndVegPortions(this.currentDay);
 
     this.followUpUrl = dictionariesRes[0].followUpUrl;
@@ -139,7 +139,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
       some: ud => {
         this.userDemographic = ud;
         this.buildFeedbackCards(
-          foods, foodGroups, fruitAndVegPortions,
+          foods, averageIntake, fruitAndVegPortions,
           dictionariesRes[0].characterRules, dictionariesRes[0].fiveADayFeedback,
           dictionariesRes[0].foodGroupsFeedback
         );
@@ -153,12 +153,12 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
   }
 
   private buildFoodGroupFeedbackCards(foodGroupsFeedback: FoodGroupFeedback[],
-                                      foodGroupAverages: Map<number, number>): FoodGroupCardParameters[] {
+                                      averageIntake: Map<number, number>): FoodGroupCardParameters[] {
     return foodGroupsFeedback.map(feedback => {
 
-      const groupIntake = feedback.foodGroupIds.reduce((total, groupId) => {
-        if (foodGroupAverages.has(groupId)) {
-          return total + foodGroupAverages.get(groupId);
+      const groupIntake = feedback.nutrientIds.reduce((total, nutrientId) => {
+        if (averageIntake.has(nutrientId)) {
+          return total + averageIntake.get(nutrientId);
         } else {
           return total;
         }
@@ -181,13 +181,13 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
       return new FoodGroupCardParameters(
         feedback.groupName, groupIntake,
-        FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.foodGroupIds), details
+        FoodGroupFeedback.getBackgroundClassForFoodGroup(feedback.nutrientIds), details
       );
 
     });
   }
 
-  private buildFeedbackCards(foods: AggregateFoodStats[], foodGroupAverages: Map<number, number>,
+  private buildFeedbackCards(foods: AggregateFoodStats[], averageIntake: Map<number, number>,
                              fruitAndVegAverages: FruitAndVegPortions, characterRules: CharacterRules[],
                              fiveADayFeedback: FiveADayFeedback, foodGroupsFeedback: FoodGroupFeedback[]): void {
     this.results = characterRules
@@ -208,7 +208,7 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
 
     if (this.feedbackStyle === SurveyFeedbackStyleEnum.Default) {
       this.results.push(new FiveADayCardParameters(Math.round(fruitAndVegAverages.total * 10) / 10, fiveADayFeedback));
-      this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, foodGroupAverages));
+      this.results.push.apply(this.results, this.buildFoodGroupFeedbackCards(foodGroupsFeedback, averageIntake));
     }
 
     this.resultsInThreeCols = this.getByColumns(3);
