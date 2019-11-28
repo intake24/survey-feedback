@@ -35,6 +35,8 @@ export enum NutrientTypeIdEnum {
   VitaminA = 120,
   Calcium = 140,
   VitaminC = 129,
+  Iron = 143,
+  Folate = 134,
   CO2 = 228
 }
 
@@ -275,6 +277,48 @@ const CharacterBuilders = [
       CharacterSentimentEnum.DANGER,
       'Too deep in the Vitamin Sea')
   ]),
+
+  new CharacterBuilder(CharacterTypeEnum.IRON, [NutrientTypeIdEnum.Iron], [
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
+      CharacterSentimentEnum.DANGER, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_LOW],
+      CharacterSentimentEnum.WARNING, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
+      CharacterSentimentEnum.EXCITING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH],
+      CharacterSentimentEnum.WARNING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
+      CharacterSentimentEnum.DANGER,
+      '')
+  ], SurveyFeedbackStyleEnum.Default),
+
+  new CharacterBuilder(CharacterTypeEnum.FOLATE, [NutrientTypeIdEnum.Folate], [
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
+      CharacterSentimentEnum.DANGER, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_LOW],
+      CharacterSentimentEnum.WARNING, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
+      CharacterSentimentEnum.EXCITING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH],
+      CharacterSentimentEnum.WARNING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
+      CharacterSentimentEnum.DANGER,
+      '')
+  ], SurveyFeedbackStyleEnum.Default),
 
   new CharacterBuilder(CharacterTypeEnum.CO2, [NutrientTypeIdEnum.CO2], [
     new CharacterSentiment(

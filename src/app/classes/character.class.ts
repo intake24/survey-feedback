@@ -114,6 +114,8 @@ export enum CharacterTypeEnum {
   BURGER = 'burger',
   FRIES = 'fries',
   MILK = 'milk',
+  IRON = 'iron',
+  FOLATE = 'folate',
   CO2 = 'co2'
 }
 
