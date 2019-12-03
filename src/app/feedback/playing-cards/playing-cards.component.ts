@@ -156,13 +156,15 @@ export class PlayingCardsComponent implements OnInit, OnChanges {
                                       averageIntake: Map<number, number>): FoodGroupCardParameters[] {
     return foodGroupsFeedback.map(feedback => {
 
-      const groupIntake = feedback.nutrientIds.reduce((total, nutrientId) => {
+      let groupIntake = feedback.nutrientIds.reduce((total, nutrientId) => {
         if (averageIntake.has(nutrientId)) {
           return total + averageIntake.get(nutrientId);
         } else {
           return total;
         }
       }, 0);
+
+      groupIntake = Math.round(groupIntake * 10) / 10;
 
 
       const lowerCaseName = feedback.groupName.toLowerCase();
