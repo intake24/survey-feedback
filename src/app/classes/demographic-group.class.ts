@@ -115,13 +115,13 @@ export class DemographicGroup {
 
   private getConsumption(userDemographic: UserDemographic, foods: AggregateFoodStats[]): number {
     const consumption = foods.map(f => f.getAverageIntake(this.nutrientTypeId))
-      .reduce((a, b) => a + b);
+      .reduce((a, b) => a + b, 0);
     if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.EnergyDividedByBmr) {
       return consumption * 100 / userDemographic.getEnergyRequirement();
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PerUnitOfWeight) {
       return consumption / userDemographic.weight;
     } else if (this.nutrientRuleType == DemographicNutrientRuleTypeEnum.PercentageOfEnergy) {
-      const energy = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b);
+      const energy = foods.map(f => f.getAverageEnergyIntake()).reduce((a, b) => a + b, 0);
       if (energy == 0) {
         return 0;
       } else {

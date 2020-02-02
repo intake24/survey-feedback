@@ -37,7 +37,9 @@ export enum NutrientTypeIdEnum {
   VitaminC = 129,
   Iron = 143,
   Folate = 134,
-  CO2 = 228
+  CO2 = 228,
+  TotalFreeSugars = 251,
+  AOACFibre = 242
 }
 
 class Phrases {
@@ -300,6 +302,48 @@ const CharacterBuilders = [
   ], SurveyFeedbackStyleEnum.Default),
 
   new CharacterBuilder(CharacterTypeEnum.FOLATE, [NutrientTypeIdEnum.Folate], [
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
+      CharacterSentimentEnum.DANGER, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_LOW],
+      CharacterSentimentEnum.WARNING, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
+      CharacterSentimentEnum.EXCITING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH],
+      CharacterSentimentEnum.WARNING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
+      CharacterSentimentEnum.DANGER,
+      '')
+  ], SurveyFeedbackStyleEnum.Default),
+
+  new CharacterBuilder(CharacterTypeEnum.CANDY, [NutrientTypeIdEnum.TotalFreeSugars], [
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
+      CharacterSentimentEnum.DANGER, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_LOW],
+      CharacterSentimentEnum.WARNING, ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.GOOD, DemographicScaleSectorSentimentEnum.EXCELLENT],
+      CharacterSentimentEnum.EXCITING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.BIT_HIGH],
+      CharacterSentimentEnum.WARNING,
+      ''),
+    new CharacterSentiment(
+      [DemographicScaleSectorSentimentEnum.HIGH, DemographicScaleSectorSentimentEnum.TOO_HIGH],
+      CharacterSentimentEnum.DANGER,
+      '')
+  ], SurveyFeedbackStyleEnum.Default),
+
+  new CharacterBuilder(CharacterTypeEnum.APPLE, [NutrientTypeIdEnum.AOACFibre], [
     new CharacterSentiment(
       [DemographicScaleSectorSentimentEnum.TOO_LOW, DemographicScaleSectorSentimentEnum.LOW],
       CharacterSentimentEnum.DANGER, ''),
