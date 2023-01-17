@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "buildForPlay": "ng build --prod -d=/assets/survey-feedback/ -op=../SurveyServer/public/survey-feedback && cp ../SurveyServer/public/survey-feedback/index.html ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html",
+    "buildForPlay": "ng build --prod -d=/assets/survey-feedback/ -op=../SurveyServer/public/survey-feedback && cp ../SurveyServer/public/survey-feedback/index.html ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html && npm run fixScalaTemplate && npm run addCSPNonceAttr",
+    "fixScalaTemplate": "sed -i 's/ @(apiBaseUrl/\\n@(apiBaseUrl/g' ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html && sed -i 's/<!doctype/\\n<!doctype/g' ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html",
+    "addCSPNonceAttr" : "sed -i 's/src=\"\\/assets\\/survey\\-feedback/\\@\\{CSPNonce.attr\\} src=\"\\/assets\\/survey\\-feedback/g' ../SurveyServer/app/views/surveys/SurveyFeedback.scala.html",
     "buildForPlayWin": "ng build --prod -d=\\assets\\survey-feedback -op=..\\SurveyServer\\public\\survey-feedback && move ..\\SurveyServer\\public\\survey-feedback\\index.html ..\\SurveyServer\\app\\views\\surveys\\SurveyFeedback.scala.html"
   },
   "private": true,
